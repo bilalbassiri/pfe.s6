@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/bilalbassiri/pfe.s6/issues"
   },
-  "homepage": "https://github.com/bilalbassiri/pfe.s6#readme"
+  "homepage": "https://github.com/bilalbassiri/pfe.s6#readme",
+  "dependencies": {
+    "react-hook-form": "^7.2.3",
+    "react-router": "^5.2.0"
+  }
 }

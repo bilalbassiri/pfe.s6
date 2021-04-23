@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import { CustomButton } from '../custom_ui';
+import { CustomButton } from '../ui-components';
 import { Grid } from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import CustomizedInput from '../custom_ui/CustomizedInput';
+import CustomizedInput from '../ui-components/CustomizedInput';
+import { useDispatch } from 'react-redux';
+import { userSignUp } from '../../redux/actions/visitorActions';
+import { setFormErrors, isValidatedForm, isCorrectName } from '../../helpers/signup.helpers';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -44,31 +48,19 @@ const SignUp = () => {
         confirmPassword: '',
     });
     const [errorMessages, setErrorMessages] = useState({})
+    const [isSignedUp, setIsSignedUp] = useState(false)
+    const dispatch = useDispatch();
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
-    const isCorrectName = name => {
-        const letters = "abcdefghijklmnopqrstuvwyz";
-        return Array.from(name).map(v => letters.includes(v)).indexOf(false) === -1
-    }
-    const setFormErrors = values => {
-        let { firstName, lastName, email, password, confirmPassword } = values;
-        const getSyntaxError = name => (name.length > 15 && 'Must be less than 15 letters') || (!isCorrectName(name.toLowerCase()) && 'Use only letters')
-        const getEmailError = _email => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(_email)
-        setErrorMessages({
-            firstNameErr: (!firstName && 'Enter first name') || getSyntaxError(firstName),
-            lastNameErr: (!lastName && 'Enter last name') || getSyntaxError(lastName),
-            emailErr: (!email && 'Enter email address') || (!getEmailError(email) && 'Invalid email address'),
-            passwordErr: (!password && 'Enter a password') || (password.length < 8 && 'Use 8 characters or more for your password'),
-            confirmPasswordErr: (!confirmPassword && 'Confirm your password') || (confirmPassword && password && (password !== confirmPassword) && 'Passwords didn’t match. Try again.')
-
-        })
-    }
     const handleSubmit = event => {
         event.preventDefault();
-        setFormErrors(values)
-
+        setFormErrors(values, isCorrectName, setErrorMessages)
     }
+    useEffect(() => {
+        setIsSignedUp(isValidatedForm(errorMessages))
+        if (isSignedUp) dispatch(userSignUp(values))
+    }, [errorMessages, isSignedUp])
     const Error = ({ message }) => <>{message && <p className={classes.error}><ErrorOutlineIcon />{message}</p>}</>
     return (
         <form onSubmit={handleSubmit}>
@@ -76,7 +68,7 @@ const SignUp = () => {
                 <Grid style={{ textAlign: 'center', marginBottom: '20px' }}>
                     <h1 className={classes.heading}>Sign Up</h1>
                     <p>
-                        Already have an account? <a href="#">Log in</a>
+                        Already have an account? <Link to="/login">Log in</Link>
                     </p>
                 </Grid>
                 <Grid>

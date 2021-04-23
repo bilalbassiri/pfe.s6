@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { CustomButton } from '../custom_ui';
+import { CustomButton } from '../ui-components';
 import { Grid } from '@material-ui/core';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         width: '30ch',
     },  
 }));
-const SignInPage = () => {
+const LogIn = () => {
     const classes = useStyles();
     const [values, setValues] = React.useState({
         amount: '',
@@ -90,4 +90,4 @@ const SignInPage = () => {
 
     )
 }
-export default SignInPage;
+export default LogIn;
