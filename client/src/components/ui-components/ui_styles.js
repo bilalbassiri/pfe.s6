@@ -19,20 +19,18 @@ const a = {
 const b = {
     root: {
         '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'transparent',
+            borderColor: 'transparent !important',
         },
         '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#7B8CDE',
+            borderColor: '#7B8CDE !important',
             borderWidth: '2px'
         },
         '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#BEC6EF'
+            borderColor: '#BEC6EF !important'
         },
     },
 }
 const CssTextField = withStyles(a)(TextField);
-const CssOutlinedInput = withStyles(b)(OutlinedInput)
 export {
     CssTextField,
-    CssOutlinedInput
 }

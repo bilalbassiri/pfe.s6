@@ -1,7 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { CustomButton } from '../ui-components';
 import { Grid } from '@material-ui/core';
@@ -11,27 +9,14 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
+import { Link } from 'react-router-dom';
+import FormError from './FormError';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(0),
-        },
-    },
-    margin: {
-        margin: `10px 0px`,
-    },
-    textField: {
-        width: '30ch',
-    },  
-}));
 const LogIn = () => {
-    const classes = useStyles();
     const [values, setValues] = React.useState({
-        amount: '',
+        email: '',
         password: '',
-        weight: '',
-        weightRange: '',
+        isNewUser: false,
         showPassword: false,
     });
     const handleChange = (prop) => (event) => {
@@ -45,17 +30,25 @@ const LogIn = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
+    const handleSubmit = e => {
+        e.preventDefault()
+    }
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: 'calc(100vh - 64px)' }}>
-            <Grid item>
+        <form onSubmit={handleSubmit}>
+            <Grid container justify="center" alignItems="center" direction="column" className="sign-in-page">
                 <Grid>
-                    <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                        <TextField label="Email" variant="outlined" type="email" />
+                    <FormControl className="fieldset" variant="outlined">
+                        <TextField
+                            label="Email"
+                            variant="outlined"
+                            type="email"
+                            value={values.email}
+                            onChange={handleChange('email')}
+                        />
                     </FormControl>
                 </Grid>
                 <Grid>
-                    <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <FormControl className="fieldset" variant="outlined">
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
@@ -70,24 +63,27 @@ const LogIn = () => {
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                     >
-                                        {values.showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                        {values.showPassword ? <VisibilityOutlinedIcon className="visibility-icon" /> : <VisibilityOffOutlinedIcon className="visibility-icon" />}
                                     </IconButton>
                                 </InputAdornment>
                             }
                             labelWidth={70}
                         />
+                        <div className="login-error">
+                            <FormError message={""} />
+                        </div>
                     </FormControl>
                 </Grid>
-                <Grid style={{ minHeight: '30px' }}>
-                </Grid>
-                <Grid>
-                    <CustomButton className={clsx(classes.margin)}>
+                <Grid style={{width: '30ch'}}>
+                    <CustomButton>
                         Sign in
                     </CustomButton>
                 </Grid>
+                <Grid item className="sign-guide">
+                    <p>Not a member? <Link to="/sign-up">Sign up</Link></p>
+                </Grid>
             </Grid>
-        </Grid>
-
+        </form>
     )
 }
 export default LogIn;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, MainPage, LogIn, SignUp } from './components';
+import { MainPage, LogIn, SignUp } from './components';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -9,7 +9,6 @@ function App() {
   console.log(new_user)
   return (
     <div className="App">
-      <Header />
       <Router>
         <Switch>
           <Route path="/" exact component={MainPage} />

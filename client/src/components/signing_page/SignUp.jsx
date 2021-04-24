@@ -4,34 +4,22 @@ import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomButton } from '../ui-components';
 import { Grid } from '@material-ui/core';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import CustomizedInput from '../ui-components/CustomizedInput';
 import { useDispatch } from 'react-redux';
-import { userSignUp } from '../../redux/actions/visitorActions';
+import { userSignUp } from '../../redux/actions/userActions';
 import { setFormErrors, isValidatedForm, isCorrectName } from '../../helpers/signup.helpers';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import FormError from './FormError';
 
 const useStyles = makeStyles(() => ({
     margin: {
         margin: `10px 0px`,
     },
     width: {
-        width: '40ch'
+        width: '40ch',
     },
     semiWidth: {
         width: '19ch',
-
-    },
-    error: {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '.7rem',
-        gap: 5,
-        margin: '3px 0px 0px 0px',
-        color: '#f44336',
-        '&>*': {
-            fontSize: '1rem'
-        }
 
     },
     heading: {
@@ -46,10 +34,12 @@ const SignUp = () => {
         email: '',
         password: '',
         confirmPassword: '',
+        isNewUser: true
     });
     const [errorMessages, setErrorMessages] = useState({})
     const [isSignedUp, setIsSignedUp] = useState(false)
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
@@ -59,34 +49,33 @@ const SignUp = () => {
     }
     useEffect(() => {
         setIsSignedUp(isValidatedForm(errorMessages))
-        if (isSignedUp) dispatch(userSignUp(values))
+        if (isSignedUp) {
+            history.push('/')
+            dispatch(userSignUp(values))
+        }
     }, [errorMessages, isSignedUp])
-    const Error = ({ message }) => <>{message && <p className={classes.error}><ErrorOutlineIcon />{message}</p>}</>
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="sign-up-page">
             <Grid container justify="center" alignItems="center" direction="column" style={{ height: 'calc(100vh - 64px)' }}>
                 <Grid style={{ textAlign: 'center', marginBottom: '20px' }}>
                     <h1 className={classes.heading}>Sign Up</h1>
-                    <p>
-                        Already have an account? <Link to="/login">Log in</Link>
-                    </p>
                 </Grid>
                 <Grid>
                     <div style={{ display: 'flex', gap: '2ch' }}>
                         <FormControl className={clsx(classes.margin, classes.semiWidth)} variant="outlined">
                             <CustomizedInput label="First name" variant="outlined" type="text" onChange={handleChange('firstName')} />
-                            <Error message={errorMessages.firstNameErr} />
+                            <FormError message={errorMessages.firstNameErr} />
 
                         </FormControl>
                         <FormControl className={clsx(classes.margin, classes.semiWidth)} variant="outlined">
                             <CustomizedInput label="Last name" variant="outlined" type="text" onChange={handleChange('lastName')} />
-                            <Error message={errorMessages.lastNameErr} />
+                            <FormError message={errorMessages.lastNameErr} />
                         </FormControl>
                     </div>
                     <Grid>
                         <FormControl className={clsx(classes.margin, classes.width)} variant="outlined">
                             <CustomizedInput label="Email" variant="outlined" type="text" onChange={handleChange('email')} />
-                            <Error message={errorMessages.emailErr} />
+                            <FormError message={errorMessages.emailErr} />
                         </FormControl>
                     </Grid>
                     <Grid>
@@ -99,7 +88,7 @@ const SignUp = () => {
                                 onChange={handleChange('password')}
                                 label="Password"
                             />
-                            <Error message={errorMessages.passwordErr} />
+                            <FormError message={errorMessages.passwordErr} />
                         </FormControl>
                     </Grid>
                     <Grid>
@@ -112,14 +101,16 @@ const SignUp = () => {
                                 label="Confirm password"
                                 variant="outlined"
                             />
-                            <Error message={errorMessages.confirmPasswordErr} />
+                            <FormError message={errorMessages.confirmPasswordErr} />
                         </FormControl>
                     </Grid>
-                    <Grid style={{ marginTop: '20px' }}>
-                        <CustomButton className={clsx(classes.margin)}>
+                    <Grid container alignItems="center" justify="space-between" style={{ marginTop: '20px' }}>
+                        <CustomButton className={clsx(classes.margin)} style={{ width: 130, borderRadius: '20px' }}>
                             Sign up
                         </CustomButton>
-
+                        <span className="sign-guide">
+                            Already have an account? <Link to="/login">Log in</Link>
+                        </span>
                     </Grid>
                 </Grid>
             </Grid>

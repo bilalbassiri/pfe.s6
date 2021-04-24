@@ -5,11 +5,11 @@ import Button from '@material-ui/core/Button';
 const ColorButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText('#7B8CDE'),
-    backgroundColor: '#7B8CDE',
-    padding: '10px 0px',
+    backgroundColor: '#EF7C8E',
+    padding: '8px',
     width: '100%',
     '&:hover': {
-      backgroundColor: '#7B8CDE',
+      backgroundColor: '#DA7080',
     },
   },
 }))(Button);

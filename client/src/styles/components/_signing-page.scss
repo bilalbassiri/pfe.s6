@@ -1,0 +1,36 @@
+.sign-up-page,
+.sign-in-page {
+    height: 100vh;
+    .sign-guide {
+        color: #999;
+        font-size: 0.85rem;
+        text-align: center;
+        margin-top: 10px;
+        a {
+            color: #f44336;
+        }
+    }
+    .form-error {
+        display: flex;
+        align-items: center;
+        font-size: 0.7rem;
+        gap: 5px;
+        margin: 3px 0px 0px 0px;
+        color: #f44336;
+        & > * {
+            font-size: 1rem;
+        }
+    }
+}
+.sign-in-page {
+    .login-error {
+        height: 20px;
+    }
+    .visibility-icon {
+        font-size: 1.2rem;
+    }
+    .fieldset {
+        margin: 10px 0px;
+        width: 30ch;
+    }
+}
