@@ -10,9 +10,7 @@ app.use(cookieParser());
 
 //Routes
 app.use('/user', require('./routes/userRouter'));
-app.get('/user', (req, res)=> {
-    res.json({msg: "hello"})
-})
+
 
 
 app.listen(process.env.PORT || 5000)
