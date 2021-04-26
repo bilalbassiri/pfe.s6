@@ -1,11 +1,21 @@
 import actionTypes from '../contants/action.types';
-const initialState = null
+
+const initialState = null;
+const { LOG_IN, LOG_OUT, SIGN_UP } = actionTypes;
 
 const userReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case actionTypes.SIGN_UP:
+        case LOG_IN:
             return {
-                crederntials: payload
+                credentials: payload
+            };
+        case LOG_OUT:
+            return {
+                credentials: null
+            }
+        case SIGN_UP:
+            return {
+                credentials: payload
             };
         default:
             return state;

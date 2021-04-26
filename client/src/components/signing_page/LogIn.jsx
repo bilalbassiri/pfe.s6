@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { CustomButton } from '../ui-components';
@@ -9,16 +9,22 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import FormError from './FormError';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../redux/actions/userActions';
+import axios from 'axios';
+import { getLoginError } from '../../helpers/login.helpers';
 
 const LogIn = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [values, setValues] = React.useState({
         email: '',
         password: '',
-        isNewUser: false,
         showPassword: false,
     });
+    const [loginError, setLoginError] = useState('');
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
     };
@@ -30,8 +36,25 @@ const LogIn = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     const handleSubmit = e => {
         e.preventDefault()
+        const { email, password } = values;
+        if (getLoginError(values).noErrors) {
+            axios({
+                method: 'post',
+                url: '/user/login',
+                data: { email, password },
+            }).then(({ data: user }) => {
+                if (user.logged) {
+                    history.push('/');
+                    dispatch(userLogin(user.credentials));
+                }
+                else
+                    setLoginError(user.msg)
+            })
+        }
+        else setLoginError(getLoginError(values).message)
     }
     return (
         <form onSubmit={handleSubmit}>
@@ -70,11 +93,11 @@ const LogIn = () => {
                             labelWidth={70}
                         />
                         <div className="login-error">
-                            <FormError message={""} />
+                            <FormError message={loginError} />
                         </div>
                     </FormControl>
                 </Grid>
-                <Grid style={{width: '30ch'}}>
+                <Grid style={{ width: '30ch' }}>
                     <CustomButton>
                         Sign in
                     </CustomButton>

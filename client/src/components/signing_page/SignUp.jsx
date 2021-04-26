@@ -10,6 +10,7 @@ import { userSignUp } from '../../redux/actions/userActions';
 import { setFormErrors, isValidatedForm, isCorrectName } from '../../helpers/signup.helpers';
 import { Link, useHistory } from 'react-router-dom';
 import FormError from './FormError';
+import axios from 'axios';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -29,8 +30,8 @@ const useStyles = makeStyles(() => ({
 const SignUp = () => {
     const classes = useStyles();
     const [values, setValues] = useState({
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -50,8 +51,18 @@ const SignUp = () => {
     useEffect(() => {
         setIsSignedUp(isValidatedForm(errorMessages))
         if (isSignedUp) {
-            history.push('/')
-            dispatch(userSignUp(values))
+            axios({
+                method: 'post',
+                url: '/user/register',
+                data: values,
+            })
+                .then(({ data: user }) => {
+                    if (user.signed) {
+                        history.push('/');
+                        dispatch(userSignUp(user.credentials));
+                    }
+                    else setErrorMessages({ ...errorMessages, emailErr: user.msg })
+                });
         }
     }, [errorMessages, isSignedUp])
     return (
@@ -63,12 +74,12 @@ const SignUp = () => {
                 <Grid>
                     <div style={{ display: 'flex', gap: '2ch' }}>
                         <FormControl className={clsx(classes.margin, classes.semiWidth)} variant="outlined">
-                            <CustomizedInput label="First name" variant="outlined" type="text" onChange={handleChange('firstName')} />
+                            <CustomizedInput label="First name" variant="outlined" type="text" onChange={handleChange('first_name')} />
                             <FormError message={errorMessages.firstNameErr} />
 
                         </FormControl>
                         <FormControl className={clsx(classes.margin, classes.semiWidth)} variant="outlined">
-                            <CustomizedInput label="Last name" variant="outlined" type="text" onChange={handleChange('lastName')} />
+                            <CustomizedInput label="Last name" variant="outlined" type="text" onChange={handleChange('last_name')} />
                             <FormError message={errorMessages.lastNameErr} />
                         </FormControl>
                     </div>

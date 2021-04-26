@@ -8,4 +8,5 @@ router.get('/logout', controllers.logout);
 router.get('/info', auth, controllers.getUser);
 router.get('/refresh_token', controllers.refreshToken);
 
+
 module.exports = router

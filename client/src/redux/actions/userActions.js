@@ -1,9 +1,12 @@
 import actionTypes from '../contants/action.types';
-const { SIGN_UP } = actionTypes;
+const { LOG_IN, LOG_OUT, SIGN_UP } = actionTypes;
 
-const userSignUp = credentials => {
-    return { type: SIGN_UP, payload: credentials }
-}
+const userLogin = payload => ({ type: LOG_IN, payload })
+const userLogout = () => ({ type: LOG_OUT })
+const userSignUp = payload => ({ type: SIGN_UP, payload })
+
 export {
-    userSignUp
+    userLogin,
+    userSignUp,
+    userLogout
 }

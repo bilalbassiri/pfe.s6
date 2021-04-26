@@ -15,9 +15,11 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LeftDrawer from './LeftDrawer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { userLogout } from '../../redux/actions/userActions';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -120,12 +122,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
     const classes = useStyles();
-    const authedUser = useSelector(({ user }) => user?.new_user)
+    const dispatch = useDispatch();
+    const authedUser = useSelector(({ user }) => user?.credentials)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+    console.log(authedUser)
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -156,6 +159,12 @@ const Header = () => {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem
+                onClick={() => {
+                    handleMenuClose()
+                    axios.get('/user/logout').then(console.log)
+                    dispatch(userLogout());
+                }}>Log out</MenuItem>
         </Menu>
     );
     const mobileMenuId = 'primary-search-account-menu-mobile';

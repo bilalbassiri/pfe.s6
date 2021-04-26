@@ -7,21 +7,21 @@ const controllers = {
         try {
             const { first_name, last_name, email, password } = req.body;
             const user = await Users.findOne({ email })
-            if (user) return res.status(400).json({ msg: 'Already exist' })
+            if (user) return res.json({ msg: 'Email already exist', signed: false })
             const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
             const newUser = new Users({
                 name: first_name + ' ' + last_name,
                 email,
                 password: passwordHash
             })
-            await newUser.save(); // Save mongoDB
+            newUser.save(); // Save mongoDB
             const ACCESS_TOKEN = createAccessToken({ id: newUser._id });
             const REFRESH_TOKEN = createRefreshToken({ id: newUser._id });
             res.cookie('REFRESH_TOKEN', REFRESH_TOKEN, {
                 httpOnly: true,
                 path: '/user/refresh_token'
             })
-            return res.json({ ACCESS_TOKEN, REFRESH_TOKEN })
+            return res.json({ ACCESS_TOKEN, credentials: newUser, signed: true })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -30,19 +30,21 @@ const controllers = {
         try {
             const { email, password } = req.body;
             const user = await Users.findOne({ email })
-            if (!user) res.status(400).json({ msg: "Invalid email address! 😩" })
+            if (!user) {
+                res.json({ msg: "Invalid email address! 😩", logged: false })
+            }
             else {
                 const passwordMatch = await bcrypt.compare(password, user.password)
-                if (!passwordMatch) res.status(400).json({ msg: "Incorrect password! 😩" })
-                else {
+                if (passwordMatch) {
                     const ACCESS_TOKEN = createAccessToken({ id: user._id });
                     const REFRESH_TOKEN = createRefreshToken({ id: user._id });
                     res.cookie('REFRESH_TOKEN', REFRESH_TOKEN, {
                         httpOnly: true,
                         path: '/user/refresh_token'
                     })
-                    return res.json({ ACCESS_TOKEN, msg: "Success login! 👽" })
+                    return res.json({ ACCESS_TOKEN, credentials: user, logged: true })
                 }
+                else res.json({ msg: "Incorrect password! 😩", logged: false })
             }
         } catch (err) {
             return res.status(500).json({ msg: err.message })
@@ -50,8 +52,8 @@ const controllers = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie("REFRESH_TOKEN", { path: '/user/refresh_token' })
-            return res.json({ msg: 'ok 🏃' })
+            await res.clearCookie("REFRESH_TOKEN", { path: '/user/refresh_token' })
+            return res.json({ msg: 'Logged out successfully ✔️'})
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
