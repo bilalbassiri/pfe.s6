@@ -1,7 +1,7 @@
 import actionTypes from '../contants/action.types';
 
 const initialState = null;
-const { LOG_IN, LOG_OUT, SIGN_UP } = actionTypes;
+const { LOG_IN, LOG_OUT, REFRESH, SIGN_UP } = actionTypes;
 
 const userReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -10,13 +10,13 @@ const userReducer = (state = initialState, { type, payload }) => {
                 credentials: payload
             };
         case LOG_OUT:
-            return {
-                credentials: null
-            }
+            return null 
         case SIGN_UP:
             return {
                 credentials: payload
             };
+        case REFRESH:
+            return { ...state ,accessToken: payload };
         default:
             return state;
     }

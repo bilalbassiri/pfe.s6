@@ -42,7 +42,7 @@ const controllers = {
                         httpOnly: true,
                         path: '/user/refresh_token'
                     })
-                    return res.json({ ACCESS_TOKEN, credentials: user, logged: true })
+                    return res.json({ ACCESS_TOKEN, logged: true })
                 }
                 else res.json({ msg: "Incorrect password! 😩", logged: false })
             }
@@ -53,7 +53,7 @@ const controllers = {
     logout: async (req, res) => {
         try {
             await res.clearCookie("REFRESH_TOKEN", { path: '/user/refresh_token' })
-            return res.json({ msg: 'Logged out successfully ✔️'})
+            return res.json({ msg: 'Logged out successfully ✔️' })
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
@@ -62,8 +62,8 @@ const controllers = {
         try {
             const { id } = await req.user;
             const user = await Users.findById(id).select('-password');
-            if (!user) return res.status(400).json({ msg: "User does not exist 😎" });
-            return res.json(user)
+            if (!user) return res.json({ msg: "User does not exist 😎" });
+            return res.status(200).json(user)
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
@@ -75,7 +75,7 @@ const controllers = {
             jwt.verify(REFRESH_TOKEN, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
                 if (err) return res.status(400).json({ msg: "Login or register" });
                 const _ACCESS_TOKEN = createAccessToken({ id: user.id });
-                return res.json({ _ACCESS_TOKEN })
+                return res.status(200).json({ _ACCESS_TOKEN })
             })
         } catch (err) {
             return res.status(500).json({ msg: err.message })

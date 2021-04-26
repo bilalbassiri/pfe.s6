@@ -27,7 +27,7 @@ const StyledBadge = withStyles((theme) => ({
         top: 0,
         border: `2px solid ${theme.palette.background.paper}`,
         padding: '0 4px',
-        backgroundColor: '#7B8CDE'
+        backgroundColor: '#EF7C8E'
     },
 }))(Badge);
 const CustomizedSignUpButton = withStyles((theme) => ({
@@ -124,11 +124,11 @@ const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const authedUser = useSelector(({ user }) => user?.credentials)
+    console.log(authedUser)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    console.log(authedUser)
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -268,7 +268,7 @@ const Header = () => {
                             <>
                                 <Link to="/login">
                                     <CustomizedLoignButton variant="contained" color="primary" type="button" disableElevation>
-                                        Sign in
+                                        Log in
                                     </CustomizedLoignButton>
                                 </Link>
                                 <Link to="/sign-up">
