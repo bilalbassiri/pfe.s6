@@ -1,15 +1,15 @@
 import actionTypes from '../contants/action.types';
 const initialState = null
 
-const categoryReducer = (state = initialState, { type, payload }) => {
+const bookReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case actionTypes.SET_CATEGORIES:
+        case actionTypes.SET_BOOKS:
             return {
-                allCategories: payload
+                allbooks: payload
             };
         default:
             return state;
     }
 }
 
-export default categoryReducer;
+export default bookReducer;

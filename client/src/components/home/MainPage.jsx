@@ -2,24 +2,29 @@ import React, { useEffect } from 'react'
 import { Header } from '..';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setCategories } from '../../redux/actions/categoryActions';
+import { setBooks } from '../../redux/actions/bookActions';
+import Books from './Books';
 
 const MainPage = () => {
     const dispatch = useDispatch();
-    const apiGetCategories = async () => {
+    const apiGetBooks = async () => {
         try {
-            const res = await axios.get('/api/category')
-            dispatch(setCategories(res.data))
+            const res = await axios.get('/api/book')
+            dispatch(setBooks(res.data))
         } catch (err) {
             console.log(err.message)
         }
     }
     useEffect(() => {
-        apiGetCategories()
+        apiGetBooks()
     }, [])
     return (
         <div>
             <Header />
+            <h1>
+                Books for you 
+            </h1>
+            <Books />
         </div>
     )
 }

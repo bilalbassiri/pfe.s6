@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -20,6 +20,15 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    currently_reading: {
+        type: Array
+    },
+    read: {
+        type: Array
+    },
+    to_read: {
+        type: Array
+    },
     role: {
         type: Number,
         default: 0
@@ -28,4 +37,4 @@ const userSchema = new mongoose.Schema({
     {
         timestamps: true
     })
-module.exports = mongoose.model('Users', userSchema);
+module.exports = model('users', userSchema);

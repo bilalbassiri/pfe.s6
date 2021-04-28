@@ -61,7 +61,7 @@ const controllers = {
     getUser: async (req, res) => {
         try {
             const { id } = await req.user;
-            const user = await Users.findById(id).select('-password');
+            const user = await Users.find().populate('read', 'name');
             if (!user) return res.json({ msg: "User does not exist 😎" });
             return res.status(200).json(user)
         } catch (err) {

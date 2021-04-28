@@ -8,7 +8,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -20,6 +19,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { userLogout } from '../../redux/actions/userActions';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -70,41 +70,8 @@ const useStyles = makeStyles((theme) => ({
             display: 'block',
         },
     },
-    search: {
-        position: 'relative',
-        borderRadius: '20px',
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.black, 0.1),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     inputRoot: {
         color: 'black',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
     },
     sectionDesktop: {
         display: 'none',
@@ -220,49 +187,44 @@ const Header = () => {
                 <Toolbar style={{ backgroundColor: '#FFFFFF', color: '#3e3e3e', boxShadow: '0px 0px 0px 0px black' }}>
                     <LeftDrawer />
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+                        Kafka
           </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
                     <div className={classes.grow} />
                     {
-                        Boolean(authedUser) ?
+                        !Boolean(authedUser) ?
                             <div className={classes.sectionDesktop}>
-                                <IconButton aria-label="show 4 new mails">
-                                    <StyledBadge badgeContent={4} color="secondary">
-                                        <ShoppingCartOutlinedIcon />
-                                    </StyledBadge>
-                                </IconButton>
-                                <IconButton aria-label="show 17 new notifications">
-                                    <StyledBadge badgeContent={3} color="secondary">
-                                        <FavoriteBorderOutlinedIcon />
-                                    </StyledBadge>
-                                </IconButton>
-                                <IconButton aria-label="show 17 new notifications">
-                                    <StyledBadge badgeContent={17} color="secondary">
-                                        <NotificationsOutlinedIcon />
-                                    </StyledBadge>
-                                </IconButton>
-                                <IconButton
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-controls={menuId}
-                                    aria-haspopup="true"
-                                    onClick={handleProfileMenuOpen}
-                                >
-                                    <AccountCircleOutlinedIcon />
-                                </IconButton>
+                                <Tooltip title="Shopping card" arrow>
+                                    <IconButton aria-label="show 4 new mails">
+                                        <StyledBadge badgeContent={4} color="secondary">
+                                            <ShoppingCartOutlinedIcon />
+                                        </StyledBadge>
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Wishlist" arrow>
+                                    <IconButton aria-label="show 17 new notifications">
+                                        <StyledBadge badgeContent={3} color="secondary">
+                                            <FavoriteBorderOutlinedIcon />
+                                        </StyledBadge>
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Notifications" arrow>
+                                    <IconButton aria-label="show 17 new notifications">
+                                        <StyledBadge badgeContent={17} color="secondary">
+                                            <NotificationsOutlinedIcon />
+                                        </StyledBadge>
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Profile" arrow>
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="account of current user"
+                                        aria-controls={menuId}
+                                        aria-haspopup="true"
+                                        onClick={handleProfileMenuOpen}
+                                    >
+                                        <AccountCircleOutlinedIcon />
+                                    </IconButton>
+                                </Tooltip>
                             </div>
                             :
                             <>

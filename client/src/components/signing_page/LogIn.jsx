@@ -82,8 +82,15 @@ const LogIn = () => {
     return (
         isLoading ?
             <CircularProgress />
-            : <form onSubmit={handleSubmit}>
-                <Grid container justify="center" alignItems="center" direction="column" className="sign-in-page">
+            : <form onSubmit={handleSubmit} className="sign-in-page">
+                <Grid className="signing-side">
+                        <h2>Welcome Back!</h2>
+                        <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
+                </Grid>
+                <Grid container justify="center" alignItems="center" direction="column" className="sign-in-page-form">
+                    <Grid style={{ marginBottom: '20px' }}>
+                        <h1 className="signing-heading">Log In</h1>
+                    </Grid>
                     <Grid>
                         <FormControl className="fieldset" variant="outlined">
                             <TextField

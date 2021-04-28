@@ -3,6 +3,6 @@ const actionTypes = {
     LOG_OUT: "LOG_OUT",
     SIGN_UP: "SIGN_UP",
     REFRESH: "REFRESH",
-    SET_CATEGORIES: "SET_CATEGORIES",
+    SET_BOOKS: "SET_BOOKS",
 }
 export default actionTypes;

@@ -12,6 +12,7 @@ app.use(cookieParser());
 
 //Routes
 app.use('/user', require('./routes/userRouter'));
-app.use('/api', require('./routes/categoryRouter'));
+app.use('/api', require('./routes/bookRouter'));
+app.use('/api/book', require('./routes/reviewRouter'));
 
 app.listen(process.env.PORT || 5000)

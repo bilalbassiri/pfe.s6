@@ -24,9 +24,6 @@ const useStyles = makeStyles(() => ({
     semiWidth: {
         width: '19ch',
 
-    },
-    heading: {
-        marginBottom: '20px',
     }
 }));
 const SignUp = () => {
@@ -79,9 +76,13 @@ const SignUp = () => {
             <CircularProgress />
             :
             <form onSubmit={handleSubmit} className="sign-up-page">
-                <Grid container justify="center" alignItems="center" direction="column" style={{ height: 'calc(100vh - 64px)' }}>
-                    <Grid style={{ textAlign: 'center', marginBottom: '20px' }}>
-                        <h1 className={classes.heading}>Sign Up</h1>
+                <Grid className="signing-side">
+                    <h2>Welcome!</h2>
+                    <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
+                </Grid>
+                <Grid container justify="center" alignItems="center" direction="column" className="sign-up-page-form">
+                    <Grid style={{ marginBottom: '20px' }}>
+                        <h1 className="signing-heading">Sign Up</h1>
                     </Grid>
                     <Grid>
                         <div style={{ display: 'flex', gap: '2ch' }}>

@@ -8,28 +8,18 @@ const a = {
             borderColor: 'transparent',
         },
         '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#7B8CDE',
-            borderWidth: '2px'
+            borderColor: '#8FBDAE',
+            borderWidth: '1px'
         },
         '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#BEC6EF'
+            borderColor: '#A6D6C6'
         },
+        '& .MuiFormLabel-root.Mui-focused': {
+            color: '#8FBDAE'
+        }
     },
 }
-const b = {
-    root: {
-        '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'transparent !important',
-        },
-        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#7B8CDE !important',
-            borderWidth: '2px'
-        },
-        '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#BEC6EF !important'
-        },
-    },
-}
+
 const CssTextField = withStyles(a)(TextField);
 export {
     CssTextField,

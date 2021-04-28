@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import userReducer from './userReducer';
-import categoryReducer from './categoryReducer';
+import bookReducer from './bookReducer';
 
 const reducers = combineReducers({
     user: userReducer,
-    category: categoryReducer
+    book: bookReducer
 })
 export default reducers;
