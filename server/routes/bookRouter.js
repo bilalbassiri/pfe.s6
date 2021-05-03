@@ -8,5 +8,8 @@ router.route('/book')
     .post(auth, authAdmin, controllers.addBook)
     .delete(auth, authAdmin, controllers.deleteBook)
     .put(auth, controllers.updateBook)
-
+router.route('/book/rate')
+    .post(auth, controllers.updateRating)
+router.route('/book/:id')
+    .get(controllers.getBookDetail)
 module.exports = router

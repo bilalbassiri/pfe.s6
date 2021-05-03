@@ -1,22 +1,24 @@
-import actionTypes from '../contants/action.types';
+import types from '../constants/action.types';
+const { LOG_IN, LOG_OUT, REFRESH, SIGN_UP } = types;
 
-const initialState = null;
-const { LOG_IN, LOG_OUT, REFRESH, SIGN_UP } = actionTypes;
-
-const userReducer = (state = initialState, { type, payload }) => {
+const userReducer = (state = {credentials: null, accessToken: null}, { type, payload }) => {
     switch (type) {
         case LOG_IN:
             return {
                 credentials: payload
             };
         case LOG_OUT:
-            return null 
+            return {
+                credentials: null,
+                accessToken: null
+            };
         case SIGN_UP:
             return {
-                credentials: payload
+                credentials: payload.credentials,
+                accessToken: payload.ACCESS_TOKEN
             };
         case REFRESH:
-            return { ...state ,accessToken: payload };
+            return { ...state, accessToken: payload };
         default:
             return state;
     }

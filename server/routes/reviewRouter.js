@@ -10,6 +10,6 @@ router.route('/review')
 router.route('/:bookId/reviews')
     .get(controllers.getReviews)
 router.route('/review/upvote')
-.post(auth, controllers.upvoteReview)
+    .post(controllers.upvoteReview)
 
 module.exports = router

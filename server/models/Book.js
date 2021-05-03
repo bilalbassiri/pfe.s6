@@ -30,7 +30,27 @@ const bookSchema = new Schema({
         type: Number,
         required: true,
     },
+    old_price: {
+        type: Number,
+        required: true,
+    },
     rating: {
+        type: Number,
+        default: 0
+    },
+    rating_count: {
+        type: Number,
+        default: 0
+    },
+    have_read: {
+        type: Number,
+        default: 0
+    },
+    currently_reading: {
+        type: Number,
+        default: 0
+    },
+    to_read: {
         type: Number,
         default: 0
     },
@@ -41,9 +61,6 @@ const bookSchema = new Schema({
     },
     categories: {
         type: Array,
-    },
-    comments: {
-        type: [{ type: Schema.Types.ObjectId, ref: 'reviews' }]
     },
 },
     {

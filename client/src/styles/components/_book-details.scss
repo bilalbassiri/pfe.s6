@@ -1,0 +1,191 @@
+.book-details {
+    padding: 20px;
+}
+.main-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    .left {
+        .cover {
+            width: 250px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+    }
+    .right {
+        flex-grow: 1;
+        .rating {
+            display: flex;
+            align-items: center;
+            &.global_read {
+                font-size: 0.8rem;
+                gap: 5px;
+                .stars {
+                    font-size: 1rem;
+                }
+            }
+            &.average_read {
+                @include flexColumnCenter;
+                gap: 5px;
+                width: fit-content;
+                h2 {
+                    font-size: 2.2rem;
+                }
+                p {
+                    color: rgb(92, 92, 92);
+                }
+            }
+            &.review_read {
+                font-size: 0.8rem;
+                .stars {
+                    font-size: 1rem;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .author {
+            color: rgb(112, 112, 112);
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .other {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 20px;
+            .price {
+                span {
+                    font-size: 1.6rem;
+                    color: $boss-color;
+                }
+                del {
+                    margin-left: 10px;
+                    font-size: 1.1rem;
+                    font-weight: 400;
+                    color: rgb(36, 36, 36);
+                }
+            }
+        }
+        .tabs {
+            margin-top: 70px !important;
+            .desc {
+                font-size: 0.9rem;
+                .more-btn {
+                    color: $boss-color;
+                }
+            }
+            .reviews {
+                @include flexColumn;
+                justify-content: center;
+                .add-review-section {
+                    .studio {
+                        flex-grow: 1;
+                        .rate {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 0px 5px;
+                            .stars {
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                    .submit-review {
+                        display: flex;
+                        gap: 10px;
+                        .post-btn,
+                        .cancel-btn {
+                            border-radius: 15px;
+                        }
+                    }
+                }
+                .reviews-container {
+                    @include flexColumn;
+                    margin-top: 50px;
+                    gap: 30px;
+                    .review {
+                        .review-bar {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 7PX;
+                            .review-writer {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                &-pic {
+                                    height: 30px;
+                                    width: 30px;
+                                    &.MuiAvatar-colorDefault {
+                                        background-color:#6B5852 !important;
+                                    }
+                                    &.MuiAvatar-root {
+                                        font-size: 1rem !important;
+                                    }
+                                }
+                                &-name {
+                                    font-size: .9rem;
+                                    color: rgb(46, 46, 46);
+                                    &:hover {
+                                        color: rgb(17, 17, 17);
+                                    }
+                                }
+                            }
+                            .cheer-sec {
+                                button {
+                                    width: 20px;
+                                    height: 20px;
+                                    border-radius: 50%;
+                                    margin-right: 5px;
+                                    transition-duration: 200ms;
+                                    &:hover {
+                                        background-color: #c7c7c7;
+                                    }
+                                }
+                            }
+                        }
+                        article,
+                        .cheer-sec {
+                            font-size: 0.9rem;
+                        }
+                        article {
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .show-more-reviews {
+                    text-align: center;
+                    button {
+                        font-weight: bold;
+                        color: $boss-color;
+                        transition-duration: 200ms;
+                        &:hover {
+                           color: #d87181;
+                        }
+                    }
+                }
+            }
+        }
+        .book-genres {
+            margin-top: 20px;
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            li {
+                font-size: 0.7rem;
+                border: 1px solid #6b5852;
+                color: #6b5852;
+                padding: 3px 10px;
+                border-radius: 15px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 600px) {
+    .book-details {
+        padding: 25px;
+        .main-section {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+    }
+}

@@ -1,9 +1,10 @@
-import actionTypes from '../contants/action.types';
-const { SET_BOOKS } = actionTypes;
+import types from '../constants/action.types';
+const { SET_BOOKS } = types;
 
 const setBooks = books => {
     return { type: SET_BOOKS, payload: books }
 }
+
 export {
-    setBooks
+    setBooks,
 }

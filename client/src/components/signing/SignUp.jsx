@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import { CustomButton } from '../ui';
 import { Grid } from '@material-ui/core';
 import CustomizedInput from '../ui/CustomizedInput';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import FormError from '../ui/FormError';
 import axios from 'axios';
 import { startLoading } from '../../helpers/login.helpers';
-import { CircularProgress } from '../ui';
+import { CircularProgress, CustomButton} from '..';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -23,7 +22,6 @@ const useStyles = makeStyles(() => ({
     },
     semiWidth: {
         width: '19ch',
-
     }
 }));
 const SignUp = () => {
@@ -50,7 +48,7 @@ const SignUp = () => {
         setFormErrors(values, isCorrectName, setErrorMessages)
     }
     useEffect(() => {
-        if (user) history.push('/');
+        if (user.accessToken) history.push('/');
         const id = startLoading(setIsLoading)
         setIsSignedUp(isValidatedForm(errorMessages))
         if (isSignedUp) {
@@ -62,7 +60,7 @@ const SignUp = () => {
                 .then(({ data: user }) => {
                     if (user.signed) {
                         history.push('/');
-                        dispatch(userSignUp(user.credentials));
+                        dispatch(userSignUp(user));
                     }
                     else setErrorMessages({ ...errorMessages, emailErr: user.msg })
                 });
@@ -70,7 +68,7 @@ const SignUp = () => {
         return () => {
             clearTimeout(id)
         }
-    }, [user, errorMessages, isSignedUp])
+    }, [user, errorMessages, isSignedUp, history, dispatch, values])
     return (
         isLoading ?
             <CircularProgress />

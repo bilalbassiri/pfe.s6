@@ -5,7 +5,8 @@ const controllers = {
         try {
             const newReview = new Reviews(req.body)
             await newReview.save()
-            return res.json({ msg: 'Added 🍻' })
+            const populatedReview = await Reviews.findOne({_id: newReview._id}).populate({path: 'owner', select: 'name picture'})
+            return res.json(populatedReview)
         } catch (err) {
             return res.json({ msg: err.message })
         }
@@ -22,7 +23,7 @@ const controllers = {
     getReviews: async (req, res) => {
         try {
             const { bookId: book_id } = req.params;
-            const bookReviews = await Reviews.find({ book_id });
+            const bookReviews = await Reviews.find({ book_id }).populate({path: 'owner', select: 'name picture'}).sort('-createdAt');
             return res.status(200).json(bookReviews)
         } catch (err) {
             return res.json({ msg: err.message })
@@ -39,9 +40,9 @@ const controllers = {
     },
     upvoteReview: async (req, res) => {
         try {
-            const { _id, upvotes } = req.body;
-            const oldReview = await Reviews.findOneAndUpdate(_id, {upvotes});
-            return res.status(200).json(oldReview)
+            const { _id, currentVotes } = await req.body;
+            const review = await Reviews.findOneAndUpdate({ _id }, { upvotes: currentVotes }, { new: true });
+            return res.status(200).json(review)
         } catch (err) {
             return res.json({ msg: err.message })
         }

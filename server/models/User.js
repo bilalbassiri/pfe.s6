@@ -12,11 +12,23 @@ const userSchema = new Schema({
         trim: true,
         unique: true
     },
+    picture: {
+        type: String,
+        default: ''
+    },
     password: {
         type: String,
         required: true,
     },
     card: {
+        type: Array,
+        default: []
+    },
+    wishlist: {
+        type: Array,
+        default: []
+    },
+    notifications: {
         type: Array,
         default: []
     },

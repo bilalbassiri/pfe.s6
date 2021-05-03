@@ -1,9 +1,9 @@
-import actionTypes from '../contants/action.types';
-const initialState = null
+import types from '../constants/action.types';
+const { SET_BOOKS } = types;
 
-const bookReducer = (state = initialState, { type, payload }) => {
+const bookReducer = (state = { allbooks: null }, { type, payload }) => {
     switch (type) {
-        case actionTypes.SET_BOOKS:
+        case SET_BOOKS:
             return {
                 allbooks: payload
             };

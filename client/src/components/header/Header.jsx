@@ -1,10 +1,9 @@
 import React from 'react';
-import { fade, makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -47,7 +46,6 @@ const CustomizedSignUpButton = withStyles((theme) => ({
 }))(Button);
 const CustomizedLoignButton = withStyles((theme) => ({
     root: {
-        color: theme.palette.getContrastText('#7B8CDE'),
         backgroundColor: 'white',
         color: '#333',
         fontSize: '.7rem',
@@ -90,8 +88,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const authedUser = useSelector(({ user }) => user?.credentials)
-    console.log(authedUser)
+    const authedUser = useSelector(({ user }) => user?.accessToken)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -191,7 +188,7 @@ const Header = () => {
           </Typography>
                     <div className={classes.grow} />
                     {
-                        !Boolean(authedUser) ?
+                        Boolean(authedUser) ?
                             <div className={classes.sectionDesktop}>
                                 <Tooltip title="Shopping card" arrow>
                                     <IconButton aria-label="show 4 new mails">

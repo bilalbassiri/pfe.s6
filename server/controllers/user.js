@@ -31,7 +31,7 @@ const controllers = {
             const { email, password } = req.body;
             const user = await Users.findOne({ email })
             if (!user) {
-                res.json({ msg: "Invalid email address! 😩", logged: false })
+                res.json({ msg: "Invalid email address!", logged: false })
             }
             else {
                 const passwordMatch = await bcrypt.compare(password, user.password)
@@ -44,7 +44,7 @@ const controllers = {
                     })
                     return res.json({ ACCESS_TOKEN, logged: true })
                 }
-                else res.json({ msg: "Incorrect password! 😩", logged: false })
+                else res.json({ msg: "Incorrect password!", logged: false })
             }
         } catch (err) {
             return res.status(500).json({ msg: err.message })
@@ -61,7 +61,7 @@ const controllers = {
     getUser: async (req, res) => {
         try {
             const { id } = await req.user;
-            const user = await Users.find().populate('read', 'name');
+            const user = await Users.findOne({ _id: id });
             if (!user) return res.json({ msg: "User does not exist 😎" });
             return res.status(200).json(user)
         } catch (err) {
@@ -71,9 +71,9 @@ const controllers = {
     refreshToken: async (req, res) => {
         try {
             const { REFRESH_TOKEN } = req.cookies;
-            if (!REFRESH_TOKEN) return res.status(400).json({ msg: "Login or register" })
+            if (!REFRESH_TOKEN) return res.json({ msg: "Login or register" })
             jwt.verify(REFRESH_TOKEN, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                if (err) return res.status(400).json({ msg: "Login or register" });
+                if (err) return res.json({ msg: "Login or register" });
                 const _ACCESS_TOKEN = createAccessToken({ id: user.id });
                 return res.status(200).json({ _ACCESS_TOKEN })
             })

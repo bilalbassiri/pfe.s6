@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
-    height: '100vh',
+    height: 'calc(100vh - 64px)',
     width: '100%',
     placeContent: 'center',
     '& .MuiCircularProgress-colorSecondary': {

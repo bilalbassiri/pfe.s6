@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import { CustomButton } from '../ui';
 import { Grid } from '@material-ui/core';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
@@ -15,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userSetAccessToken } from '../../redux/actions/userActions';
 import axios from 'axios';
 import { getLoginError, startLoading } from '../../helpers/login.helpers';
-import { CircularProgress } from '../ui';
+import { CircularProgress, CustomButton } from '..';
 
 const LogIn = () => {
     const user = useSelector(({ user }) => user);
@@ -73,12 +72,12 @@ const LogIn = () => {
         else setLoginError(getLoginError(values).message)
     }
     useEffect(() => {
-        if (user) history.push('/')
+        if (user.accessToken) history.push('/')
         const id = startLoading(seTisLoading)
         return () => {
             clearTimeout(id)
         }
-    }, [user])
+    }, [user, history])
     return (
         isLoading ?
             <CircularProgress />

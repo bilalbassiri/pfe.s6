@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const auth = async (req, res, next) => {
     try {
         const token = await req.header('Authorization');
-        if (!token) return res.json({ msg: "Invalid authentication 1😢" })
+        if (!token) return res.json({ msg: "Invalid authentication 1😢" , logged: false})
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-            if (err) return res.json({ msg: "Invalid authentication 2😢" })
+            if (err) return res.json({ msg: "Invalid authentication 2😢", logged: false})
             else {
                 req.user = user;
                 next()

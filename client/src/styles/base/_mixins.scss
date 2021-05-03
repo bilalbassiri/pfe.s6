@@ -1,0 +1,21 @@
+@mixin flexColumnCenter($justify: false) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @if($justify == true) {
+        justify-content: center;
+    }
+}
+@mixin  flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+@mixin  flexRowCenter {
+    display: flex;
+    align-items: center;
+}
+@mixin boxSize($h: 0px, $w: 0px, $r: 0px) {
+    height: $h;
+    width: $w;
+    border-radius: $r;
+}

@@ -9,6 +9,15 @@ const controllers = {
             return res.status(500).json({ msg: err.message })
         }
     },
+    getBookDetail: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const book = await Books.findOne({ _id: id })
+            res.status(200).json(book)
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
+    },
     addBook: async (req, res) => {
         try {
             const { name } = req.body;
@@ -32,13 +41,23 @@ const controllers = {
     },
     updateBook: async (req, res) => {
         try {
-            const { _id, name } = req.body;
+            const { _id, update } = req.body;
             const originalBook = await Books
-                .findByIdAndUpdate(_id, { name })
+                .findByIdAndUpdate(_id, update)
             return res.json(originalBook)
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
     },
+    updateRating: async (req, res) => {
+        try {
+            const { _id, rating } = req.body;
+            const originalBook = await Books
+                .findByIdAndUpdate(_id, { rating })
+            return res.json(originalBook)
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
+    }
 }
 module.exports = controllers;
