@@ -19,6 +19,7 @@ import axios from 'axios';
 import { userLogout } from '../../redux/actions/userActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import { CustomizedButton } from '..';
+import { useHistory } from 'react-router-dom';
 
 const styles = {
     signup: {
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
+    
 }));
 
 const Header = () => {
@@ -90,7 +92,13 @@ const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
+    const history = useHistory();
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const count = {
+        cart: credentials?.card?.length,
+        wishlist: credentials?.wishlist?.length,
+        notifications: credentials?.notifications?.length,
+    }
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -119,15 +127,16 @@ const Header = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <Link to={`/readers/${credentials?._id}`} style={{color: 'black'}}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+            <Link to={`/me/account`}><MenuItem onClick={handleMenuClose}  style={{color: 'black'}}>My account</MenuItem></Link>
             <MenuItem
                 onClick={() => {
                     handleMenuClose()
                     axios.get('/user/logout').then(console.log)
                     dispatch(userLogout());
+                    history.push('/')
                 }}>Log out</MenuItem>
-        </Menu>
+        </Menu >
     );
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -141,28 +150,28 @@ const Header = () => {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton aria-label="show 4 new mails">
-                    <StyledBadge badgeContent={credentials?.card?.length} color="secondary">
+                <IconButton aria-label={`Show ${count.cart} books in the cart`}>
+                    <StyledBadge badgeContent={count.cart} color="secondary">
                         <ShoppingCartOutlinedIcon />
                     </StyledBadge>
                 </IconButton>
                 <p> Cart</p>
             </MenuItem>
             <MenuItem>
-                <IconButton aria-label="show 11 new notifications">
-                    <StyledBadge badgeContent={2} color="secondary">
+                <IconButton aria-label={`Show ${count.wishlist} books in the wishlist`}>
+                    <StyledBadge badgeContent={count.wishlist} color="secondary">
                         <FavoriteBorderOutlinedIcon />
                     </StyledBadge>
                 </IconButton>
-                <p>Wishlist</p>
+                <p> Wishlist</p>
             </MenuItem>
             <MenuItem>
-                <IconButton aria-label="show 11 new notifications">
-                    <StyledBadge badgeContent={11} color="secondary">
+                <IconButton aria-label={`Show ${count.notifications} new notifications`}>
+                    <StyledBadge badgeContent={count.notifications} color="secondary">
                         <NotificationsOutlinedIcon />
                     </StyledBadge>
                 </IconButton>
-                <p>Notifications</p>
+                <p> Notifications</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
@@ -189,22 +198,22 @@ const Header = () => {
                         accessToken ?
                             <div className={classes.sectionDesktop}>
                                 <Tooltip title="Shopping card" arrow>
-                                    <IconButton aria-label="show 4 new mails">
-                                        <StyledBadge badgeContent={credentials?.card?.length} color="secondary">
+                                    <IconButton aria-label={`Show ${count.cart} books in the cart`}>
+                                        <StyledBadge badgeContent={count.cart} color="secondary">
                                             <ShoppingCartOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Wishlist" arrow>
-                                    <IconButton aria-label="show 17 new notifications">
-                                        <StyledBadge badgeContent={3} color="secondary">
+                                    <IconButton aria-label={`Show ${count.wishlist} books in the wishlist`}>
+                                        <StyledBadge badgeContent={count.wishlist} color="secondary">
                                             <FavoriteBorderOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Notifications" arrow>
-                                    <IconButton aria-label="show 17 new notifications">
-                                        <StyledBadge badgeContent={17} color="secondary">
+                                    <IconButton aria-label={`Show ${count.notifications} new notifications`}>
+                                        <StyledBadge badgeContent={count.notifications} color="secondary">
                                             <NotificationsOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>

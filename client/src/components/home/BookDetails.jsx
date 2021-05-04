@@ -1,84 +1,138 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
+
+// Components
 import SimpleTabs from './Tabs';
 import { Rating, CircularProgress, CustomizedButton } from '..';
-import { updateCart, getBookDetailFromDB } from '../../helpers/requests';
-import { setCurrentBook } from '../../redux/actions/bookActions';
-import { useDispatch, useSelector } from 'react-redux';
+
+//Material UI Icons
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
-import { cartAddRemoveItem } from '../../redux/actions/userActions';
+import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+
+// ...
+import { setCurrentBook } from '../../redux/actions/bookActions';
+import { cartAddRemoveItem, wishlistAddRemoveItem } from '../../redux/actions/userActions';
+import { updateCart, updateWishlist, getBookDetailFromDB } from '../../helpers/requests';
 
 const styles = {
-    add: {
-        margin: `10px 0px`,
+    cart: {
         backgroundColor: '#EF7C8E',
-        padding: '8px',
+        padding: '8.5px 16px',
         borderRadius: 20,
         width: '100%',
         '&:hover': {
             backgroundColor: '#DA7080',
         },
+    },
+    wishlist: {
+        display: 'grid',
+        placeContent: 'center',
+    },
+    icons: {
+        fontSize: '1.4rem',
     }
 }
 const BookDetails = () => {
     const { bookId } = useParams();
     const {
         book: { currentBook: book },
-        user: { credentials, accessToken } } = useSelector(state => state);
+        user: { credentials, accessToken }
+    } = useSelector(state => state);
     const dispatch = useDispatch();
-    const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState({
+        cart: false,
+        wishlist: false
+    });
     const [isLoading, setIsLoading] = useState(true)
-    let alreadyAddedToCart = credentials?.card?.map(item => item._id)?.includes(bookId);
-    const handleAddAndRemove = () => {
+    const alreadyExist = prop => {
+        if (prop === 'cart') return credentials?.card?.map(item => item._id)?.includes(bookId)
+        if (prop === 'wishlist') return credentials?.wishlist?.map(item => item._id)?.includes(bookId)
+    }
+    const currentBag = prop => prop === 'cart' ? credentials?.card.map(book => book._id) : credentials?.wishlist.map(book => book._id);
+    const booksBag = (prop, books) => alreadyExist(prop) ? books.filter(id => id !== bookId) : [...books, bookId];
+
+    const handleAddAndRemove = prop => {
+
         if (accessToken) {
-            setDisabled(true)
-            let books = credentials?.card.map(book => book._id);
-            if (alreadyAddedToCart) {
-                books = books.filter(id => id !== bookId);
-            }
-            else {
-                books = [...books, bookId];
-            }
-            updateCart(books, accessToken).then(newCart => {
-                dispatch(cartAddRemoveItem(newCart))
-                setDisabled(false)
-                console.log(newCart)
+            setDisabled({
+                ...disabled,
+                [prop]: true
             })
+            if (prop === 'cart') {
+                updateCart(booksBag(prop, currentBag(prop)), accessToken).then(newCart => {
+                    dispatch(cartAddRemoveItem(newCart))
+                    setDisabled({
+                        ...disabled,
+                        [prop]: false
+                    })
+                })
+            }
+            else if ('wishlist') {
+                updateWishlist(booksBag(prop, currentBag(prop)), accessToken).then(newWishlist => {
+                    dispatch(wishlistAddRemoveItem(newWishlist))
+                    setDisabled({
+                        ...disabled,
+                        [prop]: false
+                    })
+                })
+            }
+            else return
         }
         else return
     }
+
     useEffect(() => {
         (async () => {
             const res = await getBookDetailFromDB(bookId);
             dispatch(setCurrentBook(res));
             setIsLoading(false)
         })()
-    }, [bookId])
+        console.log(1)
+    }, [dispatch, bookId])
     return (
         !isLoading ?
             <div className="book-details">
                 <section className="main-section">
                     <div className="left">
                         <img src={book.cover} alt={book.name} className="cover" />
-                        <div className="add-to-cart">
+                        <div className="add-to-cart-or-wishlist">
                             <CustomizedButton
                                 type="button"
-                                style={styles.add}
+                                style={styles.cart}
                                 disableElevation
-                                disabled={disabled}
-                                onClick={handleAddAndRemove}>
+                                disabled={disabled.cart}
+                                onClick={() => handleAddAndRemove('cart')}>
                                 {
-                                    alreadyAddedToCart ?
+                                    alreadyExist('cart') ?
                                         <>
-                                            <RemoveShoppingCartOutlinedIcon /><span>Remove from card</span>
+                                            <RemoveShoppingCartOutlinedIcon style={styles.icons} /><span>Remove from card</span>
                                         </>
                                         :
                                         <>
-                                            <AddShoppingCartIcon /><span>Add to card</span>
+                                            <AddShoppingCartIcon style={styles.icons} /><span>Add to card</span>
                                         </>
                                 }
                             </CustomizedButton>
+                            <button
+                                className="like-button"
+                                type="button"
+                                style={styles.wishlist}
+                                disabled={disabled.wishlist}
+                                onClick={() => handleAddAndRemove('wishlist')}>
+                                {
+                                    alreadyExist('wishlist') ?
+                                        <>
+                                            <FavoriteRoundedIcon style={styles.icons} className="heart" />
+                                        </>
+                                        :
+                                        <>
+                                            <FavoriteBorderRoundedIcon style={styles.icons} />
+                                        </>
+                                }
+                            </button>
                         </div>
                     </div>
                     <div className="right">
@@ -100,4 +154,5 @@ const BookDetails = () => {
             <CircularProgress />
     )
 }
+
 export default BookDetails;

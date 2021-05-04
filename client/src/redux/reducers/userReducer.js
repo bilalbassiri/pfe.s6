@@ -3,7 +3,8 @@ const { LOG_IN,
     LOG_OUT,
     REFRESH,
     SIGN_UP,
-    ADD_TO_CART
+    CART_ADD_REMOVE,
+    WISHLIST_ADD_REMOVE
 } = types;
 
 const userReducer = (state = { credentials: null, accessToken: null }, { type, payload }) => {
@@ -22,14 +23,22 @@ const userReducer = (state = { credentials: null, accessToken: null }, { type, p
                 credentials: payload.credentials,
                 accessToken: payload.ACCESS_TOKEN
             };
-        case ADD_TO_CART:
+        case CART_ADD_REMOVE:
             return {
                 ...state,
                 credentials: {
                     ...state.credentials,
                     card: payload
                 }
-            }
+            };
+        case WISHLIST_ADD_REMOVE:
+            return {
+                ...state,
+                credentials: {
+                    ...state.credentials,
+                    wishlist: payload
+                }
+            };
         case REFRESH:
             return { ...state, accessToken: payload };
         default:

@@ -7,12 +7,34 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     .left {
         .cover {
-            width: 250px;
+            width: 230px;
             object-fit: contain;
             border-radius: 5px;
+        }
+        .add-to-cart-or-wishlist {
+            @include flexRowCenter;
+            justify-content: space-between;
+            margin-top: 40px;
+            .like-button {
+                &:disabled *{
+                    color: rgb(199, 199, 199);
+                }
+                &>* {
+                    color: #EF7C8E;
+                    &:hover {
+                        color: #DA7080;
+                    }
+                }
+            }
+            span{
+                margin-left: 10px;
+            }
+            .heart {
+                animation: dance 400ms ease-in-out;
+            }
         }
     }
     .right {
@@ -67,8 +89,19 @@
             margin-top: 70px !important;
             .desc {
                 font-size: 0.9rem;
+                color: rgb(107, 107, 107);
                 .more-btn {
+                    font-weight: bold;
                     color: $boss-color;
+                }
+            }
+            .detail {
+                ul {
+                    color: rgb(107, 107, 107);
+                    list-style-type: none;
+                    li {
+                        padding: 5px 0px;
+                    }
                 }
             }
             .reviews {
@@ -92,10 +125,6 @@
                     .submit-review {
                         display: flex;
                         gap: 10px;
-                        .post-btn,
-                        .cancel-btn {
-                            border-radius: 15px;
-                        }
                     }
                 }
                 .reviews-container {
@@ -169,10 +198,13 @@
                     text-align: center;
                     button {
                         font-weight: bold;
-                        color: $boss-color;
+                        color: rgb(84, 84, 84);
                         transition-duration: 200ms;
+                        border-radius: 5px;
+                        padding: 5px 10px;
                         &:hover {
-                            color: #d87181;
+                            background-color: rgb(221, 221, 221);
+                            color: #2c2c2c;
                         }
                     }
                 }
@@ -196,6 +228,14 @@
 @keyframes det {
     to{
         opacity: 1;
+    }
+}
+@keyframes dance {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
     }
 }
 @media screen and (min-width: 600px) {

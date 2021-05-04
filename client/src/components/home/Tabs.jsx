@@ -1,6 +1,9 @@
 
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+//Material UI components
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,19 +11,32 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
-import { useDispatch, useSelector } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+// components
+import Review from './Review';
+import { Rating, CustomizedButton } from '..';
+
+//...
+import PropTypes from 'prop-types';
 import { getReviews, setReview } from '../../redux/actions/reviewActions';
 import { updateCurrentBook } from '../../redux/actions/bookActions';
 import { addBookReview, getReviewsFromDB } from '../../helpers/requests';
-import { Rating } from '..';
-import Review from './Review';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom';
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
+const styles = {
+    post: {
+        backgroundColor: '#8CBBBD',
+        '&:hover': {
+            backgroundColor: '#83ADAF',
+        },
+    },
+    cancel: {
+        display: 'grid',
+        placeContent: 'center',
+    },
+}
+function TabPanel({ children, value, index, ...other }) {
     return (
         <div
             role="tabpanel"
@@ -58,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SimpleTabs({ book: { _id, description, categories, rating, rating_count } }) {
+export default function SimpleTabs({ book: { _id, description, categories, rating, rating_count, release, createdAt, currently_reading, have_read, to_read } }) {
     const dispatch = useDispatch()
     const classes = useStyles();
     const { reviews, user: { credentials, accessToken } } = useSelector(state => state);
@@ -78,13 +94,14 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
         try {
             const { populatedReview, updatedBook: { rating, rating_count } } = await addBookReview(d, accessToken)
             dispatch(setReview(populatedReview))
-            console.log({ rating, rating_count })
             dispatch(updateCurrentBook({ rating, rating_count }))
 
         } catch (err) {
             console.log(err.message)
         }
     }
+    release = new Date(release).getFullYear();
+    createdAt = new Date(createdAt).getFullYear();
     useEffect(() => {
         if (index === 2) {
             getReviewsFromDB(_id).then(reviews => {
@@ -102,15 +119,19 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} className="panel desc">
-                {description.substring(0, readMore ? 1000 : 300)}
-                <button type='button' className="more-btn" onClick={() => setReadMore(!readMore)}>
-                    {
-                        !readMore ?
-                            '...more'
-                            :
-                            '(less)'
-                    }
-                </button>
+                {description.substring(0, readMore ? 1000 : 500)}
+                {
+                    description.length > 500
+                    &&
+                    <button type='button' className="more-btn" onClick={() => setReadMore(!readMore)}>
+                        {
+                            !readMore ?
+                                '...more'
+                                :
+                                '(less)'
+                        }
+                    </button>
+                }
                 <span className="book-genres">
                     {
                         categories?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} />)
@@ -118,8 +139,14 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
                 </span>
             </TabPanel>
             <TabPanel value={value} index={1} className="panel detail">
-                Item Two
-      </TabPanel>
+                <ul>
+                    <li>Published in {release}</li>
+                    <li>Added at {createdAt}</li>
+                    <li>{currently_reading? currently_reading + ' are currently reading' : 'No one is currently reading'}</li>
+                    <li>{have_read? have_read + ' have read it' : 'No one have read yet'}</li>
+                    <li>{to_read? to_read + ' want to read it' : 'No one want to read yet'}</li>
+                </ul>
+            </TabPanel>
             <TabPanel value={value} index={2} className="panel reviews">
                 <Rating porpose="average_read" rating={rating} count={rating_count} />
                 {
@@ -148,11 +175,11 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
                                 </div>
                             </div>
                             <div className="submit-review">
-                                <Button
-                                    className="post-btn"
-                                    variant="outlined"
+                                <CustomizedButton
                                     color="primary"
                                     disabled={!newReview.content}
+                                    disableElevation
+                                    style={styles.post}
                                     onClick={() => {
                                         const data = {
                                             book_id: _id,
@@ -166,14 +193,14 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
                                         addReview(data)
                                     }}>
                                     Post
-                                </Button>
-                                <Button
-                                    className="cancel-btn"
+                                </CustomizedButton>
+                                <CustomizedButton
+                                    style={styles.cancel}
                                     variant="outlined"
                                     disabled={!newReview.content}
                                     onClick={() => setNewReview({ ...newReview, content: '' })}>
                                     Cancel
-                            </Button>
+                            </CustomizedButton>
                             </div>
                         </div>
                         :

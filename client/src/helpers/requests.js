@@ -76,12 +76,29 @@ const updateCart = async (books, token) => {
     try {
         const { data } = await axios({
             method: 'post',
-            url: '/user/book/cart',
+            url: '/user/cart',
             headers: {
                 authorization: token
             },
             data: {
                 cart: books
+            }
+        })
+        return data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+const updateWishlist = async (books, token) => {
+    try {
+        const { data } = await axios({
+            method: 'post',
+            url: '/user/wishlist',
+            headers: {
+                authorization: token
+            },
+            data: {
+                wishlist: books
             }
         })
         return data
@@ -96,5 +113,6 @@ export {
     getBookDetailFromDB,
     upvoteReview,
     addBookReview,
-    updateCart
+    updateCart,
+    updateWishlist
 }

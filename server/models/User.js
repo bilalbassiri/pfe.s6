@@ -26,10 +26,12 @@ const userSchema = new Schema({
             ref: 'books'
         }
     ],
-    wishlist: {
-        type: Array,
-        default: []
-    },
+    wishlist: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'books'
+        }
+    ],
     notifications: {
         type: Array,
         default: []

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MainPage, LogIn, SignUp, Header, BookDetails } from './components';
+import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userLogin, userSetAccessToken } from './redux/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,14 @@ function App() {
           <Route path="/book/:bookId" exact>
             <Header />
             <BookDetails />
+          </Route>
+          <Route path="/readers/:user_id" exact>
+            <Header />
+            <Profile />
+          </Route>
+          <Route path="/me/account" exact>
+            <Header />
+            <Account />
           </Route>
         </Switch>
       </Router>

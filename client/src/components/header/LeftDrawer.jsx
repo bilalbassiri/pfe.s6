@@ -1,5 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+
+//Material UI components
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -10,6 +13,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -21,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LeftDrawer = () => {
+    const history = useHistory();
     const classes = useStyles();
     const [state, setState] = React.useState(false);
     const toggleDrawer = open => event => {
@@ -37,13 +43,15 @@ const LeftDrawer = () => {
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+            <List className="list-1">
+                <ListItem button onClick={() => history.push('/')}>
+                    <ListItemIcon ><HomeOutlinedIcon /></ListItemIcon>
+                    <ListItemText primary="Home" />
+                </ListItem>
+                <ListItem button onClick={() => history.push('/search')}>
+                    <ListItemIcon ><SearchOutlinedIcon /></ListItemIcon>
+                    <ListItemText primary="Search" />
+                </ListItem>
             </List>
             <Divider />
             <List>

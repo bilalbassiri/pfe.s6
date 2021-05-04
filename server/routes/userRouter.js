@@ -7,5 +7,7 @@ router.post('/login', controllers.login);
 router.get('/logout', controllers.logout);
 router.get('/info', auth, controllers.getUser);
 router.get('/refresh_token', controllers.refreshToken);
-router.post('/book/cart', auth, controllers.updateCart)
+router.post('/cart', auth, controllers.updateCart);
+router.post('/wishlist', auth, controllers.updateWishlist);
+
 module.exports = router
