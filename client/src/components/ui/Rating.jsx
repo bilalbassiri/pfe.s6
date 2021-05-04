@@ -31,7 +31,7 @@ export default function HalfRating({ porpose, count, rating, value, onChange }) 
                         :
                         porpose === 'review_read' ?
                             <>
-                                <Rating name="half-rating" defaultValue={rating} precision={0.1} readOnly style={s} className="stars" /> {rating.toFixed(1)}
+                                <Rating name="half-rating" defaultValue={rating} precision={0.1} readOnly style={s} className="stars" /> {rating?.toFixed(1)}
                             </>
                             :
                             porpose === 'average_read' ?

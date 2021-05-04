@@ -69,7 +69,24 @@ const addBookReview = async (data, token) => {
         })
         return res.data
     } catch (err) {
-        console.log(1, err.message)
+        console.log(err.message)
+    }
+}
+const updateCart = async (books, token) => {
+    try {
+        const { data } = await axios({
+            method: 'post',
+            url: '/user/book/cart',
+            headers: {
+                authorization: token
+            },
+            data: {
+                cart: books
+            }
+        })
+        return data
+    } catch (err) {
+        console.log(err.message)
     }
 }
 export {
@@ -78,5 +95,6 @@ export {
     getAccessTokenAndUser,
     getBookDetailFromDB,
     upvoteReview,
-    addBookReview
+    addBookReview,
+    updateCart
 }

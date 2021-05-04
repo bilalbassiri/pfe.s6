@@ -10,7 +10,6 @@ const reviewReducer = (state = { all: null, loading: true }, { type, payload }) 
                 loading: false
             };
         case ADD_NEW_REVIEW:
-            console.log(1)
             return {
                 all: [payload, ...state.all],
                 loading: false

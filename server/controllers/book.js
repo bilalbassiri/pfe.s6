@@ -1,5 +1,4 @@
 const Books = require('../models/Book');
-
 const controllers = {
     getBooks: async (req, res) => {
         try {
@@ -58,6 +57,6 @@ const controllers = {
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
-    }
+    },
 }
 module.exports = controllers;

@@ -5,6 +5,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { Rating } from '..';
 import { Link } from 'react-router-dom';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
     const { credentials, accessToken } = useSelector(state => state.user)
@@ -55,9 +57,14 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
                     }
                 </div>
                 <div className="cheer-sec">
-                    <button type='click' style={{ backgroundColor: voted ? '#EF7C8E' : 'transparent' }} onClick={voteReview}>
-                        👏
-                </button>
+                    <button type='click' onClick={voteReview}>
+                        {
+                            voted ?
+                                <FavoriteIcon className="fav-i"/>
+                                :
+                                <FavoriteBorderIcon className="border-i"/>
+                        }
+                    </button>
                     <span>
                         {currentVotes?.length !== 0 && currentVotes?.length}
                     </span>

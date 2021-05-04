@@ -20,10 +20,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    card: {
-        type: Array,
-        default: []
-    },
+    card: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'books'
+        }
+    ],
     wishlist: {
         type: Array,
         default: []

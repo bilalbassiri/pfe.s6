@@ -11,7 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import FormError from '../ui/FormError';
 import axios from 'axios';
 import { startLoading } from '../../helpers/login.helpers';
-import { CircularProgress, CustomButton} from '..';
+import { CircularProgress, CustomizedButton } from '..';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -24,6 +24,18 @@ const useStyles = makeStyles(() => ({
         width: '19ch',
     }
 }));
+const styles = {
+    signup: {
+        margin: `10px 0px`,
+        backgroundColor: '#EF7C8E',
+        padding: '8px',
+        borderRadius: 20,
+        width: '130px',
+        '&:hover': {
+            backgroundColor: '#DA7080',
+        },
+    }
+}
 const SignUp = () => {
     const classes = useStyles();
     const [values, setValues] = useState({
@@ -127,9 +139,9 @@ const SignUp = () => {
                             </FormControl>
                         </Grid>
                         <Grid container alignItems="center" justify="space-between" style={{ marginTop: '20px' }}>
-                            <CustomButton className={clsx(classes.margin)} style={{ width: 130, borderRadius: '20px' }}>
+                            <CustomizedButton className={clsx(classes.margin)} type="submit" style={styles.signup}>
                                 Sign up
-                        </CustomButton>
+                            </CustomizedButton>
                             <span className="sign-guide">
                                 Already have an account? <Link to="/login">Log in</Link>
                             </span>

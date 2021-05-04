@@ -30,10 +30,6 @@ const bookSchema = new Schema({
         type: Number,
         required: true,
     },
-    old_price: {
-        type: Number,
-        required: true,
-    },
     rating: {
         type: Number,
         default: 0

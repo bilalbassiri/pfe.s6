@@ -14,8 +14,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userLogin, userSetAccessToken } from '../../redux/actions/userActions';
 import axios from 'axios';
 import { getLoginError, startLoading } from '../../helpers/login.helpers';
-import { CircularProgress, CustomButton } from '..';
+import { CircularProgress, CustomizedButton } from '..';
 
+const styles = {
+    login: {
+        backgroundColor: '#EF7C8E',
+        padding: '8px',
+        width: '100%',
+        '&:hover': {
+            backgroundColor: '#DA7080',
+        },
+    }
+}
 const LogIn = () => {
     const user = useSelector(({ user }) => user);
     const dispatch = useDispatch();
@@ -83,8 +93,8 @@ const LogIn = () => {
             <CircularProgress />
             : <form onSubmit={handleSubmit} className="sign-in-page">
                 <Grid className="signing-side">
-                        <h2>Welcome Back!</h2>
-                        <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
+                    <h2>Welcome Back!</h2>
+                    <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
                 </Grid>
                 <Grid container justify="center" alignItems="center" direction="column" className="sign-in-page-form">
                     <Grid style={{ marginBottom: '20px' }}>
@@ -129,9 +139,9 @@ const LogIn = () => {
                         </FormControl>
                     </Grid>
                     <Grid style={{ width: '30ch' }}>
-                        <CustomButton>
+                        <CustomizedButton type="submit" style={styles.login}>
                             Log in
-                </CustomButton>
+                        </CustomizedButton>
                     </Grid>
                     <Grid item className="sign-guide">
                         <p>Not a member? <Link to="/sign-up">Sign up</Link></p>

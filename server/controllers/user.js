@@ -2,6 +2,7 @@ const Users = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+
 const controllers = {
     register: async (req, res) => {
         try {
@@ -61,11 +62,20 @@ const controllers = {
     getUser: async (req, res) => {
         try {
             const { id } = await req.user;
-            const user = await Users.findOne({ _id: id });
+            const user = await Users.findOne({ _id: id }).populate('card');
             if (!user) return res.json({ msg: "User does not exist 😎" });
             return res.status(200).json(user)
         } catch (err) {
             return res.status(500).json({ msg: err.message });
+        }
+    },
+    updateCart: async (req, res) => {
+        try {
+            const { id: user_id } = req.user;
+            const updatedCart = await Users.findByIdAndUpdate(user_id, { card: req.body.cart }, { new: true }).populate('card')
+            return res.json(updatedCart.card)
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
     refreshToken: async (req, res) => {

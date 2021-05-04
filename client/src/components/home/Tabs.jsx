@@ -10,11 +10,13 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import { useDispatch, useSelector } from 'react-redux';
 import { getReviews, setReview } from '../../redux/actions/reviewActions';
+import { updateCurrentBook } from '../../redux/actions/bookActions';
 import { addBookReview, getReviewsFromDB } from '../../helpers/requests';
 import { Rating } from '..';
 import Review from './Review';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -74,8 +76,11 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
     };
     const addReview = async d => {
         try {
-            const review = await addBookReview(d, accessToken)
-            dispatch(setReview(review))
+            const { populatedReview, updatedBook: { rating, rating_count } } = await addBookReview(d, accessToken)
+            dispatch(setReview(populatedReview))
+            console.log({ rating, rating_count })
+            dispatch(updateCurrentBook({ rating, rating_count }))
+
         } catch (err) {
             console.log(err.message)
         }
@@ -117,62 +122,77 @@ export default function SimpleTabs({ book: { _id, description, categories, ratin
       </TabPanel>
             <TabPanel value={value} index={2} className="panel reviews">
                 <Rating porpose="average_read" rating={rating} count={rating_count} />
-                <div className="add-review-section">
-                    <div className="studio">
-
-                        <TextField
-                            id="outlined-multiline-static"
-                            label="Your review"
-                            multiline
-                            value={newReview.content}
-                            variant="outlined"
-                            placeholder="Write your review here"
-                            fullWidth={true}
-                            onChange={e => setNewReview(prev => ({ ...prev, content: prev.content.length > 500 ? e.target.value.substring(0, 500) : e.target.value }))}
-                        />
-                        <div className="rate">
-                            <Rating
-                                name="simple-controlled"
-                                value={newReview?.rating}
-                                onChange={(e, newValue) => {
-                                    setNewReview(prev => ({ ...prev, rating: newValue }));
-                                }} />
-                            <span>
-                                {500 - newReview.content.length}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="submit-review">
-                        <Button
-                            className="post-btn"
-                            variant="outlined"
-                            color="primary"
-                            disabled={!newReview.content}
-                            onClick={() => {
-                                const data = { book_id: _id, owner: credentials._id, content: newReview.content, rating: newReview.rating };
-                                setNewReview({ ...newReview, content: '' })
-                                addReview(data)
-                            }}>
-                            Post
+                {
+                    accessToken ?
+                        <div className="add-review-section">
+                            <div className="studio">
+                                <TextField
+                                    id="outlined-multiline-static"
+                                    label="Your review"
+                                    multiline
+                                    value={newReview.content}
+                                    variant="outlined"
+                                    placeholder="Write your review here"
+                                    fullWidth={true}
+                                    onChange={e => setNewReview(prev => ({ ...prev, content: prev.content.length > 500 ? e.target.value.substring(0, 500) : e.target.value }))}
+                                />
+                                <div className="rate">
+                                    <Rating
+                                        value={newReview?.rating}
+                                        onChange={(e, newValue) => {
+                                            setNewReview(prev => ({ ...prev, rating: newValue ?? 0 }));
+                                        }} />
+                                    <span>
+                                        {500 - newReview.content.length}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="submit-review">
+                                <Button
+                                    className="post-btn"
+                                    variant="outlined"
+                                    color="primary"
+                                    disabled={!newReview.content}
+                                    onClick={() => {
+                                        const data = {
+                                            book_id: _id,
+                                            owner: credentials._id,
+                                            content: newReview.content,
+                                            rating: newReview.rating,
+                                            global_rating: rating,
+                                            rating_count
+                                        };
+                                        setNewReview({ ...newReview, content: '' })
+                                        addReview(data)
+                                    }}>
+                                    Post
+                                </Button>
+                                <Button
+                                    className="cancel-btn"
+                                    variant="outlined"
+                                    disabled={!newReview.content}
+                                    onClick={() => setNewReview({ ...newReview, content: '' })}>
+                                    Cancel
                             </Button>
-                        <Button
-                            className="cancel-btn"
-                            variant="outlined"
-                            disabled={!newReview.content}
-                            onClick={() => setNewReview({ ...newReview, content: '' })}>
-                            Cancel
-                        </Button>
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                        :
+                        <h1>
+                            <Link to='/login'>Sign in</Link> and share your review
+                        </h1>
+                }
 
                 <div className="reviews-container">
                     {
-                        reviews.all?.map((reviewInfo, index) => index < visibleReviews ? <Review info={reviewInfo} key={reviewInfo._id} /> : null)
+                        reviews ?
+                            reviews.all?.map((reviewInfo, index) => index < visibleReviews ? <Review info={reviewInfo} key={reviewInfo._id} /> : null)
+                            :
+                            'loading...'
                     }
                 </div>
                 <div className="show-more-reviews">
                     {
-                        reviews.all?.length > 4
+                        reviews.all?.length > 5
                         &&
                         visibleReviews === 5
                         &&

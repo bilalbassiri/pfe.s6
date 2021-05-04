@@ -1,5 +1,7 @@
 .book-details {
     padding: 20px;
+    opacity: 0;
+    animation: det 500ms ease-in-out forwards;
 }
 .main-section {
     display: flex;
@@ -27,13 +29,15 @@
             }
             &.average_read {
                 @include flexColumnCenter;
+                margin: 20px auto;
                 gap: 5px;
                 width: fit-content;
                 h2 {
                     font-size: 2.2rem;
                 }
                 p {
-                    color: rgb(92, 92, 92);
+                    font-size: .9rem;
+                    color: rgb(126, 126, 126);
                 }
             }
             &.review_read {
@@ -55,16 +59,8 @@
             gap: 50px;
             margin-top: 20px;
             .price {
-                span {
-                    font-size: 1.6rem;
-                    color: $boss-color;
-                }
-                del {
-                    margin-left: 10px;
-                    font-size: 1.1rem;
-                    font-weight: 400;
-                    color: rgb(36, 36, 36);
-                }
+                font-size: 1.6rem;
+                color: $boss-color;
             }
         }
         .tabs {
@@ -84,11 +80,14 @@
                         .rate {
                             display: flex;
                             justify-content: space-between;
-                            padding: 0px 5px;
+                            padding: 3px 0px;
                             .stars {
                                 font-size: 1.2rem;
                             }
                         }
+                    }
+                    textarea{
+                        padding: 0;
                     }
                     .submit-review {
                         display: flex;
@@ -107,7 +106,7 @@
                         .review-bar {
                             display: flex;
                             justify-content: space-between;
-                            margin-bottom: 7PX;
+                            margin-bottom: 7px;
                             .review-writer {
                                 display: flex;
                                 align-items: center;
@@ -116,14 +115,14 @@
                                     height: 30px;
                                     width: 30px;
                                     &.MuiAvatar-colorDefault {
-                                        background-color:#6B5852 !important;
+                                        background-color: #6b5852 !important;
                                     }
                                     &.MuiAvatar-root {
                                         font-size: 1rem !important;
                                     }
                                 }
                                 &-name {
-                                    font-size: .9rem;
+                                    font-size: 0.9rem;
                                     color: rgb(46, 46, 46);
                                     &:hover {
                                         color: rgb(17, 17, 17);
@@ -131,14 +130,25 @@
                                 }
                             }
                             .cheer-sec {
+                                display: flex;
+                                align-items: center;
+                                font-size: 0.8rem;
                                 button {
-                                    width: 20px;
-                                    height: 20px;
-                                    border-radius: 50%;
                                     margin-right: 5px;
-                                    transition-duration: 200ms;
-                                    &:hover {
-                                        background-color: #c7c7c7;
+                                    display: grid;
+                                    place-content: center;
+                                    & > * {
+                                        font-size: 0.9rem;
+                                    }
+                                    .border-i {
+                                        color: rgb(94, 94, 94);
+                                        transition-duration: 200ms;
+                                        &:hover {
+                                            color: rgba(94, 94, 94, 0.837);
+                                        }
+                                    }
+                                    .fav-i {
+                                        color: $boss-color;
                                     }
                                 }
                             }
@@ -148,7 +158,10 @@
                             font-size: 0.9rem;
                         }
                         article {
+                            max-width: 100ch;
+                            display: block;
                             cursor: pointer;
+                            word-wrap: break-word;
                         }
                     }
                 }
@@ -159,7 +172,7 @@
                         color: $boss-color;
                         transition-duration: 200ms;
                         &:hover {
-                           color: #d87181;
+                            color: #d87181;
                         }
                     }
                 }
@@ -178,6 +191,11 @@
                 border-radius: 15px;
             }
         }
+    }
+}
+@keyframes det {
+    to{
+        opacity: 1;
     }
 }
 @media screen and (min-width: 600px) {

@@ -1,7 +1,12 @@
 import types from '../constants/action.types';
-const { LOG_IN, LOG_OUT, REFRESH, SIGN_UP } = types;
+const { LOG_IN,
+    LOG_OUT,
+    REFRESH,
+    SIGN_UP,
+    ADD_TO_CART
+} = types;
 
-const userReducer = (state = {credentials: null, accessToken: null}, { type, payload }) => {
+const userReducer = (state = { credentials: null, accessToken: null }, { type, payload }) => {
     switch (type) {
         case LOG_IN:
             return {
@@ -17,6 +22,14 @@ const userReducer = (state = {credentials: null, accessToken: null}, { type, pay
                 credentials: payload.credentials,
                 accessToken: payload.ACCESS_TOKEN
             };
+        case ADD_TO_CART:
+            return {
+                ...state,
+                credentials: {
+                    ...state.credentials,
+                    card: payload
+                }
+            }
         case REFRESH:
             return { ...state, accessToken: payload };
         default:

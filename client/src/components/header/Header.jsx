@@ -14,24 +14,15 @@ import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined'
 import MoreIcon from '@material-ui/icons/MoreVert';
 import LeftDrawer from './LeftDrawer';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { userLogout } from '../../redux/actions/userActions';
 import Tooltip from '@material-ui/core/Tooltip';
+import { CustomizedButton } from '..';
 
-const StyledBadge = withStyles((theme) => ({
-    badge: {
-        right: -2,
-        top: 0,
-        border: `2px solid ${theme.palette.background.paper}`,
-        padding: '0 4px',
-        backgroundColor: '#EF7C8E'
-    },
-}))(Badge);
-const CustomizedSignUpButton = withStyles((theme) => ({
-    root: {
-        color: theme.palette.getContrastText('#7B8CDE'),
+const styles = {
+    signup: {
+        color: 'white',
         backgroundColor: '#EF7C8E',
         border: '1px solid #EF7C8E',
         fontSize: '.7rem',
@@ -43,9 +34,7 @@ const CustomizedSignUpButton = withStyles((theme) => ({
             color: '#EF7C8E'
         },
     },
-}))(Button);
-const CustomizedLoignButton = withStyles((theme) => ({
-    root: {
+    login: {
         backgroundColor: 'white',
         color: '#333',
         fontSize: '.7rem',
@@ -55,8 +44,17 @@ const CustomizedLoignButton = withStyles((theme) => ({
             color: 'black',
             backgroundColor: 'white'
         },
+    }
+}
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+        right: -2,
+        top: 0,
+        border: `2px solid ${theme.palette.background.paper}`,
+        padding: '0 4px',
+        backgroundColor: '#EF7C8E'
     },
-}))(Button);
+}))(Badge);
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -88,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const authedUser = useSelector(({ user }) => user?.accessToken)
+    const { user: { credentials, accessToken } } = useSelector(state => state)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -144,11 +142,11 @@ const Header = () => {
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails">
-                    <StyledBadge badgeContent={4} color="secondary">
+                    <StyledBadge badgeContent={credentials?.card?.length} color="secondary">
                         <ShoppingCartOutlinedIcon />
                     </StyledBadge>
                 </IconButton>
-                <p> Messages</p>
+                <p> Cart</p>
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications">
@@ -185,14 +183,14 @@ const Header = () => {
                     <LeftDrawer />
                     <Typography className={classes.title} variant="h6" noWrap>
                         Kafka
-          </Typography>
+                    </Typography>
                     <div className={classes.grow} />
                     {
-                        Boolean(authedUser) ?
+                        accessToken ?
                             <div className={classes.sectionDesktop}>
                                 <Tooltip title="Shopping card" arrow>
                                     <IconButton aria-label="show 4 new mails">
-                                        <StyledBadge badgeContent={4} color="secondary">
+                                        <StyledBadge badgeContent={credentials?.card?.length} color="secondary">
                                             <ShoppingCartOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>
@@ -226,14 +224,14 @@ const Header = () => {
                             :
                             <>
                                 <Link to="/login">
-                                    <CustomizedLoignButton variant="contained" color="primary" type="button" disableElevation>
+                                    <CustomizedButton type="button" disableElevation style={styles.login}>
                                         Log in
-                                    </CustomizedLoignButton>
+                                    </CustomizedButton>
                                 </Link>
                                 <Link to="/sign-up">
-                                    <CustomizedSignUpButton variant="contained" color="primary" type="button" disableElevation>
+                                    <CustomizedButton type="button" disableElevation style={styles.signup}>
                                         Sign up
-                                    </CustomizedSignUpButton>
+                                    </CustomizedButton>
                                 </Link>
                             </>
                     }

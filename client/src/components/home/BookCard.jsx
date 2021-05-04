@@ -30,7 +30,7 @@ const BookCard = ({book: { _id, name, cover, price, rating} }) => {
             </div>
             <div className="digits">
                 <div className="rating">
-                    <StarIcon className="icon" /><span>{rating}</span>
+                    <StarIcon className="icon" /><span>{rating.toFixed(1)}</span>
                 </div>
                 <div className="price">
                     {price}$
