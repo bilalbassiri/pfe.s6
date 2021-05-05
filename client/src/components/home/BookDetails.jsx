@@ -96,8 +96,11 @@ const BookDetails = () => {
         !isLoading ?
             <div className="book-details">
                 <section className="main-section">
+
                     <div className="left">
-                        <img src={book.cover} alt={book.name} className="cover" />
+                        <div className="cover-container">
+                            <img src={book.cover} alt={book.name} className="cover" />
+                        </div>
                         <div className="add-to-cart-or-wishlist">
                             <CustomizedButton
                                 type="button"

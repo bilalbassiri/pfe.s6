@@ -2,22 +2,24 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'grid',
-    height: 'calc(100vh - 64px)',
-    width: '100%',
-    placeContent: 'center',
-    '& .MuiCircularProgress-colorSecondary': {
-      color: '#EF7C8E'
-    },
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-  },
-}));
 
-export default function CircularIndeterminate() {
+const CircularIndeterminate = ({porpose}) => {
+  const h = porpose === 'reviews'? '100px' : 'calc(100vh - 64px)';
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'grid',
+      height: h,
+      width: '100%',
+      placeContent: 'center',
+      '& .MuiCircularProgress-colorSecondary': {
+        color: '#EF7C8E'
+      },
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  }));
   const classes = useStyles();
 
   return (
@@ -26,3 +28,4 @@ export default function CircularIndeterminate() {
     </div>
   );
 }
+export default CircularIndeterminate

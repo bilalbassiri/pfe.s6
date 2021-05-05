@@ -3,33 +3,42 @@
     opacity: 0;
     animation: det 500ms ease-in-out forwards;
 }
+
 .main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 40px;
+
     .left {
-        .cover {
+        padding: 40px;
+        .cover-container {
             width: 230px;
-            object-fit: contain;
-            border-radius: 5px;
+            display: grid;
+            place-content: center;
+            .cover {
+                width: 180px;
+                object-fit: contain;
+                border-radius: 5px;
+            }
         }
+
         .add-to-cart-or-wishlist {
             @include flexRowCenter;
             justify-content: space-between;
             margin-top: 40px;
             .like-button {
-                &:disabled *{
+                &:disabled * {
                     color: rgb(199, 199, 199);
                 }
-                &>* {
-                    color: #EF7C8E;
+                & > * {
+                    color: #ef7c8e;
                     &:hover {
-                        color: #DA7080;
+                        color: #da7080;
                     }
                 }
             }
-            span{
+            span {
                 margin-left: 10px;
             }
             .heart {
@@ -58,7 +67,7 @@
                     font-size: 2.2rem;
                 }
                 p {
-                    font-size: .9rem;
+                    font-size: 0.9rem;
                     color: rgb(126, 126, 126);
                 }
             }
@@ -106,7 +115,9 @@
             }
             .reviews {
                 @include flexColumn;
-                justify-content: center;
+                .show-add-review-cont {
+                    text-align: center;
+                }
                 .add-review-section {
                     .studio {
                         flex-grow: 1;
@@ -119,7 +130,7 @@
                             }
                         }
                     }
-                    textarea{
+                    textarea {
                         padding: 0;
                     }
                     .submit-review {
@@ -132,6 +143,8 @@
                     margin-top: 50px;
                     gap: 30px;
                     .review {
+                        opacity: 0;
+                        animation: det 200ms ease-in-out forwards;
                         .review-bar {
                             display: flex;
                             justify-content: space-between;
@@ -200,11 +213,10 @@
                         font-weight: bold;
                         color: rgb(84, 84, 84);
                         transition-duration: 200ms;
-                        border-radius: 5px;
+                        border-radius: 15px;
                         padding: 5px 10px;
                         &:hover {
                             background-color: rgb(221, 221, 221);
-                            color: #2c2c2c;
                         }
                     }
                 }
@@ -226,18 +238,20 @@
     }
 }
 @keyframes det {
-    to{
+    to {
         opacity: 1;
     }
 }
 @keyframes dance {
-    0%, 100% {
+    0%,
+    100% {
         transform: scale(1);
     }
     50% {
         transform: scale(1.2);
     }
 }
+
 @media screen and (min-width: 600px) {
     .book-details {
         padding: 25px;
