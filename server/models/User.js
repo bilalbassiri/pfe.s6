@@ -20,13 +20,13 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    card: [
+    cart: [
         {
             type: Schema.Types.ObjectId,
             ref: 'books'
         }
     ],
-    wishlist: [
+    favoris: [
         {
             type: Schema.Types.ObjectId,
             ref: 'books'

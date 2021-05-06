@@ -14,8 +14,8 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 
 // ...
 import { setCurrentBook } from '../../redux/actions/bookActions';
-import { cartAddRemoveItem, wishlistAddRemoveItem } from '../../redux/actions/userActions';
-import { updateCart, updateWishlist, getBookDetailFromDB } from '../../helpers/requests';
+import { cartAddRemoveItem, favorisAddRemoveItem } from '../../redux/actions/userActions';
+import { updateCart, updateFavoris, getBookDetailFromDB } from '../../helpers/requests';
 
 const styles = {
     cart: {
@@ -27,7 +27,7 @@ const styles = {
             backgroundColor: '#DA7080',
         },
     },
-    wishlist: {
+    favoris: {
         display: 'grid',
         placeContent: 'center',
     },
@@ -39,19 +39,19 @@ const BookDetails = () => {
     const { bookId } = useParams();
     const {
         book: { currentBook: book },
-        user: { credentials, accessToken }
+        user: { cart, favoris, accessToken }
     } = useSelector(state => state);
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState({
         cart: false,
-        wishlist: false
+        favoris: false
     });
     const [isLoading, setIsLoading] = useState(true)
     const alreadyExist = prop => {
-        if (prop === 'cart') return credentials?.card?.map(item => item._id)?.includes(bookId)
-        if (prop === 'wishlist') return credentials?.wishlist?.map(item => item._id)?.includes(bookId)
+        if (prop === 'cart') return cart?.map(item => item._id)?.includes(bookId)
+        if (prop === 'favoris') return favoris?.map(item => item._id)?.includes(bookId)
     }
-    const currentBag = prop => prop === 'cart' ? credentials?.card.map(book => book._id) : credentials?.wishlist.map(book => book._id);
+    const currentBag = prop => prop === 'cart' ? cart?.map(book => book._id) : favoris?.map(book => book._id);
     const booksBag = (prop, books) => alreadyExist(prop) ? books.filter(id => id !== bookId) : [...books, bookId];
 
     const handleAddAndRemove = prop => {
@@ -70,9 +70,9 @@ const BookDetails = () => {
                     })
                 })
             }
-            else if ('wishlist') {
-                updateWishlist(booksBag(prop, currentBag(prop)), accessToken).then(newWishlist => {
-                    dispatch(wishlistAddRemoveItem(newWishlist))
+            else if ('favoris') {
+                updateFavoris(booksBag(prop, currentBag(prop)), accessToken).then(newFavoris => {
+                    dispatch(favorisAddRemoveItem(newFavoris))
                     setDisabled({
                         ...disabled,
                         [prop]: false
@@ -90,7 +90,6 @@ const BookDetails = () => {
             dispatch(setCurrentBook(res));
             setIsLoading(false)
         })()
-        console.log(1)
     }, [dispatch, bookId])
     return (
         !isLoading ?
@@ -101,7 +100,7 @@ const BookDetails = () => {
                         <div className="cover-container">
                             <img src={book.cover} alt={book.name} className="cover" />
                         </div>
-                        <div className="add-to-cart-or-wishlist">
+                        <div className="add-to-cart-or-favoris">
                             <CustomizedButton
                                 type="button"
                                 style={styles.cart}
@@ -111,22 +110,22 @@ const BookDetails = () => {
                                 {
                                     alreadyExist('cart') ?
                                         <>
-                                            <RemoveShoppingCartOutlinedIcon style={styles.icons} /><span>Remove from card</span>
+                                            <RemoveShoppingCartOutlinedIcon style={styles.icons} /><span>Remove from cart</span>
                                         </>
                                         :
                                         <>
-                                            <AddShoppingCartIcon style={styles.icons} /><span>Add to card</span>
+                                            <AddShoppingCartIcon style={styles.icons} /><span>Add to cart</span>
                                         </>
                                 }
                             </CustomizedButton>
                             <button
                                 className="like-button"
                                 type="button"
-                                style={styles.wishlist}
-                                disabled={disabled.wishlist}
-                                onClick={() => handleAddAndRemove('wishlist')}>
+                                style={styles.favoris}
+                                disabled={disabled.favoris}
+                                onClick={() => handleAddAndRemove('favoris')}>
                                 {
-                                    alreadyExist('wishlist') ?
+                                    alreadyExist('favoris') ?
                                         <>
                                             <FavoriteRoundedIcon style={styles.icons} className="heart" />
                                         </>
@@ -143,7 +142,7 @@ const BookDetails = () => {
                         <h3 className="author">by {book.author}</h3>
                         <div className="other">
                             <h3 className="price">
-                                ${book.price ?? '00.00'}
+                                {book.price.toFixed(2) ?? '00.00'}
                             </h3>
                             <Rating porpose="global_read" count={book.rating_count} rating={book.rating} />
                         </div>

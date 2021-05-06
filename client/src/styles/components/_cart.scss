@@ -1,0 +1,70 @@
+.cart-container {
+    width: 100%;
+    @include flexColumnCenter;
+    gap: 10px;
+    .cart-item {
+        width: 85%;
+        @include flexRowCenter;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 10px;
+        & > div {
+            @include flexRowCenter;
+            .cover {
+                display: grid;
+                place-content: center;
+                padding: 10px;
+                img {
+                    width: 90px;
+                    object-fit: contain;
+                    border-radius: 5px;
+                }
+            }
+            .detail {
+                @include flexColumn;
+                gap: 20px;
+                .price {
+                    &::before {
+                        content: "$";
+                        font-size: 1rem;
+                        position: relative;
+                        top: -0.3rem;
+                        margin-right: 5px;
+                    }
+                }
+                .name {
+                    font-size: 1.3rem;
+                }
+            }
+        }
+        .counter {
+            @include flexColumn;
+            gap: 5px;
+            button {
+                @include boxSize(25px, 25px, 50%);
+                display: grid;
+                place-content: center;
+                & > * {
+                    font-size: 1.2rem;
+                }
+                &:first-of-type {
+                    background-color: rgb(209, 209, 209);
+                }
+                &:last-of-type {
+                    background-color: $boss-color;
+                    color: white;
+                }
+            }
+            span {
+                font-weight: bold;
+            }
+        }
+    }
+}
+@media screen and (min-width: 600px) {
+    .cart-container {
+        .cart-item {
+            width: 60%;
+        }
+    }
+}

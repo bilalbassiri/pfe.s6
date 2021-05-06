@@ -84,21 +84,22 @@ const updateCart = async (books, token) => {
                 cart: books
             }
         })
+        console.log(data)
         return data
     } catch (err) {
         console.log(err.message)
     }
 }
-const updateWishlist = async (books, token) => {
+const updateFavoris = async (books, token) => {
     try {
         const { data } = await axios({
             method: 'post',
-            url: '/user/wishlist',
+            url: '/user/favoris',
             headers: {
                 authorization: token
             },
             data: {
-                wishlist: books
+                favoris: books
             }
         })
         return data
@@ -114,5 +115,5 @@ export {
     upvoteReview,
     addBookReview,
     updateCart,
-    updateWishlist
+    updateFavoris
 }

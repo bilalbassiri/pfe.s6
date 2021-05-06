@@ -28,6 +28,7 @@ const bookSchema = new Schema({
     },
     price: {
         type: Number,
+        default: 0,
         required: true,
     },
     rating: {
@@ -58,6 +59,10 @@ const bookSchema = new Schema({
     categories: {
         type: Array,
     },
+    inCart : {
+        type: Number,
+        default: 1,
+    }
 },
     {
         timestamps: true

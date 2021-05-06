@@ -14,3 +14,5 @@ export { default as Books } from './home/Books';
 export { default as Review } from './home/Review';
 export { default as Tabs } from './home/Tabs';
 export { default as AllReviews } from './home/AllReviews';
+export { default as Cart } from './user/Cart';
+export { default as CartItem } from './user/CartItem';

@@ -82,22 +82,22 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
-    
+
 }));
 
 const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { user: { credentials, accessToken } } = useSelector(state => state)
+    const { user: { cart, favoris, notifications, credentials, accessToken } } = useSelector(state => state)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const history = useHistory();
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const count = {
-        cart: credentials?.card?.length,
-        wishlist: credentials?.wishlist?.length,
-        notifications: credentials?.notifications?.length,
+        cart: cart?.length,
+        favoris: favoris?.length,
+        notifications: notifications?.length,
     }
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -127,8 +127,8 @@ const Header = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <Link to={`/readers/${credentials?._id}`} style={{color: 'black'}}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
-            <Link to={`/me/account`}><MenuItem onClick={handleMenuClose}  style={{color: 'black'}}>My account</MenuItem></Link>
+            <Link to={`/readers/${credentials?._id}`} style={{ color: 'black' }}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+            <Link to={`/me/account`}><MenuItem onClick={handleMenuClose} style={{ color: 'black' }}>My account</MenuItem></Link>
             <MenuItem
                 onClick={() => {
                     handleMenuClose()
@@ -149,7 +149,7 @@ const Header = () => {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
+            <MenuItem onClick={() => history.push('/me/cart')}>
                 <IconButton aria-label={`Show ${count.cart} books in the cart`}>
                     <StyledBadge badgeContent={count.cart} color="secondary">
                         <ShoppingCartOutlinedIcon />
@@ -158,12 +158,12 @@ const Header = () => {
                 <p> Cart</p>
             </MenuItem>
             <MenuItem>
-                <IconButton aria-label={`Show ${count.wishlist} books in the wishlist`}>
-                    <StyledBadge badgeContent={count.wishlist} color="secondary">
+                <IconButton aria-label={`Show ${count.favoris} books in the favoris`}>
+                    <StyledBadge badgeContent={count.favoris} color="secondary">
                         <FavoriteBorderOutlinedIcon />
                     </StyledBadge>
                 </IconButton>
-                <p> Wishlist</p>
+                <p> Favoris</p>
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label={`Show ${count.notifications} new notifications`}>
@@ -197,16 +197,16 @@ const Header = () => {
                     {
                         accessToken ?
                             <div className={classes.sectionDesktop}>
-                                <Tooltip title="Shopping card" arrow>
+                                <Tooltip title="Shopping card" arrow onClick={() => history.push('/me/cart')}>
                                     <IconButton aria-label={`Show ${count.cart} books in the cart`}>
                                         <StyledBadge badgeContent={count.cart} color="secondary">
                                             <ShoppingCartOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip title="Wishlist" arrow>
-                                    <IconButton aria-label={`Show ${count.wishlist} books in the wishlist`}>
-                                        <StyledBadge badgeContent={count.wishlist} color="secondary">
+                                <Tooltip title="Favoris" arrow>
+                                    <IconButton aria-label={`Show ${count.favoris} books in the favoris`}>
+                                        <StyledBadge badgeContent={count.favoris} color="secondary">
                                             <FavoriteBorderOutlinedIcon />
                                         </StyledBadge>
                                     </IconButton>

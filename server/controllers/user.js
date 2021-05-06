@@ -62,8 +62,8 @@ const controllers = {
     getUser: async (req, res) => {
         try {
             const { id } = await req.user;
-            const user = await Users.findOne({ _id: id }).populate('card').populate('wishlist');
-            if (!user) return res.json({ msg: "User does not exist 😎" });
+            const user = await Users.findOne({ _id: id }).populate('cart').populate('favoris');
+            if (!user) return res.json(null);
             return res.status(200).json(user)
         } catch (err) {
             return res.status(500).json({ msg: err.message });
@@ -72,17 +72,19 @@ const controllers = {
     updateCart: async (req, res) => {
         try {
             const { id } = req.user;
-            const user = await Users.findByIdAndUpdate(id, { card: req.body.cart }, { new: true }).populate('card')
-            return res.json(user.card)
+            const { cart } = req.body;
+            const user = await Users.findByIdAndUpdate(id, { cart }, { new: true }).populate('cart')
+            return res.json(user.cart)
         } catch (err) {
-            return res.status(500).json({ msg: err.message })
+            return res.status(500).json({ msg: '1' + err.message })
         }
     },
-    updateWishlist: async (req, res) => {
+    updateFavoris: async (req, res) => {
         try {
             const { id } = req.user;
-            const user = await Users.findByIdAndUpdate(id, { wishlist: req.body.wishlist }, { new: true }).populate('wishlist')
-            return res.json(user.wishlist)
+            const { favoris } = req.body;
+            const user = await Users.findByIdAndUpdate(id, { favoris }, { new: true }).populate('favoris')
+            return res.json(user.favoris)
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }

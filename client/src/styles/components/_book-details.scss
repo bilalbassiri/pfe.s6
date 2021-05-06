@@ -23,7 +23,7 @@
             }
         }
 
-        .add-to-cart-or-wishlist {
+        .add-to-cart-or-favoris {
             @include flexRowCenter;
             justify-content: space-between;
             margin-top: 40px;
@@ -92,6 +92,13 @@
             .price {
                 font-size: 1.6rem;
                 color: $boss-color;
+                &::before {
+                    content: "$";
+                    font-size: 1rem;
+                    position: relative;
+                    top: -0.4rem;
+                    margin-right: 5px;
+                }
             }
         }
         .tabs {
@@ -102,6 +109,9 @@
                 .more-btn {
                     font-weight: bold;
                     color: $boss-color;
+                }
+                .MuiChip-label::first-letter {
+                    text-transform: uppercase !important;
                 }
             }
             .detail {

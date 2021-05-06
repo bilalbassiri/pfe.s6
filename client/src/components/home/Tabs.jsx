@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 
@@ -73,7 +72,7 @@ const SimpleTabs = ({
         release,
         createdAt,
         currently_reading,
-        have_read, to_read } }) => {
+        read, to_read } }) => {
 
     const classes = useStyles();
     const [value, setValue] = useState(0);
@@ -120,7 +119,7 @@ const SimpleTabs = ({
                     <li>Published in {release}</li>
                     <li>Added at {createdAt}</li>
                     <li>{currently_reading ? currently_reading + ' are currently reading' : 'No one is currently reading'}</li>
-                    <li>{have_read ? have_read + ' have read it' : 'No one have read yet'}</li>
+                    <li>{read ? read + ' have read it' : 'No one have read yet'}</li>
                     <li>{to_read ? to_read + ' want to read it' : 'No one want to read yet'}</li>
                 </ul>
             </TabPanel>

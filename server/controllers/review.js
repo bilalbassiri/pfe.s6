@@ -5,13 +5,11 @@ const controllers = {
     addReview: async (req, res) => {
         try {
             let { book_id, rating, global_rating, rating_count } = req.body;
-            global_rating += rating
-            global_rating /= ++rating_count;
+            global_rating = (global_rating * rating_count + rating) / (++rating_count);
             const newReview = new Reviews(req.body)
             await newReview.save()
             const populatedReview = await Reviews.findOne({ _id: newReview._id }).populate({ path: 'owner', select: 'name picture' })
             const updatedBook = await Books.findByIdAndUpdate(book_id, { rating: global_rating, rating_count }, { new: true }).select('rating rating_count')
-            console.log(populatedReview)
             return res.json({ populatedReview, updatedBook })
         } catch (err) {
             return res.json({ msg: err.message })

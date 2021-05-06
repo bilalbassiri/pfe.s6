@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account } from './components';
+import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account, Cart } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userLogin, userSetAccessToken } from './redux/actions/userActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setBooks } from './redux/actions/bookActions';
 import { getBooksFromDB, getAccessTokenAndUser } from './helpers/requests';
 
@@ -34,6 +34,10 @@ function App() {
           <Route path="/me/account" exact>
             <Header />
             <Account />
+          </Route>
+          <Route path="/me/cart" exact>
+            <Header />
+            <Cart />
           </Route>
         </Switch>
       </Router>

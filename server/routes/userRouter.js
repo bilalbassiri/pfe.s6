@@ -8,6 +8,6 @@ router.get('/logout', controllers.logout);
 router.get('/info', auth, controllers.getUser);
 router.get('/refresh_token', controllers.refreshToken);
 router.post('/cart', auth, controllers.updateCart);
-router.post('/wishlist', auth, controllers.updateWishlist);
+router.post('/favoris', auth, controllers.updateFavoris);
 
 module.exports = router
