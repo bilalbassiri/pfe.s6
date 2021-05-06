@@ -1,4 +1,6 @@
 const Users = require('../models/User');
+const Orders = require('../models/Order');
+const Books = require('../models/Book');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -85,6 +87,21 @@ const controllers = {
             const { favoris } = req.body;
             const user = await Users.findByIdAndUpdate(id, { favoris }, { new: true }).populate('favoris')
             return res.json(user.favoris)
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
+    },
+    addAnOrder: async (req, res) => {
+        try {
+            const { order } = req.body;
+            const newOrder = await new Orders(order);
+            newOrder.save(async (err, result) => {
+                if (!err) {
+                    const { cart } = await Users.findByIdAndUpdate(order.user._id, { cart: [] }, { new: true })
+                    Array.from(order.books).forEach(async ({ _id, quantity, inCart }) =>  await Books.findByIdAndUpdate(_id, {quantity: quantity - inCart}))
+                    return res.json({ cart, result })
+                }
+            });
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }

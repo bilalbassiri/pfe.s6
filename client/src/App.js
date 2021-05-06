@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account, Cart } from './components';
+import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account, Cart, Favoris} from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userLogin, userSetAccessToken } from './redux/actions/userActions';
 import { useDispatch } from 'react-redux';
@@ -38,6 +38,10 @@ function App() {
           <Route path="/me/cart" exact>
             <Header />
             <Cart />
+          </Route>
+          <Route path="/me/favoris" exact>
+            <Header />
+            <Favoris />
           </Route>
         </Switch>
       </Router>

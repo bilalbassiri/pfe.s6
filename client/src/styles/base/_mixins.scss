@@ -19,3 +19,7 @@
     width: $w;
     border-radius: $r;
 }
+@mixin  DisplayGridCenter {
+    display: grid;
+    place-content: center;
+}

@@ -6,7 +6,7 @@ const Books = () => {
     return (
         <section className="books-container">
             {
-                book?.allbooks?.map(book => <BookCard book={book} key={book._id} />)
+                book?.allbooks?.map(book => book.quantity > 0 && <BookCard book={book} key={book._id} /> )
             }
         </section>
     )

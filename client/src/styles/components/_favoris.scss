@@ -1,0 +1,14 @@
+.favoris {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    .favoris-item {
+        @include flexColumn;
+        .cover {
+            width: 180px;
+            img {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -132,7 +132,7 @@ const Header = () => {
             <MenuItem
                 onClick={() => {
                     handleMenuClose()
-                    axios.get('/user/logout').then(console.log)
+                    axios.get('/user/logout')
                     dispatch(userLogout());
                     history.push('/')
                 }}>Log out</MenuItem>
@@ -157,7 +157,7 @@ const Header = () => {
                 </IconButton>
                 <p> Cart</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => history.push('/me/favoris')}>
                 <IconButton aria-label={`Show ${count.favoris} books in the favoris`}>
                     <StyledBadge badgeContent={count.favoris} color="secondary">
                         <FavoriteBorderOutlinedIcon />
@@ -204,7 +204,7 @@ const Header = () => {
                                         </StyledBadge>
                                     </IconButton>
                                 </Tooltip>
-                                <Tooltip title="Favoris" arrow>
+                                <Tooltip title="Favoris" arrow onClick={() => history.push('/me/favoris')}>
                                     <IconButton aria-label={`Show ${count.favoris} books in the favoris`}>
                                         <StyledBadge badgeContent={count.favoris} color="secondary">
                                             <FavoriteBorderOutlinedIcon />

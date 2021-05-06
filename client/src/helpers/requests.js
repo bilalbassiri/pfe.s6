@@ -84,7 +84,6 @@ const updateCart = async (books, token) => {
                 cart: books
             }
         })
-        console.log(data)
         return data
     } catch (err) {
         console.log(err.message)
@@ -107,6 +106,24 @@ const updateFavoris = async (books, token) => {
         console.log(err.message)
     }
 }
+const makeOrder = async (user, books, total, token) => {
+    try {
+        const order = { user, books, total }
+        const { data } = await axios({
+            method: 'post',
+            url: '/user/order',
+            headers: {
+                authorization: token
+            },
+            data: {
+                order
+            }
+        })
+        return data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 export {
     getReviewsFromDB,
     getBooksFromDB,
@@ -115,5 +132,6 @@ export {
     upvoteReview,
     addBookReview,
     updateCart,
-    updateFavoris
+    updateFavoris,
+    makeOrder
 }

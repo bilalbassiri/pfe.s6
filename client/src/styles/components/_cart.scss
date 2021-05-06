@@ -1,70 +1,126 @@
 .cart-container {
+    opacity: 0;
+    animation: det 200ms ease-in-out forwards;
     width: 100%;
-    @include flexColumnCenter;
-    gap: 10px;
-    .cart-item {
-        width: 85%;
-        @include flexRowCenter;
-        justify-content: space-between;
-        gap: 15px;
-        padding: 10px;
-        & > div {
+
+    .items {
+        @include flexColumnCenter;
+        gap: 10px;
+        padding-bottom: 100px;
+        .cart-item {
             @include flexRowCenter;
-            .cover {
-                display: grid;
-                place-content: center;
-                padding: 10px;
-                img {
-                    width: 90px;
-                    object-fit: contain;
-                    border-radius: 5px;
+            width: 95%;
+            justify-content: space-between;
+            padding: 10px;
+            position: relative;
+            .remove-item {
+                position: absolute;
+                left: -15px;
+                @include boxSize(20px, 20px, 50%);
+                @include DisplayGridCenter;
+                border: 1px solid #9b9b9b;
+                cursor: pointer;
+                opacity: 0;
+                transition-duration: 200ms;
+                & > * {
+                    font-size: 0.9rem;
+                    color: #9b9b9b;
                 }
             }
-            .detail {
-                @include flexColumn;
-                gap: 20px;
-                .price {
-                    &::before {
-                        content: "$";
-                        font-size: 1rem;
-                        position: relative;
-                        top: -0.3rem;
-                        margin-right: 5px;
+            &:hover .remove-item {
+                opacity: 1;
+            }
+            & > div {
+                @include flexRowCenter;
+                .cover {
+                    display: grid;
+                    place-content: center;
+                    margin-right: 15px;
+                    img {
+                        width: 70px;
+                        object-fit: contain;
+                        border-radius: 5px;
                     }
                 }
-                .name {
-                    font-size: 1.3rem;
+                .detail {
+                    @include flexColumn;
+                    gap: 10px;
+                    cursor: pointer;
+                    .price {
+                        font-size: 1.3rem;
+                        color: $boss-color;
+                        &::before {
+                            content: "$";
+                            font-size: 0.9rem;
+                            position: relative;
+                            top: -0.2rem;
+                            margin-right: 5px;
+                        }
+                    }
+                    .name {
+                        font-size: 1.3rem;
+                    }
+                    .author {
+                        color: rgb(174, 174, 174);
+                        font-weight: 400;
+                        font-size: 1rem;
+                    }
+                }
+            }
+            .counter {
+                @include flexRowCenter;
+                gap: 6px;
+                button {
+                    @include boxSize(25px, 25px, 50%);
+                    display: grid;
+                    place-content: center;
+                    & > * {
+                        font-size: 1.1rem;
+                    }
+                    &:first-of-type {
+                        background-color: rgb(209, 209, 209);
+                    }
+                    &:last-of-type {
+                        background-color: $boss-color;
+                        color: white;
+                        &:disabled {
+                            opacity: 0.7;
+                        }
+                    }
+                    transition-duration: 200ms;
+                    &:disabled:hover {
+                        transform: none;
+                    }
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+                span {
+                    font-weight: bold;
                 }
             }
         }
-        .counter {
-            @include flexColumn;
-            gap: 5px;
-            button {
-                @include boxSize(25px, 25px, 50%);
-                display: grid;
-                place-content: center;
-                & > * {
-                    font-size: 1.2rem;
+        .check-out-btn {
+            background-color: rgb(255, 255, 255);
+            padding-bottom: 20px;
+            position: fixed;
+            bottom: 0;
+            h3 {
+                font-size: 1.5rem;
+                span {
+                    color: rgb(174, 174, 174);
+                    font-size: 0.9rem;
                 }
-                &:first-of-type {
-                    background-color: rgb(209, 209, 209);
-                }
-                &:last-of-type {
-                    background-color: $boss-color;
-                    color: white;
-                }
-            }
-            span {
-                font-weight: bold;
             }
         }
     }
 }
 @media screen and (min-width: 600px) {
     .cart-container {
-        .cart-item {
-            width: 60%;
+        .items {
+            .cart-item {
+                width: 70%;
+            }
         }
     }
 }

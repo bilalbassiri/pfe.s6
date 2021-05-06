@@ -19,7 +19,6 @@
             .cover {
                 width: 180px;
                 object-fit: contain;
-                border-radius: 5px;
             }
         }
 
@@ -245,20 +244,6 @@
                 border-radius: 15px;
             }
         }
-    }
-}
-@keyframes det {
-    to {
-        opacity: 1;
-    }
-}
-@keyframes dance {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
     }
 }
 

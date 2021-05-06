@@ -85,11 +85,15 @@ const BookDetails = () => {
     }
 
     useEffect(() => {
+        let isMounted = true;
         (async () => {
             const res = await getBookDetailFromDB(bookId);
             dispatch(setCurrentBook(res));
-            setIsLoading(false)
+            if (isMounted) setIsLoading(false)
         })()
+        return () => {
+            isMounted = false;
+        }
     }, [dispatch, bookId])
     return (
         !isLoading ?

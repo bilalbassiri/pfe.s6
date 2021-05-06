@@ -84,7 +84,6 @@ const userReducer = (state = initialState, { type, payload }) => {
                 cart: dec_cart
             }
         case QUANTITY_INCREMENT:
-            console.log(state.cart)
             const inc_cart = state.cart.map(item => {
                 if (item._id === payload._id) {
                     item = { ...item, inCart: item.inCart + 1 }
