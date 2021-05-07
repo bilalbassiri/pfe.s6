@@ -1,12 +1,15 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import StarIcon from '@material-ui/icons/Star';
 
-const FavorisItem = ({ item: { _id, cover, name, price, author, inCart, quantity } }) => {
+const FavorisItem = ({ item: { _id, cover, name, price, rating, author, inCart, quantity } }) => {
     const history = useHistory();
-    console.log('ed')
     return (
         <div className="favoris-item" onClick={() => history.push(`/book/${_id}`)}>
             <div className="cover">
+                <div className='rating'>
+                    <StarIcon className="star"/><span>{rating.toFixed(1)}</span>
+                </div>
                 <img src={cover} alt={name} />
             </div>
             <h2 className="name">

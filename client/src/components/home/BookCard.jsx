@@ -37,7 +37,7 @@ const BookCard = ({book: { _id, name, cover, price, rating} }) => {
                 </div>
 
             </div>
-            <h2 className="title"><Link to={`/book/${_id}`}>{name.substring(0,45)}...</Link></h2>
+            <h2 className="title"><Link to={`/book/${_id}`}>{name}</Link></h2>
         </div>
     )
 }

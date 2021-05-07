@@ -5,9 +5,14 @@ const Favoris = () => {
     const { favoris } = useSelector(state => state.user)
     return (
         <div className="favoris">
-            {
-                favoris.map(item => <FavorisItem key={item._d} item={item} />)
-            }
+            <h1>
+                Favoris
+            </h1>
+            <div className="container">
+                {
+                    favoris.map((item, index) => <FavorisItem key={item._id} item={item} index={index}/>)
+                }
+            </div>
         </div>
     )
 }

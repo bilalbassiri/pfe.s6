@@ -16,14 +16,15 @@
             .remove-item {
                 position: absolute;
                 left: -15px;
-                @include boxSize(20px, 20px, 50%);
                 @include DisplayGridCenter;
                 border: 1px solid #9b9b9b;
+                border-radius: 50%;
+                padding: 2px;
                 cursor: pointer;
                 opacity: 0;
                 transition-duration: 200ms;
                 & > * {
-                    font-size: 0.9rem;
+                    font-size: 0.8rem;
                     color: #9b9b9b;
                 }
             }
@@ -105,12 +106,18 @@
             padding-bottom: 20px;
             position: fixed;
             bottom: 0;
+            .MuiSvgIcon-root {
+                font-size: 1.2rem !important;
+            }
             h3 {
                 font-size: 1.5rem;
                 span {
                     color: rgb(174, 174, 174);
                     font-size: 0.9rem;
                 }
+            }
+            .btn-cont{
+                gap: 15px;
             }
         }
     }

@@ -114,11 +114,11 @@ const BookDetails = () => {
                                 {
                                     alreadyExist('cart') ?
                                         <>
-                                            <RemoveShoppingCartOutlinedIcon style={styles.icons} /><span>Remove from cart</span>
+                                            <RemoveShoppingCartOutlinedIcon style={styles.icons} /><span className="spn">Remove from cart</span>
                                         </>
                                         :
                                         <>
-                                            <AddShoppingCartIcon style={styles.icons} /><span>Add to cart</span>
+                                            <AddShoppingCartIcon style={styles.icons} /><span className="spn">Add to cart</span>
                                         </>
                                 }
                             </CustomizedButton>
@@ -129,14 +129,17 @@ const BookDetails = () => {
                                 disabled={disabled.favoris}
                                 onClick={() => handleAddAndRemove('favoris')}>
                                 {
-                                    alreadyExist('favoris') ?
-                                        <>
-                                            <FavoriteRoundedIcon style={styles.icons} className="heart" />
-                                        </>
+                                    !disabled.favoris ?
+                                        alreadyExist('favoris') ?
+                                            <>
+                                                <FavoriteRoundedIcon style={styles.icons} className="heart" />
+                                            </>
+                                            :
+                                            <>
+                                                <FavoriteBorderRoundedIcon style={styles.icons} className="heart" />
+                                            </>
                                         :
-                                        <>
-                                            <FavoriteBorderRoundedIcon style={styles.icons} />
-                                        </>
+                                        <CircularProgress porpose="favoris" size={{ width: 15, height: 15 }} />
                                 }
                             </button>
                         </div>

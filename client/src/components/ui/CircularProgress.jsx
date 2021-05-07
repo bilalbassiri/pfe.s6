@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-const CircularIndeterminate = ({porpose}) => {
-  const h = porpose === 'reviews'? '100px' : 'calc(100vh - 64px)';
+const CircularIndeterminate = ({ porpose, size }) => {
+  const h = porpose === 'reviews' ? '100px' : porpose === 'favoris' ? '15px' : 'calc(100vh - 64px)';
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +24,7 @@ const CircularIndeterminate = ({porpose}) => {
 
   return (
     <div className={classes.root}>
-      <CircularProgress color="secondary" style={{ width: 30, height: 30 }} />
+      <CircularProgress color="secondary" style={size ?? { width: 30, height: 30 }} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CartItem, CustomizedButton } from '..';
 import NearMeOutlinedIcon from '@material-ui/icons/NearMeOutlined';
 import { useDispatch } from 'react-redux';
-import { makeOrder } from '../../helpers/requests';
+import { makeOrder, updateCart } from '../../helpers/requests';
 import { cartAddRemoveItem } from '../../redux/actions/userActions';
 import RecievedOrder from './RecievedOrder';
 
@@ -17,10 +17,8 @@ const styles = {
         },
         '& .arrow': {
             marginLeft: 10,
-            fontSize: '1.2rem'
         }
-
-    }
+    },
 }
 const Cart = () => {
     const dispatch = useDispatch();
@@ -51,7 +49,7 @@ const Cart = () => {
                         }
                         <div className="check-out-btn cart-item">
                             <h3><span>Total </span>${getTotal()}</h3>
-                            <>
+                            <div className="btn-cont">
                                 <CustomizedButton
                                     style={styles.checkOut}
                                     type="button"
@@ -68,10 +66,10 @@ const Cart = () => {
                                             })
                                         }
                                     }>
-                                    Clear all
+                                    Check out
                                         <NearMeOutlinedIcon className="arrow" />
                                 </CustomizedButton>
-                            </>
+                            </div>
                         </div>
                     </div>
 
