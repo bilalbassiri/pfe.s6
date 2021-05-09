@@ -1,0 +1,13 @@
+.show-more-reviews {
+    text-align: center;
+    button {
+        font-weight: bold;
+        color: rgb(84, 84, 84);
+        transition-duration: 200ms;
+        border-radius: 15px;
+        padding: 5px 10px;
+        &:hover {
+            background-color: rgb(221, 221, 221);
+        }
+    }
+}

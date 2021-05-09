@@ -15,9 +15,7 @@ const CircularIndeterminate = ({ porpose, size }) => {
       '& .MuiCircularProgress-colorSecondary': {
         color: '#EF7C8E'
       },
-      '& > * + *': {
-        marginLeft: theme.spacing(2),
-      },
+
     },
   }));
   const classes = useStyles();

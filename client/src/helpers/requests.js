@@ -42,6 +42,20 @@ const getAccessTokenAndUser = async () => {
         console.log(err.message)
     }
 }
+const getUserProfile = async _id => {
+    try {
+        const { data } = await axios({
+            method: 'post',
+            url: '/user/profile',
+            data: {
+                _id
+            }
+        })
+        return data
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 const upvoteReview = async (_id, currentVotes) => {
     try {
         const { data } = await axios({
@@ -124,6 +138,24 @@ const makeOrder = async (user, books, total, token) => {
         console.log(err.message)
     }
 }
+const uploadImage = async (blobDataURL, token) => {
+    try {
+        const { data } = await axios({
+            method: 'post',
+            url: '/api/upload',
+            data: {
+                blobDataURL
+            },
+            headers: {
+                authorization: token,
+            }
+        })
+        return data.url;
+    } catch (err) {
+        console.log(err.message)
+    }
+}
+
 export {
     getReviewsFromDB,
     getBooksFromDB,
@@ -133,5 +165,7 @@ export {
     addBookReview,
     updateCart,
     updateFavoris,
-    makeOrder
+    makeOrder,
+    getUserProfile,
+    uploadImage
 }

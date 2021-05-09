@@ -6,7 +6,8 @@ const { LOG_IN,
     CART_ADD_REMOVE,
     FAVORIS_ADD_REMOVE,
     QUANTITY_DECREMENT,
-    QUANTITY_INCREMENT
+    QUANTITY_INCREMENT,
+    CHANGE_AVATAR
 } = types;
 
 const initialState = {
@@ -93,7 +94,15 @@ const userReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 cart: inc_cart
-            }
+            };
+        case CHANGE_AVATAR:
+            return {
+                ...state,
+                credentials: {
+                    ...state.credentials,
+                    picture: payload
+                }
+            };
         case REFRESH:
             return { ...state, accessToken: payload };
         default:

@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { makeOrder, updateCart } from '../../helpers/requests';
 import { cartAddRemoveItem } from '../../redux/actions/userActions';
 import RecievedOrder from './RecievedOrder';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
+import Fab from '@material-ui/core/Fab';
 
 const styles = {
     checkOut: {
@@ -17,8 +19,18 @@ const styles = {
         },
         '& .arrow': {
             marginLeft: 10,
+            fontSize: '1.2rem'
         }
     },
+    clearAll: {
+        borderRadius: '50%',
+        backgroundColor: 'white',
+        height: 45,
+        width: 45,
+        boxShadow: 'none',
+        border: '1px solid #EF7C8E',
+        color: '#EF7C8E'
+    }
 }
 const Cart = () => {
     const dispatch = useDispatch();
@@ -50,6 +62,19 @@ const Cart = () => {
                         <div className="check-out-btn cart-item">
                             <h3><span>Total </span>${getTotal()}</h3>
                             <div className="btn-cont">
+                                <Fab
+                                    style={styles.clearAll}
+                                    type="button"
+                                    color="secondary"
+                                    disabled={orderState.sending}
+                                    onClick={
+                                        () => {
+                                            dispatch(cartAddRemoveItem([]))
+                                            updateCart([], accessToken)
+                                        }
+                                    }>
+                                    <ClearAllIcon className="arrow" />
+                                </Fab >
                                 <CustomizedButton
                                     style={styles.checkOut}
                                     type="button"

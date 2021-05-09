@@ -1,6 +1,7 @@
 const Users = require('../models/User');
 const Orders = require('../models/Order');
 const Books = require('../models/Book');
+const Reviews = require('../models/Review');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -98,7 +99,7 @@ const controllers = {
             newOrder.save(async (err, result) => {
                 if (!err) {
                     const { cart } = await Users.findByIdAndUpdate(order.user._id, { cart: [] }, { new: true })
-                    Array.from(order.books).forEach(async ({ _id, quantity, inCart }) =>  await Books.findByIdAndUpdate(_id, {quantity: quantity - inCart}))
+                    Array.from(order.books).forEach(async ({ _id, quantity, inCart }) => await Books.findByIdAndUpdate(_id, { quantity: quantity - inCart }))
                     return res.json({ cart, result })
                 }
             });
@@ -117,6 +118,28 @@ const controllers = {
             })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
+        }
+    },
+    getPublicInfo: async (req, res) => {
+        try {
+            const { _id } = await req.body;
+            const info = await Users.findOne({ _id }).select('-password -email -cart -favoris -notifications');
+            const reviews = await Reviews.find({ owner: _id }).populate('book_id');
+            if (!info) return res.json(null);
+            return res.status(200).json({ info, reviews });
+        } catch (err) {
+            return res.status(500).json({ msg: err.message });
+        }
+    },
+    uploadImage: async (req, res) => {
+        try {
+            const { _id } = await req.body;
+            const info = await Users.findOne({ _id }).select('-password -email -cart -favoris -notifications');
+            const reviews = await Reviews.find({ owner: _id }).populate('book_id');
+            if (!info) return res.json(null);
+            return res.status(200).json({ info, reviews });
+        } catch (err) {
+            return res.status(500).json({ msg: err.message });
         }
     },
 };

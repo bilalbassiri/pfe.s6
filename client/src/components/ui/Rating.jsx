@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function HalfRating({ porpose, count, rating, value, onChange }) {
+export default function HalfRating({ porpose, count, rating, value, onChange, notext }) {
     const classes = useStyles();
     const s = {
         color: '#8CBBBD'
@@ -31,7 +31,7 @@ export default function HalfRating({ porpose, count, rating, value, onChange }) 
                         :
                         porpose === 'review_read' ?
                             <>
-                                <Rating name="half-rating" defaultValue={rating} precision={0.1} readOnly style={s} className="stars" /> {rating?.toFixed(1)}
+                                <Rating name="half-rating" defaultValue={rating} precision={0.1} readOnly style={s} className="stars" /> { notext && rating?.toFixed(1)}
                             </>
                             :
                             porpose === 'average_read' ?

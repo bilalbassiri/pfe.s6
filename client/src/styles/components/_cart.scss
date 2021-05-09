@@ -62,7 +62,7 @@
                         font-size: 1.3rem;
                     }
                     .author {
-                        color: rgb(174, 174, 174);
+                        color: $author-color;
                         font-weight: 400;
                         font-size: 1rem;
                     }
@@ -70,7 +70,7 @@
             }
             .counter {
                 @include flexRowCenter;
-                gap: 6px;
+                gap: 8px;
                 button {
                     @include boxSize(25px, 25px, 50%);
                     display: grid;
@@ -93,7 +93,7 @@
                         transform: none;
                     }
                     &:hover {
-                        transform: scale(1.1);
+                        transform: scale(1.06);
                     }
                 }
                 span {

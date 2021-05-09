@@ -15,6 +15,10 @@ a {
 img {
     border-radius: 15px;
 }
+
+body {
+    color: $color-main-text;
+}
 button {
     background: none;
     border: none;
@@ -28,7 +32,7 @@ button {
     padding: 0px !important;
 }
 .MuiOutlinedInput-input {
-    padding: 11.5px 14px !important;
+    padding: 13px 14px !important;
 }
 .MuiInputLabel-outlined {
     transform: translate(14px, 14px) scale(1) !important;

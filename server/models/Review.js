@@ -1,9 +1,8 @@
 const { Schema, model } = require('mongoose');
 const reviewSchema = new Schema({
     book_id: {
-        type: String,
-        required: true,
-        trim: true
+        type: Schema.Types.ObjectId,
+        ref: 'books'
     },
     owner: {
         type: Schema.Types.ObjectId,

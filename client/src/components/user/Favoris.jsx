@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { FavorisItem } from '..';
+import { BookCard } from '..';
+
 const Favoris = () => {
     const { favoris } = useSelector(state => state.user)
     return (
@@ -10,7 +11,7 @@ const Favoris = () => {
             </h1>
             <div className="container">
                 {
-                    favoris.map((item, index) => <FavorisItem key={item._id} item={item} index={index}/>)
+                    favoris.map(item => <BookCard key={item._id} item={item}/>)
                 }
             </div>
         </div>

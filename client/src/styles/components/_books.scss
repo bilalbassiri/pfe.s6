@@ -1,71 +1,11 @@
 .books-container {
     display: flex;
-    gap: 20px;
+    gap: 8px;
     flex-wrap: nowrap;
     overflow-x: scroll;
     scroll-behavior: smooth;
     margin: 20px;
-    &::-webkit-scrollbar {
-        display: none;
-      }
-    .book-card-container {
-        width: 170px;
-        display: flex;
-        flex-direction: column;
-        .cover {
-            border-radius: 15px;
-            overflow: hidden;
-            .options-container {
-                width: 0%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.686);
-                opacity: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                gap: 10px;
-                transition-duration: 300ms;
-                button {
-                    color: #B6E2D3;
-                    &:hover {
-                        color: #a3d0c1;
-                    }
-                }
-            }
-            &:hover .options-container {
-                opacity: 1;
-                width: 50%;
-            }
-        }
-        gap: 10px;
-        .digits {
-            display: flex;
-            justify-content: space-between;
-            .rating {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                .icon {
-                    font-size: 1rem;
-                    color: #ffb400;
-                }
-            }
-            .price {
-                font-weight: bold;
-            }
-        }
-        h2 {
-            font-size: 0.9rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            &>* {
-               color: black;
-               &:hover {
-                   text-decoration: underline !important;
-               }
-            }
-        }
-    }
+    //     &::-webkit-scrollbar {
+    // display: none;
+    // }
 }

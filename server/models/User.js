@@ -45,6 +45,10 @@ const userSchema = new Schema({
     to_read: {
         type: Array
     },
+    bio: {
+        type: String,
+        default: 'asds'
+    },
     role: {
         type: Number,
         default: 0

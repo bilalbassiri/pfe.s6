@@ -47,7 +47,7 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
                             <>
                                 <Avatar className="review-writer-pic" src={owner.picture ?? ''}>{owner.name[0]}</Avatar>
                                 <Link to={`/readers/${owner._id}`} className="review-writer-name"><h4>{owner.name}</h4></Link>
-                                <Rating porpose="review_read" rating={rating} />
+                                <Rating porpose="review_read" rating={rating} notext={true}/>
                             </>
                             :
                             <>
@@ -60,9 +60,9 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
                     <button type='click' onClick={voteReview}>
                         {
                             voted ?
-                                <FavoriteIcon className="fav-i"/>
+                                <FavoriteIcon className="fav-i" />
                                 :
-                                <FavoriteBorderIcon className="border-i"/>
+                                <FavoriteBorderIcon className="border-i" />
                         }
                     </button>
                     <span>

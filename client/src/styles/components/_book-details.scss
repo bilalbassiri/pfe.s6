@@ -48,6 +48,7 @@
             align-items: center;
             &.global_read {
                 font-size: 0.8rem;
+                font-weight: 600;
                 gap: 5px;
                 .stars {
                     font-size: 1rem;
@@ -75,7 +76,7 @@
             }
         }
         .author {
-            color: rgb(112, 112, 112);
+            color: $author-color;
             font-weight: 400;
             font-size: 1rem;
         }
@@ -209,19 +210,6 @@
                             display: block;
                             cursor: pointer;
                             word-wrap: break-word;
-                        }
-                    }
-                }
-                .show-more-reviews {
-                    text-align: center;
-                    button {
-                        font-weight: bold;
-                        color: rgb(84, 84, 84);
-                        transition-duration: 200ms;
-                        border-radius: 15px;
-                        padding: 5px 10px;
-                        &:hover {
-                            background-color: rgb(221, 221, 221);
                         }
                     }
                 }

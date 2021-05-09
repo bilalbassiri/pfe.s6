@@ -26,8 +26,9 @@ const styles = {
         color: 'white',
         backgroundColor: '#EF7C8E',
         border: '1px solid #EF7C8E',
-        fontSize: '.7rem',
-        marginLeft: 5,
+        fontSize: '.75rem',
+        fontWeight: 'bold',
+        marginLeft: 3,
         width: '12ch',
         padding: '5px',
         '&:hover': {
@@ -38,7 +39,8 @@ const styles = {
     login: {
         backgroundColor: 'white',
         color: '#333',
-        fontSize: '.7rem',
+        fontSize: '.75rem',
+        fontWeight: 'bold',
         padding: '5px',
         width: '12ch',
         '&:hover': {
@@ -181,7 +183,7 @@ const Header = () => {
                 >
                     <AccountCircleOutlinedIcon />
                 </IconButton>
-                <p>Profile</p>
+                <p>Me</p>
             </MenuItem>
         </Menu>
     );

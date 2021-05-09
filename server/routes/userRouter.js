@@ -10,4 +10,6 @@ router.get('/refresh_token', controllers.refreshToken);
 router.post('/cart', auth, controllers.updateCart);
 router.post('/favoris', auth, controllers.updateFavoris);
 router.post('/order', auth, controllers.addAnOrder);
+router.post('/profile', controllers.getPublicInfo);
+
 module.exports = router
