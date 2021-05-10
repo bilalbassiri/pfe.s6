@@ -1,126 +1,237 @@
 .profile {
+    margin-top: 20px;
     .general-section,
     .detail-section,
     .pages {
-        border-radius: 15px;
-        padding: 20px;
+        padding: 15px;
     }
+    .headings {
+        font-size: 1rem;
+        padding-bottom: 10px;
+        span {
+            font-size: 0.8rem;
+        }
+        .edit-btn-save {
+            background-color: $boss-color;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 5px;
+            border-radius: 3px;
+            float: right;
+        }
+    }
+
     .general-section {
         .personal-info {
             @include flexColumn;
             align-items: center;
-            gap: 10px;
             .photo {
                 position: relative;
-                border-radius: 50%;
-                overflow: hidden;
                 .avatar,
-                .change-photo,
-                .loading-image{
+                .loading-image {
                     width: 120px;
                     height: 120px;
                 }
                 .loading-image,
                 .change-photo {
                     position: absolute;
+                    border-radius: 50%;
                 }
                 .loading-image {
                     background-color: rgba(0, 0, 0, 0.309);
-                    display: grid;
-                    place-content: center;
+                    @include DisplayGridCenter;
                     top: 0;
                     z-index: 1;
-                    circle{
-                        stroke-width: 1.1 !important;
+                    circle {
+                        stroke-width: 2.5 !important;
                     }
                 }
                 .change-photo {
-                    top: 0;
-                    background: linear-gradient(0deg, rgb(80, 80, 80) 50%, transparent 50%);
-                    opacity: 0;
-                    transition-duration: 200ms;
+                    right: -10px;
+                    top: 60%;
                     .select-input {
                         display: none;
                     }
                     label {
-                        cursor: pointer;
                         display: block;
-                        height: 60px;
-                        text-align: center;
-                        line-height: 60px;
-                        width: 120px;
-                        transform: translateY(100%);
-                        .icon {
-                            color: white;
+                        cursor: pointer;
+                        box-shadow: 0px 0px 0px 3px white;
+                        background-color: rgb(232, 232, 232);
+                        @include boxSize(30px, 30px, 50%);
+                        @include DisplayGridCenter;
+                        transition-duration: 200ms;
+                        &:hover {
+                            background-color: white;
                         }
-                    }
-                    &:hover {
-                        opacity: 1;
+                        .icon {
+                            color: $content-color;
+                            font-size: 1rem;
+                        }
                     }
                 }
             }
             .name {
+                margin-top: 20px;
                 font-size: 1.4rem;
                 font-weight: 800;
             }
-            .points {
+            .highlight {
+                text-align: center;
+                p {
+                    margin-bottom: 10px;
+                    font-size: .9rem;
+                    font-weight: 600;
+                }
                 .icon {
-                    color: #e8be2e;
+                    font-size: 1.2rem;
+                    padding-left: 5px;
                 }
             }
         }
     }
     .detail-section {
-        .reviews-cont {
-            @include flexColumn;
-            .review {
-                @include flexRowCenter;
-                justify-content: space-between;
-                cursor: pointer;
-                display: flex;
-                padding: 5px;
-                transition-duration: 200ms;
-                border-radius: 15px;
-                &:hover {
-                    box-shadow: 2px 2px 10px -4px rgb(151, 151, 151);
-                    background-color: rgb(255, 255, 255);
+        @include flexColumn;
+        gap: 40px;
+        .bio {
+            .edit-bio {
+                width: 100%;
+                resize: none;
+                .MuiOutlinedInput-multiline {
+                    padding: 0px !important;
                 }
-                .left {
+            }
+            p {
+                color: $content-color;
+                font-size: 0.9rem;
+            }
+        }
+        ._reviews {
+            margin-bottom: 30px;
+            .reviews-cont {
+                @include flexColumn;
+                .review {
+                    @include flexRowCenter;
+                    justify-content: space-between;
+                    cursor: pointer;
                     display: flex;
-                    gap: 10px;
-                    .cover {
-                        @include flexRowCenter;
-                        justify-content: center;
-                        img {
-                            padding: 10px;
-                            width: 60px;
-                            height: 80px;
-                        }
+                    transition-duration: 200ms;
+                    border-radius: 15px;
+                    &:hover {
+                        box-shadow: 2px 2px 10px -4px rgb(151, 151, 151);
+                        background-color: rgb(255, 255, 255);
                     }
-                    .text {
-                        .name {
-                            font-size: 1rem;
+                    .left {
+                        @include flexRowCenter;
+                        gap: 10px;
+                        .cover {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img {
+                                padding: 10px;
+                                width: 60px;
+                                height: 80px;
+                            }
                         }
-                        .content {
-                            color: $content-color;
-                        }
-                        .rating {
-                            .stars {
+                        .text {
+                            .name {
                                 font-size: 0.9rem;
+                                font-weight: 600;
+                                &::first-letter {
+                                    text-transform: uppercase;
+                                }
+                            }
+                            .content {
+                                font-size: 0.9rem;
+                                color: $content-color;
+                            }
+                            .rating {
+                                .stars {
+                                    font-size: 0.8rem;
+                                }
                             }
                         }
                     }
-                }
-                .right {
-                    padding: 0px 10px;
-                    & > * {
-                        font-size: 0.9rem;
-                        color: $secondary-color;
+                    .right {
+                        padding: 0px 15px;
+                        & > * {
+                            font-size: 1.3rem;
+                            color: $boss-color;
+                        }
                     }
                 }
+                .show-more-reviews.pro {
+                    margin-top: 15px;
+                }
             }
-            .show-more-reviews.pro {
-                margin-top: 15px;
+        }
+    }
+    .pages {
+        .reads {
+            width: 100%;
+            @include flexColumn;
+            gap: 10px;
+            .accordion-headings {
+                font-weight: bold;
+                span {
+                    font-size: 0.8rem;
+                }
+            }
+            .arrow {
+                color: $boss-color;
+                font-size: 1.3rem;
+            }
+            .MuiPaper-elevation1 {
+                border-radius: 15px;
+                border: 1px solid rgb(232, 232, 232);
+                box-shadow: none !important;
+            }
+            .MuiAccordion-root:before {
+                display: none !important;
+            }
+            .books-cont {
+                @include flexColumn;
+                gap: 5px;
+                .no-books {
+                    text-align: center;
+                    color: $content-color;
+                    font-size: 0.75rem;
+                }
+                .piece {
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: space-between;
+                    &:hover .name {
+                        text-decoration: underline;
+                    }
+                    .name {
+                        width: 60%;
+                        font-weight: 400;
+                        font-size: 0.9rem;
+                        color: $content-color;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        &::first-letter {
+                            text-transform: uppercase;
+                        }
+                    }
+                    .price,
+                    .rating {
+                        width: 15%;
+                        font-size: 0.7rem;
+                        font-weight: bold;
+                    }
+                    .rating {
+                        display: flex;
+                        gap: 1px;
+                        .icon {
+                            font-size: 1rem;
+                            color: $secondary-color;
+                        }
+                    }
+                }
             }
         }
     }

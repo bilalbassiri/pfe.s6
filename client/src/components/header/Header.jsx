@@ -55,7 +55,8 @@ const StyledBadge = withStyles((theme) => ({
         top: 0,
         border: `2px solid ${theme.palette.background.paper}`,
         padding: '0 4px',
-        backgroundColor: '#EF7C8E'
+        backgroundColor: '#EF7C8E',
+        fontWeight: 'bold'
     },
 }))(Badge);
 const useStyles = makeStyles((theme) => ({

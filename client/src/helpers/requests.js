@@ -155,7 +155,32 @@ const uploadImage = async (blobDataURL, token) => {
         console.log(err.message)
     }
 }
-
+const updateUserInfo = async (data, token) => {
+    try {
+        const res = await axios({
+            method: 'post',
+            url: '/user/update',
+            data,
+            headers: { authorization: token }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const updateUserHighlights = async (data, token) => {
+    try {
+        const res = await axios({
+            method: 'post',
+            url: '/user/highlight',
+            data,
+            headers: { authorization: token }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 export {
     getReviewsFromDB,
     getBooksFromDB,
@@ -167,5 +192,7 @@ export {
     updateFavoris,
     makeOrder,
     getUserProfile,
-    uploadImage
+    uploadImage,
+    updateUserInfo,
+    updateUserHighlights
 }

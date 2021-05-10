@@ -7,7 +7,8 @@ const { LOG_IN,
     FAVORIS_ADD_REMOVE,
     QUANTITY_DECREMENT,
     QUANTITY_INCREMENT,
-    CHANGE_AVATAR
+    CHANGE_AVATAR,
+    UPDATE_USER_CREDENTIALS
 } = types;
 
 const initialState = {
@@ -103,6 +104,11 @@ const userReducer = (state = initialState, { type, payload }) => {
                     picture: payload
                 }
             };
+            case UPDATE_USER_CREDENTIALS:
+                return {
+                    ...state,
+                    credentials: payload
+                }
         case REFRESH:
             return { ...state, accessToken: payload };
         default:

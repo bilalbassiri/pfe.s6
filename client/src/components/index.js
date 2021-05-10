@@ -17,3 +17,4 @@ export { default as AllReviews } from './home/AllReviews';
 export { default as Cart } from './user/Cart';
 export { default as CartItem } from './user/CartItem';
 export { default as Favoris } from './user/Favoris';
+export { default as Reading } from './user/Reading';

@@ -65,19 +65,41 @@ const controllers = {
     getUser: async (req, res) => {
         try {
             const { id } = await req.user;
-            const user = await Users.findOne({ _id: id }).populate('cart').populate('favoris');
+            const user = await Users.findOne({ _id: id })
+                .populate('cart')
+                .populate('favoris');
             if (!user) return res.json(null);
             return res.status(200).json(user)
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
     },
+    highlightReader: async (req, res) => {
+        try {
+            const { _id, newHighlights } = req.body;
+            const { highlights } = await Users.findByIdAndUpdate(_id, { highlights: newHighlights }, { new: true }).select('highlights');
+            return res.status(200).json({ highlights })
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+    updateUserInfo: async (req, res) => {
+        try {
+            const { id } = req.user;
+            const updatedUser = await Users.findByIdAndUpdate(id, req.body, { new: true })
+                .populate({ path: 'read currently_reading to_read', select: 'name rating price' });
+            if (!updatedUser) return res.status.json({ msg: 'Failed' })
+            else return res.status(200).json(updatedUser)
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
     updateCart: async (req, res) => {
         try {
             const { id } = req.user;
             const { cart } = req.body;
-            const user = await Users.findByIdAndUpdate(id, { cart }, { new: true }).populate('cart')
-            return res.json(user.cart)
+            const result = await Users.findByIdAndUpdate(id, { cart }, { new: true }).populate('cart').select('cart')
+            return res.json(result.cart)
         } catch (err) {
             return res.status(500).json({ msg: '1' + err.message })
         }
@@ -86,8 +108,8 @@ const controllers = {
         try {
             const { id } = req.user;
             const { favoris } = req.body;
-            const user = await Users.findByIdAndUpdate(id, { favoris }, { new: true }).populate('favoris')
-            return res.json(user.favoris)
+            const result = await Users.findByIdAndUpdate(id, { favoris }, { new: true }).populate('favoris').select('favoris')
+            return res.json(result.favoris)
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -123,19 +145,9 @@ const controllers = {
     getPublicInfo: async (req, res) => {
         try {
             const { _id } = await req.body;
-            const info = await Users.findOne({ _id }).select('-password -email -cart -favoris -notifications');
-            const reviews = await Reviews.find({ owner: _id }).populate('book_id');
-            if (!info) return res.json(null);
-            return res.status(200).json({ info, reviews });
-        } catch (err) {
-            return res.status(500).json({ msg: err.message });
-        }
-    },
-    uploadImage: async (req, res) => {
-        try {
-            const { _id } = await req.body;
-            const info = await Users.findOne({ _id }).select('-password -email -cart -favoris -notifications');
-            const reviews = await Reviews.find({ owner: _id }).populate('book_id');
+            const info = await Users.findOne({ _id }).select('-password -email -cart -notifications')
+                .populate({ path: 'read currently_reading to_read', select: 'name rating price' });
+            const reviews = await Reviews.find({ owner: _id }).populate({ path: 'book_id' });
             if (!info) return res.json(null);
             return res.status(200).json({ info, reviews });
         } catch (err) {
