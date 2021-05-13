@@ -2,8 +2,9 @@ const Books = require('../models/Book');
 const controllers = {
     getBooks: async (req, res) => {
         try {
-            const books = await Books.find().sort('-createdAt')
-            res.status(200).json(books)
+            const books = await Books.find({ quantity: { $gt: 0 } }).sort('-createdAt').limit(50);
+            const popular = await Books.find({ quantity: { $gt: 0 } }).sort('-rating_count').limit(10);
+            res.status(200).json({ all: books, popular })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -58,5 +59,13 @@ const controllers = {
             return res.status(500).json({ msg: err.message })
         }
     },
+    getBooksCategory: async (req, res) => {
+        try {
+            const books = await Books.find()
+            return res.json({ books })
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
 }
 module.exports = controllers;

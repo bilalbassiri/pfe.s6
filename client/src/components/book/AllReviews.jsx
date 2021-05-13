@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Review from './Review';
-import { getReviewsFromDB } from '../../helpers/requests';
+import { getReviewsFromDB } from '../../helpers/axios.helpers';
 import { getReviews } from '../../redux/actions/reviewActions';
 import { useParams } from 'react-router';
 import { CircularProgress } from '..';

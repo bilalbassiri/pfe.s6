@@ -5,7 +5,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import { cartAddRemoveItem, updateItemQuantity } from '../../redux/actions/userActions';
-import { updateCart } from '../../helpers/requests';
+import { updateCart } from '../../helpers/axios.helpers';
 
 const CartItem = ({ item: { _id, cover, name, price, author, inCart, quantity } }) => {
     const history = useHistory();

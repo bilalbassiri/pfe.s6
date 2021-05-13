@@ -8,19 +8,20 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 })
 
-const uploadImage = async (req, res) => {
 
+const uploadImage = async (req, res) => {
     try {
         const { id } = req.user;
         const { blobDataURL } = await req.body
-        const { url } = await cloudinary.uploader.upload(blobDataURL, { folder: 'Avatars' })
-        const user = await Users.findByIdAndUpdate(id, { picture: url })
-        if (!user) return res.json({ msg: 'something went wrong !!' });
-        return res.status(200).json({ url })
+        cloudinary.uploader.upload(blobDataURL, { folder: 'Avatars' }, async (err, result) => {
+            if (err) console.log(err.message)
+            const user = await Users.findByIdAndUpdate(id, { picture: result.url })
+            if (user && !err) return res.status(200).json({ url: result.url })
+            else return res.json({ url: user.picture })
+        })
     } catch (err) {
         return res.status(500).json({ msg: err.message })
     }
-
 }
 
 module.exports = uploadImage

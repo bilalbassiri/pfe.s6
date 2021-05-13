@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import { Grid } from '@material-ui/core';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+// Material UI components
+import {
+    Grid,
+    TextField,
+    FormControl,
+    OutlinedInput,
+    InputAdornment,
+    IconButton,
+    InputLabel,
+} from '@material-ui/core';
+// Material UI icons
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import InputLabel from '@material-ui/core/InputLabel';
-import { Link, useHistory } from 'react-router-dom';
-import FormError from '../ui/FormError';
-import { useDispatch, useSelector } from 'react-redux';
-import { userLogin, userSetAccessToken } from '../../redux/actions/userActions';
-import axios from 'axios';
+// Components
+import { CircularProgress, CustomizedButton, FormError } from '..';
+// Helper functions
 import { getLoginError, startLoading } from '../../helpers/login.helpers';
-import { CircularProgress, CustomizedButton } from '..';
+// Redux actions
+import { userLogin, userSetAccessToken } from '../../redux/actions/userActions';
 
 const styles = {
     login: {
@@ -30,26 +36,18 @@ const LogIn = () => {
     const user = useSelector(({ user }) => user);
     const dispatch = useDispatch();
     const history = useHistory();
-    const [values, setValues] = useState({
+    const [formValues, setFormValues] = useState({
         email: '',
         password: '',
         showPassword: false,
     });
-    const [loginError, setLoginError] = useState('');
-    const [isLoading, seTisLoading] = useState(true)
+    const [formErrors, setformErrors] = useState('');
+    const [isLoading, setIsLoading] = useState(true)
     const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-
-    const handleClickShowPassword = () => {
-        setValues({ ...values, showPassword: !values.showPassword });
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
+        setFormValues({ ...formValues, [prop]: event.target.value });
     };
     const logInUser = async () => {
-        const { email, password } = values;
+        const { email, password } = formValues;
         try {
             const { data: user } = await axios({
                 method: 'post',
@@ -69,21 +67,30 @@ const LogIn = () => {
                 history.push('/')
             }
             else
-                setLoginError(user.msg)
+                setformErrors(user.msg)
         } catch (err) {
             console.log(err.message)
         }
     }
     const handleSubmit = e => {
         e.preventDefault()
-        if (getLoginError(values).noErrors) {
+        if (getLoginError(formValues).noErrors) {
             logInUser()
         }
-        else setLoginError(getLoginError(values).message)
+        else setformErrors(getLoginError(formValues).message)
     }
+    
+    const handleClickShowPassword = () => {
+        /** handle password visibility */
+        setFormValues({ ...formValues, showPassword: !formValues.showPassword });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
     useEffect(() => {
-        if (user.accessToken) history.push('/')
-        const id = startLoading(seTisLoading)
+        if (user.accessToken) history.push('/') // Redirect to the home page f the user is already logged in
+        const id = startLoading(setIsLoading,/**timer */) // Execute setIsLoading(false) after 2s delay
         return () => {
             clearTimeout(id)
         }
@@ -91,7 +98,8 @@ const LogIn = () => {
     return (
         isLoading ?
             <CircularProgress />
-            : <form onSubmit={handleSubmit} className="sign-in-page">
+            :
+             <form onSubmit={handleSubmit} className="sign-in-page">
                 <Grid className="signing-side">
                     <h2>Welcome Back!</h2>
                     <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
@@ -106,7 +114,7 @@ const LogIn = () => {
                                 label="Email"
                                 variant="outlined"
                                 type="email"
-                                value={values.email}
+                                value={formValues.email}
                                 onChange={handleChange('email')}
                             />
                         </FormControl>
@@ -116,8 +124,8 @@ const LogIn = () => {
                             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
+                                type={formValues.showPassword ? 'text' : 'password'}
+                                value={formValues.password}
                                 onChange={handleChange('password')}
                                 endAdornment={
                                     <InputAdornment position="end">
@@ -127,14 +135,14 @@ const LogIn = () => {
                                             onMouseDown={handleMouseDownPassword}
                                             edge="end"
                                         >
-                                            {values.showPassword ? <VisibilityOutlinedIcon className="visibility-icon" /> : <VisibilityOffOutlinedIcon className="visibility-icon" />}
+                                            {formValues.showPassword ? <VisibilityOutlinedIcon className="visibility-icon" /> : <VisibilityOffOutlinedIcon className="visibility-icon" />}
                                         </IconButton>
                                     </InputAdornment>
                                 }
                                 labelWidth={70}
                             />
                             <div className="login-error">
-                                <FormError message={loginError} />
+                                <FormError message={formErrors} />
                             </div>
                         </FormControl>
                     </Grid>

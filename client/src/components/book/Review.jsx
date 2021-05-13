@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from 'react'
-import { upvoteReview } from '../../helpers/requests';
+import { upvoteReview } from '../../helpers/axios.helpers';
 import { useSelector } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Skeleton from '@material-ui/lab/Skeleton';

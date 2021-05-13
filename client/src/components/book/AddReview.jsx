@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { Rating, CustomizedButton } from '..';
 import { setReview } from '../../redux/actions/reviewActions';
 import { updateCurrentBook } from '../../redux/actions/bookActions';
-import { addBookReview } from '../../helpers/requests';
+import { addBookReview } from '../../helpers/axios.helpers';
 const styles = {
     post: {
         backgroundColor: '#8CBBBD',

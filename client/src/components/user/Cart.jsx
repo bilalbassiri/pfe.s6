@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { CartItem, CustomizedButton } from '..';
 import NearMeOutlinedIcon from '@material-ui/icons/NearMeOutlined';
 import { useDispatch } from 'react-redux';
-import { makeOrder, updateCart } from '../../helpers/requests';
+import { makeOrder, updateCart } from '../../helpers/axios.helpers';
 import { cartAddRemoveItem } from '../../redux/actions/userActions';
 import RecievedOrder from './RecievedOrder';
 import ClearAllIcon from '@material-ui/icons/ClearAll';

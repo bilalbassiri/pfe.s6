@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 //Material UI components
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+    Drawer,
+    IconButton,
+    List,
+    Divider,
+    ListItem,
+    ListItemIcon,
+    ListItemText
+} from '@material-ui/core';
+
+//Material UI icons
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import MenuIcon from '@material-ui/icons/Menu';
+
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -26,9 +31,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LeftDrawer = () => {
-    const history = useHistory();
     const classes = useStyles();
-    const [state, setState] = React.useState(false);
+    const history = useHistory();
+    const [state, setState] = useState(false);
     const toggleDrawer = open => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;

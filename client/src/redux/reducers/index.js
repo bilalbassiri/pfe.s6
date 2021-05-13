@@ -5,7 +5,7 @@ import reviewReducer from './reviewReducer';
 
 const reducer = combineReducers({
     user: userReducer,
-    book: bookReducer,
+    books: bookReducer,
     reviews: reviewReducer,
 })
 export default reducer;

@@ -12,3 +12,17 @@
         transform: scale(1.2);
     }
 }
+@keyframes fly {
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes slp {
+     0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}

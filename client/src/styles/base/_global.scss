@@ -1,6 +1,7 @@
 .show-more-reviews {
     text-align: center;
     button {
+        font-size: 0.7rem;
         font-weight: bold;
         color: rgb(84, 84, 84);
         transition-duration: 200ms;
@@ -10,4 +11,10 @@
             background-color: rgb(221, 221, 221);
         }
     }
+}
+.sign-up-page,
+.sign-in-page,
+.account {
+    opacity: 0;
+    animation: det 200ms cubic-bezier(0.59, 0.06, 0.88, 0.63) forwards;
 }

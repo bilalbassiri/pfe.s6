@@ -2,7 +2,7 @@ import React from 'react'
 import StarIcon from '@material-ui/icons/Star';
 import { useHistory } from 'react-router-dom';
 
-const BookCard = ({ item: { _id, author, name, cover, price, rating } }) => {
+const BookCard = ({ item: { _id, author, name, cover, price, rating }, favoris }) => {
     const history = useHistory();
     return (
         <div className="item" onClick={() => history.push(`/book/${_id}`)}>

@@ -1,22 +1,35 @@
 import types from '../constants/action.types';
 const { SET_BOOKS, SET_CURRENT_BOOK, UPDATE_CURRENT_BOOK } = types;
 
-const bookReducer = (state = { allbooks: null, currentBook: null }, { type, payload }) => {
+const initialState = {
+    all: [],
+    most_rated: [],
+    popular: [],
+    categories: [],
+    currentBook: {}
+}
+
+const getMostRated = books => books.filter(book => book.rating >= 4);
+
+const bookReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case SET_BOOKS:
             return {
                 ...state,
-                allbooks: payload
+                all: payload.all,
+                most_rated: getMostRated(payload.all),
+                popular: payload.popular,
+                categories: payload.categories
             };
         case SET_CURRENT_BOOK:
             return {
                 ...state,
                 currentBook: payload
             };
-            case UPDATE_CURRENT_BOOK: 
+        case UPDATE_CURRENT_BOOK:
             return {
                 ...state,
-                currentBook:{
+                currentBook: {
                     ...state.currentBook,
                     rating: payload.rating,
                     rating_count: payload.rating_count

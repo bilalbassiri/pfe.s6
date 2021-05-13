@@ -77,7 +77,8 @@ const controllers = {
     highlightReader: async (req, res) => {
         try {
             const { _id, newHighlights } = req.body;
-            const { highlights } = await Users.findByIdAndUpdate(_id, { highlights: newHighlights }, { new: true }).select('highlights');
+            const { highlights } = await Users.findByIdAndUpdate(_id, { highlights: newHighlights }, { new: true }).select('highlights')
+                .populate({ path: 'highlights', select: 'name picture' });
             return res.status(200).json({ highlights })
         } catch (error) {
             console.log(error.message)
@@ -87,7 +88,7 @@ const controllers = {
         try {
             const { id } = req.user;
             const updatedUser = await Users.findByIdAndUpdate(id, req.body, { new: true })
-                .populate({ path: 'read currently_reading to_read', select: 'name rating price' });
+                .populate({ path: 'read currently_reading to_read ', select: 'name rating price' });
             if (!updatedUser) return res.status.json({ msg: 'Failed' })
             else return res.status(200).json(updatedUser)
         } catch (error) {
@@ -145,15 +146,46 @@ const controllers = {
     getPublicInfo: async (req, res) => {
         try {
             const { _id } = await req.body;
-            const info = await Users.findOne({ _id }).select('-password -email -cart -notifications')
-                .populate({ path: 'read currently_reading to_read', select: 'name rating price' });
-            const reviews = await Reviews.find({ owner: _id }).populate({ path: 'book_id' });
+            const info = await Users.findOne({ _id }).select('-password -email -cart -favoris -notifications')
+                .populate({ path: 'read currently_reading to_read', select: 'name rating price' })
+                .populate({ path: 'highlights', select: 'name picture' });
+            const reviews = await Reviews.find({ owner: _id }).populate({ path: 'book_id', select: 'name cover' }).sort('-createdAt').select('-createdAt -updatedAt');
             if (!info) return res.json(null);
             return res.status(200).json({ info, reviews });
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
     },
+    updateUserAccount: async (req, res) => {
+        try {
+            const { id } = req.user;
+            const { first_name, last_name, email, old_password, new_password } = req.body;
+            const _user = await Users.findOne({ _id: id });
+            let updatedUser = {}, newInfo = {};
+            if (old_password && new_password) {
+                const passwordMatch = await bcrypt.compare(old_password, _user.password)
+                if (passwordMatch) {
+                    const newPasswordHash = await bcrypt.hash(new_password, saltRounds);
+                    newInfo = {
+                        name: first_name + ' ' + last_name,
+                        email,
+                        password: newPasswordHash
+                    }
+                }
+                else return res.json({ msg: 'Your password is incorrect. Try again' })
+            }
+            else {
+                newInfo = {
+                    name: first_name + ' ' + last_name,
+                    email,
+                }
+            }
+            updatedUser = await Users.findByIdAndUpdate(id, newInfo, { new: true }).select('name password email')
+            return res.status(200).json(updatedUser)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 };
 const createAccessToken = user => jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
 const createRefreshToken = user => jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });

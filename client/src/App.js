@@ -1,31 +1,44 @@
-import React, { useEffect } from 'react';
-import { MainPage, LogIn, SignUp, Header, BookDetails, Profile, Account, Cart, Favoris} from './components';
+import React, { useEffect, useState } from 'react';
+import { Home, LogIn, SignUp, Header, Book, Profile, Account, Cart, Favoris, Genre } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userLogin, userSetAccessToken } from './redux/actions/userActions';
 import { useDispatch } from 'react-redux';
 import { setBooks } from './redux/actions/bookActions';
-import { getBooksFromDB, getAccessTokenAndUser } from './helpers/requests';
+import { getBooksFromDB, getAccessTokenAndUser, getCategory } from './helpers/axios.helpers';
 
 function App() {
   const dispatch = useDispatch();
-
+  const [genres, setGenres] = useState(null)
+  const [permission, setPermission] = useState(true)
   useEffect(() => {
     getAccessTokenAndUser().then(({ data, _ACCESS_TOKEN }) => {
+      setGenres(data.genres)
       dispatch(userLogin(data))
       dispatch(userSetAccessToken(_ACCESS_TOKEN))
     })
-    getBooksFromDB().then(books => dispatch(setBooks(books)))
-  }, [dispatch])
+  }, [])
+  useEffect(() => {
+    (
+      async () => {
+        if (permission && genres) {
+          const books = await getBooksFromDB();
+          const categories = await Promise.all(genres.map(async genre => ({ genre, books: await getCategory(genre) })));
+          dispatch(setBooks({ ...books, categories }))
+          setPermission(false)
+        }
+      }
+    )()
+  }, [dispatch, permission, genres])
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" exact component={MainPage} />
+          <Route path="/" exact component={Home} />
           <Route path="/login" exact component={LogIn} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route path="/book/:bookId" exact>
             <Header />
-            <BookDetails />
+            <Book />
           </Route>
           <Route path="/readers/:user_id" exact>
             <Header />
@@ -42,6 +55,10 @@ function App() {
           <Route path="/me/favoris" exact>
             <Header />
             <Favoris />
+          </Route>
+          <Route path="/genres/:genre" exact>
+            <Header />
+            <Genre />
           </Route>
         </Switch>
       </Router>

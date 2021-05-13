@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function HalfRating({ porpose, count, rating, value, onChange, notext }) {
     const classes = useStyles();
     const s = {
-        color: '#8CBBBD'
+        color: '#ff9800'
     }
     return (
         <div className={classes.root}>

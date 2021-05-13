@@ -1,25 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
+// Material UI components
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Badge,
+    MenuItem,
+    Menu,
+    Tooltip
+} from '@material-ui/core';
+// Material UI icons
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import LeftDrawer from './LeftDrawer';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { userLogout } from '../../redux/actions/userActions';
-import Tooltip from '@material-ui/core/Tooltip';
+//Components
 import { CustomizedButton } from '..';
-import { useHistory } from 'react-router-dom';
+import LeftDrawer from './LeftDrawer';
+// Redux actions
+import { userLogout } from '../../redux/actions/userActions';
 
 const styles = {
     signup: {
@@ -91,9 +96,10 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { user: { cart, favoris, notifications, credentials, accessToken } } = useSelector(state => state)
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const { user: { cart, favoris, notifications, credentials, accessToken } } = useSelector(state => state);
+    // Handling Material UI components
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const history = useHistory();
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);

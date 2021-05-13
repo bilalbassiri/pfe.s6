@@ -1,0 +1,20 @@
+.home {
+    .main-page {
+        height: calc(100vh - 56px);
+        width: 100%;
+        background-color: greenyellow;
+    }
+    .home-body {
+        padding: 20px;
+    }
+}
+@media screen and (min-width: 600px) {
+    .home {
+        .main-page {
+            height: calc(100vh - 64px);
+        }
+        &-body {
+            padding: 40px;
+        }
+    }
+}

@@ -12,5 +12,7 @@ router.post('/favoris', auth, controllers.updateFavoris);
 router.post('/order', auth, controllers.addAnOrder);
 router.post('/profile', controllers.getPublicInfo);
 router.post('/update', auth, controllers.updateUserInfo);
-router.post('/highlight', auth, controllers.highlightReader)
+router.post('/highlight', auth, controllers.highlightReader);
+router.post('/account', auth, controllers.updateUserAccount);
+
 module.exports = router

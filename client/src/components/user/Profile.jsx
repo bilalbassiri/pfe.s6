@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import { getUserProfile, updateUserHighlights, updateUserInfo, uploadImage } from '../../helpers/requests';
+import { getUserProfile, updateUserHighlights, updateUserInfo, uploadImage } from '../../helpers/axios.helpers';
+import { getFormattedDate } from '../../helpers/global.helpers';
 import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress, CustomizedButton, Rating, Reading } from '..';
-import { Grid } from '@material-ui/core';
+import { Chip, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import ChevronRightRoundedIcon from '@material-ui/icons/ChevronRightRounded';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
@@ -15,20 +16,22 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
-import FavoriteRounded from '@material-ui/icons/FavoriteRounded';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
-const styles = {
-    highlight: {
-        backgroundColor: '#EF7C8E',
-        padding: '8.5px 16px',
-        borderRadius: 20,
-        fontWeight: '600',
-        width: '100%',
-        '&:hover': {
-            backgroundColor: '#DA7080',
-        },
+import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+const getCustomStyles = permission => ({
+    backgroundColor: permission ? 'white' : '#EF7C8E',
+    padding: '8.5px 16px',
+    borderRadius: 20,
+    fontWeight: '600',
+    width: '100%',
+    color: permission ? '#EF7C8E' : 'white',
+    border: permission ? '1px solid #EF7C8E' : '',
+    '&:hover': {
+        backgroundColor: permission ? '#FFF6F8' : '#DA7080',
     },
-}
+})
+
+
 const Profile = () => {
     const dispatch = useDispatch();
     const { user_id } = useParams();
@@ -39,7 +42,8 @@ const Profile = () => {
         highlight: false
     });
     const [showAll, setShowAll] = useState({
-        reviews: false
+        reviews: false,
+        highlighted: false
     })
     const [{ info, reviews }, setProfile] = useState({
         info: {},
@@ -72,7 +76,10 @@ const Profile = () => {
         setExpanded(isExpanded ? panel : false);
     };
     const [preview, setPreview] = useState('');
-    let highlited = info.highlights?.includes(user_id);
+    let highlighted = info.highlights?.map(reader => reader._id).includes(credentials?._id);
+    const getReaderAnim = (arr, i, animation) => ({
+        animation: `${animation} 500ms ${!showAll.highlighted ? (i * 500 + ((arr.length < 3 ? arr.length : 3) * 500)) : 0}ms ease forwards`
+    })
     const handleImageUpload = async e => {
         try {
             setIsLoading({ ...isLoading, image: true })
@@ -124,13 +131,19 @@ const Profile = () => {
                                             </div>)
                                     }
                                 </div>
-                                <h1 className="name">
-                                    {info.name}
-                                </h1>
+                                <div className="inf">
+                                    <h1 className="name">
+                                        {info.name}
+                                    </h1>
+                                    {
+                                        isMyProfile()
+                                        &&
+                                        <p className="email">
+                                            {credentials.email}
+                                        </p>
+                                    }
+                                </div>
                                 <div className="highlight">
-                                    <p>
-                                        {info.highlights.length} highlights
-                                    </p>
                                     {
                                         !isMyProfile()
                                         &&
@@ -139,11 +152,11 @@ const Profile = () => {
                                         <CustomizedButton
                                             disableElevation
                                             type="button"
-                                            style={styles.highlight}
+                                            style={getCustomStyles(highlighted)}
                                             disabled={isLoading.highlight}
                                             onClick={() => {
                                                 setIsLoading({ ...isLoading, highlight: true })
-                                                updateUserHighlights({ _id: info._id, newHighlights: highlited ? info.highlights.filter(user => user != user_id) : [...info.highlights, user_id] }, accessToken).then(data => {
+                                                updateUserHighlights({ _id: info._id, newHighlights: highlighted ? info.highlights.filter(user => user._id !== credentials?._id) : [credentials?._id, ...info.highlights] }, accessToken).then(data => {
                                                     setIsLoading({ ...isLoading, highlight: false })
                                                     setProfile(prev => ({ ...prev, info: { ...prev.info, highlights: data.highlights } }))
                                                 })
@@ -151,7 +164,7 @@ const Profile = () => {
                                         >
                                             Highlight
                                         {
-                                                info.highlights.includes(user_id) ?
+                                                highlighted ?
                                                     <>ed<DoneRoundedIcon className="icon" /> </>
                                                     :
                                                     <BookmarkBorderRoundedIcon className="icon" />
@@ -159,6 +172,19 @@ const Profile = () => {
                                         </CustomizedButton>
                                     }
                                 </div>
+                            </div>
+                            <div className="intersted-in">
+                                <h2 className="headings">
+                                    Interested in
+                                </h2>
+                                <div>
+                                    {
+                                        info.genres?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} onClick={() => history.push('/genres/' + genre)} />)
+                                    }
+                                </div>
+                            </div>
+                            <div className="joined">
+                                <p>Joined {getFormattedDate(info.createdAt)}</p>
                             </div>
                         </Grid>
                         <Grid item sm={5} xs={12} className="detail-section">
@@ -213,7 +239,7 @@ const Profile = () => {
                                     {
                                         reviews.map((review, index) =>
                                             index < (showAll.reviews ? reviews.length : 3) ?
-                                                <div className='review' key={review._id} onClick={() => history.push(`/book/${review.book_id._id}`)}>
+                                                <div className='review' key={review._id} style={{ animation: `fly 500ms ${(!showAll.reviews ? index : index - 3) * 500}ms ease forwards` }} onClick={() => history.push(`/book/${review.book_id._id}`)}>
                                                     <div className="left">
                                                         <div className="cover">
                                                             <img src={review.book_id.cover} alt={review.book_id.name} />
@@ -225,10 +251,13 @@ const Profile = () => {
                                                                 <p>
                                                                     {review.content.length > 100 ? review.content.substring(0, 50) + '..' : review.content}
                                                                 </p>
+                                                                <p className="upvotes">
+                                                                    <FavoriteRoundedIcon className="icon" /> {review.upvotes.length}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="right">
+                                                    <div className="right-arrow">
                                                         <ChevronRightRoundedIcon />
                                                     </div>
 
@@ -239,16 +268,19 @@ const Profile = () => {
                                     }
                                     <div className="show-more-reviews pro">
                                         {
-                                            reviews.length ?
+                                            reviews.length > 3 ?
                                                 <button type="button" onClick={() => {
                                                     setShowAll({ ...showAll, reviews: !showAll.reviews })
                                                 }}>
-                                                    Show {showAll.reviews ? 'Less' : 'More'}
+                                                    Show {showAll.reviews ? 'Less' : `${reviews.length - 3} more`}
                                                 </button>
                                                 :
-                                                <h5 className="empty-reviews">
-                                                    {isMyProfile() ? 'YOU' : info.name} have no reviews yet
-                                                </h5>
+                                                reviews.length === 0 ?
+                                                    <h5 className="empty">
+                                                        {isMyProfile() ? 'You' : info.name} have no reviews yet.
+                                                    </h5>
+                                                    :
+                                                    null
                                         }
                                     </div>
                                 </div>
@@ -287,7 +319,46 @@ const Profile = () => {
                                     <Reading books={info.to_read} />
                                 </Accordion>
                             </div>
-
+                            <div className="highlighted-readers">
+                                <h2 className="headings">
+                                    Highlighted by <span>({info.highlights.length})</span>
+                                </h2>
+                                <div className="container">
+                                    {
+                                        info.highlights.map((reader, i) =>
+                                            i < (showAll.highlighted ? info.highlights.length : 3) ?
+                                                <div key={i} className="reader" style={getReaderAnim(reviews, i, 'fly')} onClick={() => history.push(`/readers/${reader._id}`)}>
+                                                    <div className="face">
+                                                        <Avatar className="avatar" style={getReaderAnim(reviews, i, 'slp')} src={reader.picture}>{reader.name[0]}</Avatar>
+                                                        <h3 className="name">{credentials?._id === reader._id ? 'You' : reader.name}</h3>
+                                                    </div>
+                                                    <div className="right-arrow">
+                                                        <ChevronRightRoundedIcon />
+                                                    </div>
+                                                </div>
+                                                :
+                                                null
+                                        )
+                                    }
+                                    <div className="show-more-reviews pro">
+                                        {
+                                            info.highlights.length > 3 ?
+                                                <button type="button" onClick={() => {
+                                                    setShowAll({ ...showAll, highlighted: !showAll.highlighted })
+                                                }}>
+                                                    Show {showAll.highlighted ? 'less' : `${info.highlights.length - 3} more`}
+                                                </button>
+                                                :
+                                                info.highlights.length === 0 ?
+                                                    <h5 className="empty">
+                                                        No one highlighted {isMyProfile() ? 'you' : info.name}.
+                                                </h5>
+                                                    :
+                                                    null
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </Grid>
                     </Grid>
             }

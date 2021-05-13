@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-
 // Components
 import SimpleTabs from './Tabs';
 import { Rating, CircularProgress, CustomizedButton } from '..';
-
 //Material UI Icons
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
 import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
-
-// ...
+// Redux actions
 import { setCurrentBook } from '../../redux/actions/bookActions';
 import { cartAddRemoveItem, favorisAddRemoveItem } from '../../redux/actions/userActions';
-import { updateCart, updateFavoris, getBookDetailFromDB } from '../../helpers/requests';
+// Helper functions
+import { updateCart, updateFavoris, getBookDetailFromDB } from '../../helpers/axios.helpers';
 
 const styles = {
     cart: {
@@ -35,10 +33,10 @@ const styles = {
         fontSize: '1.4rem',
     }
 }
-const BookDetails = () => {
+const Book = () => {
     const { bookId } = useParams();
     const {
-        book: { currentBook: book },
+        books: { currentBook: book },
         user: { cart, favoris, accessToken }
     } = useSelector(state => state);
     const dispatch = useDispatch();
@@ -55,7 +53,6 @@ const BookDetails = () => {
     const booksBag = (prop, books) => alreadyExist(prop) ? books.filter(id => id !== bookId) : [...books, bookId];
 
     const handleAddAndRemove = prop => {
-
         if (accessToken) {
             setDisabled({
                 ...disabled,
@@ -164,4 +161,4 @@ const BookDetails = () => {
     )
 }
 
-export default BookDetails;
+export default Book;

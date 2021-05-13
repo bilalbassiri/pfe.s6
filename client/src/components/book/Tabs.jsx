@@ -1,17 +1,12 @@
-
 import React, { useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 //Material UI components
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import Chip from '@material-ui/core/Chip';
-
+import { AppBar, Tabs, Tab, Box, Chip } from '@material-ui/core';
 // components
-import { Rating, AddReview, AllReviews, CustomizedButton } from '..';
-
+import { Rating, CustomizedButton } from '..';
+import AddReview from './AddReview';
+import AllReviews from './AllReviews';
 //...
 import PropTypes from 'prop-types';
 
@@ -74,6 +69,7 @@ const SimpleTabs = ({
         currently_reading,
         read, to_read } }) => {
 
+    const history = useHistory();
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const [readMore, setReadMore] = useState(false);
@@ -110,7 +106,7 @@ const SimpleTabs = ({
                 }
                 <span className="book-genres">
                     {
-                        categories?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} />)
+                        categories?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} onClick={() => history.push('/genres/' + genre)} />)
                     }
                 </span>
             </TabPanel>

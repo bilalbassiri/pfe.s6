@@ -20,12 +20,16 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    highlights:  [
+    highlights: [
         {
             type: Schema.Types.ObjectId,
             ref: 'users'
         }
     ],
+    genres: {
+        type: Array,
+        default: ['Romance', 'Philosophy', 'Science Fiction', 'Literature', 'Fantasy']
+    },
     cart: [
         {
             type: Schema.Types.ObjectId,

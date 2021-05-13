@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
-import CustomizedInput from '../ui/CustomizedInput';
-import { useDispatch, useSelector } from 'react-redux';
-import { userSignUp } from '../../redux/actions/userActions';
-import { setFormErrors, isValidatedForm, isCorrectName } from '../../helpers/signup.helpers';
 import { Link, useHistory } from 'react-router-dom';
-import FormError from '../ui/FormError';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import clsx from 'clsx';
+// Material UI components
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, FormControl } from '@material-ui/core';
+// Helper functions
 import { startLoading } from '../../helpers/login.helpers';
-import { CircularProgress, CustomizedButton } from '..';
+import { setFormErrors, isValidatedForm } from '../../helpers/signup.helpers';
+// Components
+import { CircularProgress, CustomizedButton, FormError, CustomizedInput } from '..';
+// Redux actions
+import { userSignUp } from '../../redux/actions/userActions';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -57,7 +58,7 @@ const SignUp = () => {
     };
     const handleSubmit = event => {
         event.preventDefault();
-        setFormErrors(values, isCorrectName, setErrorMessages)
+        setFormErrors(values, setErrorMessages)
     }
     useEffect(() => {
         if (user.accessToken) history.push('/');

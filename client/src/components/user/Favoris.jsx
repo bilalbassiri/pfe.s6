@@ -11,7 +11,7 @@ const Favoris = () => {
             </h1>
             <div className="container">
                 {
-                    favoris.map(item => <BookCard key={item._id} item={item}/>)
+                    favoris.map(item => <BookCard key={item._id} item={item} favoris={true} />)
                 }
             </div>
         </div>

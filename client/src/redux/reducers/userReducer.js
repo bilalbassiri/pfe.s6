@@ -19,7 +19,8 @@ const initialState = {
     notifications: [],
     to_read: [],
     currently_reading: [],
-    read: []
+    read: [],
+    genres: []
 }
 const userReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -37,7 +38,8 @@ const userReducer = (state = initialState, { type, payload }) => {
                 notifications,
                 to_read,
                 currently_reading,
-                read
+                read,
+                genres
             } = payload;
             return {
                 credentials: {
@@ -54,7 +56,8 @@ const userReducer = (state = initialState, { type, payload }) => {
                 notifications,
                 to_read,
                 currently_reading,
-                read
+                read,
+                genres
             };
         case LOG_OUT:
             return initialState;
@@ -104,11 +107,11 @@ const userReducer = (state = initialState, { type, payload }) => {
                     picture: payload
                 }
             };
-            case UPDATE_USER_CREDENTIALS:
-                return {
-                    ...state,
-                    credentials: payload
-                }
+        case UPDATE_USER_CREDENTIALS:
+            return {
+                ...state,
+                credentials: payload
+            }
         case REFRESH:
             return { ...state, accessToken: payload };
         default:

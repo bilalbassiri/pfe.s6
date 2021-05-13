@@ -181,6 +181,30 @@ const updateUserHighlights = async (data, token) => {
         console.log(error.message)
     }
 }
+const getCategory = async (categorie) => {
+    try {
+        const { data } = await axios({
+            method: 'post',
+            url: '/api/book/categories/' + categorie,
+        })
+        return data.books;
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const updateUserAccount = async (data, token) => {
+    try {
+        const res = await axios({
+            method: 'post',
+            url: '/user/account',
+            data,
+            headers: { authorization: token }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 export {
     getReviewsFromDB,
     getBooksFromDB,
@@ -194,5 +218,7 @@ export {
     getUserProfile,
     uploadImage,
     updateUserInfo,
-    updateUserHighlights
+    updateUserHighlights,
+    getCategory,
+    updateUserAccount
 }

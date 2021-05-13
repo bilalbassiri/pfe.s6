@@ -1,8 +1,22 @@
 .profile {
     margin-top: 20px;
+    .right-arrow {
+        @include DisplayGridCenter;
+        padding: 0px 15px;
+        & > * {
+            font-size: 1.3rem;
+            color: $boss-color;
+        }
+    }
+    .empty {
+        font-weight: 400;
+        padding: 10px 0px;
+    }
     .general-section,
     .detail-section,
     .pages {
+        @include flexColumn;
+        gap: 40px;
         padding: 15px;
     }
     .headings {
@@ -26,6 +40,7 @@
         .personal-info {
             @include flexColumn;
             align-items: center;
+            gap: 10px;
             .photo {
                 position: relative;
                 .avatar,
@@ -71,28 +86,33 @@
                     }
                 }
             }
-            .name {
-                margin-top: 20px;
-                font-size: 1.4rem;
-                font-weight: 800;
+            .inf {
+                text-align: center;
+                .name {
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                }
+                .email {
+                    font-size: .8rem;
+                    color: rgb(158, 158, 158);
+                }
             }
             .highlight {
-                text-align: center;
-                p {
-                    margin-bottom: 10px;
-                    font-size: .9rem;
-                    font-weight: 600;
-                }
                 .icon {
                     font-size: 1.2rem;
                     padding-left: 5px;
                 }
             }
         }
+        .intersted-in {
+            &> div {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+        }
     }
     .detail-section {
-        @include flexColumn;
-        gap: 40px;
         .bio {
             .edit-bio {
                 width: 100%;
@@ -111,23 +131,16 @@
             .reviews-cont {
                 @include flexColumn;
                 .review {
-                    @include flexRowCenter;
-                    justify-content: space-between;
-                    cursor: pointer;
-                    display: flex;
-                    transition-duration: 200ms;
-                    border-radius: 15px;
-                    &:hover {
-                        box-shadow: 2px 2px 10px -4px rgb(151, 151, 151);
-                        background-color: rgb(255, 255, 255);
-                    }
+                    transform: translateY(100px);
+                    opacity: 0;
+                    @extend %profileItems;
+                    padding: 8px;
+                    padding-right: 0;
                     .left {
                         @include flexRowCenter;
                         gap: 10px;
                         .cover {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+                            @include flexJustifyAlignCenter;
                             img {
                                 padding: 10px;
                                 width: 60px;
@@ -136,8 +149,7 @@
                         }
                         .text {
                             .name {
-                                font-size: 0.9rem;
-                                font-weight: 600;
+                                @extend %nameAspect;
                                 &::first-letter {
                                     text-transform: uppercase;
                                 }
@@ -145,19 +157,22 @@
                             .content {
                                 font-size: 0.9rem;
                                 color: $content-color;
+                                .upvotes {
+                                    font-size: .7rem;
+                                    font-weight: bold;
+                                    .icon {
+                                        font-size: .8rem;
+                                    }
+                                    @include flexRowCenter;
+                                    gap: 3px;
+                                    color: $color-main-text;
+                                }
                             }
                             .rating {
                                 .stars {
                                     font-size: 0.8rem;
                                 }
                             }
-                        }
-                    }
-                    .right {
-                        padding: 0px 15px;
-                        & > * {
-                            font-size: 1.3rem;
-                            color: $boss-color;
                         }
                     }
                 }
@@ -228,7 +243,27 @@
                         gap: 1px;
                         .icon {
                             font-size: 1rem;
-                            color: $secondary-color;
+                            color: #ff9800;
+                        }
+                    }
+                }
+            }
+        }
+        .highlighted-readers {
+            .container {
+                @include flexColumn;
+                .reader {
+                    transform: translateY(100px);
+                    opacity: 0;
+                    @extend %profileItems;
+                    align-items: center;
+                    padding: 7px;
+                    padding-right: 0;
+                    .face {
+                        @include flexRowCenter;
+                        gap: 10px;
+                        .name {
+                            @extend %nameAspect;
                         }
                     }
                 }

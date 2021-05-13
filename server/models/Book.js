@@ -56,10 +56,11 @@ const bookSchema = new Schema({
         default: 0,
         required: true
     },
-    categories: {
+    genres: {
         type: Array,
+        default: []
     },
-    inCart : {
+    inCart: {
         type: Number,
         default: 1,
     }
