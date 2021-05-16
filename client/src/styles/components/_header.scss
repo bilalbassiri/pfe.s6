@@ -1,0 +1,11 @@
+.header {
+    margin-bottom: 20px;
+}
+.MuiToolbar-gutters {
+    padding:0px !important;
+}
+@media screen and (min-width: 600px) {
+    .MuiToolbar-gutters {
+        padding:0px !important;
+    }
+}

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap");
 
 *,
 *::after,
@@ -6,7 +7,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif !important;
+    font-family: "Nunito", sans-serif !important;
     text-transform: initial !important;
 }
 a {
@@ -24,6 +25,23 @@ button {
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+.index {
+    padding: 20px;
+}
+@media screen and (min-width: 600px) {
+    .index {
+        padding:20px 40px;
+    }
+}
+.logo {
+    transition-duration: 200ms;
+    font-family: "Kaushan Script", cursive !important;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.95;
+    }
 }
 // Reset CustomizedInput component styles
 .MuiFormLabel-root {
@@ -60,7 +78,7 @@ button {
 .MuiTabs-indicator {
     z-index: 0;
     height: 100% !important;
-    background-color: #ef7c8d2a  !important;
+    background-color: #ffffff2a !important;
     border: 1px solid $boss-color !important;
 }
 .MuiRating-iconEmpty {

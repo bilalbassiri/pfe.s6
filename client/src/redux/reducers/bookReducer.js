@@ -19,7 +19,6 @@ const bookReducer = (state = initialState, { type, payload }) => {
                 all: payload.all,
                 most_rated: getMostRated(payload.all),
                 popular: payload.popular,
-                categories: payload.categories
             };
         case SET_CURRENT_BOOK:
             return {
@@ -34,7 +33,7 @@ const bookReducer = (state = initialState, { type, payload }) => {
                     rating: payload.rating,
                     rating_count: payload.rating_count
                 }
-            }
+            };
         default:
             return state;
     }

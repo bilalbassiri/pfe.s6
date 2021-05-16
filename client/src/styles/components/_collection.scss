@@ -1,11 +1,18 @@
 .books {
-    .books-container { 
-            display: flex;
-            gap: 25px;
-            flex-wrap: nowrap;
-            overflow-x: scroll;
-            scroll-behavior: smooth;
-            margin: 20px; 
+    .books-title {
+        margin-bottom: 15px;
+    }
+    margin-bottom: 30px;
+    .books-container {
+        display: flex;
+        gap: 25px;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
         .item {
             @include flexColumn;
             gap: 3px;
@@ -42,6 +49,7 @@
                 }
             }
             .name {
+                color: $headings-color;
                 &::first-letter {
                     text-transform: uppercase;
                 }
@@ -57,6 +65,7 @@
                 color: rgb(172, 172, 172);
             }
             .price {
+                color: $headings-color;
                 font-size: 1rem;
                 &::before {
                     content: "$";

@@ -12,10 +12,10 @@ import Fab from '@material-ui/core/Fab';
 const styles = {
     checkOut: {
         borderRadius: 20,
-        backgroundColor: '#EF7C8E',
+        backgroundColor: '#4ecdc4',
         padding: '8.5px 16px',
         '&:hover': {
-            backgroundColor: '#DA7080',
+            backgroundColor: '#41aaa3',
         },
         '& .arrow': {
             marginLeft: 10,
@@ -28,8 +28,8 @@ const styles = {
         height: 45,
         width: 45,
         boxShadow: 'none',
-        border: '1px solid #EF7C8E',
-        color: '#EF7C8E'
+        border: '1px solid #4ecdc4',
+        color: '#4ecdc4'
     }
 }
 const Cart = () => {

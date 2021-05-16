@@ -29,8 +29,8 @@ import { userLogout } from '../../redux/actions/userActions';
 const styles = {
     signup: {
         color: 'white',
-        backgroundColor: '#EF7C8E',
-        border: '1px solid #EF7C8E',
+        backgroundColor: '#4ecdc4',
+        border: '1px solid #4ecdc4',
         fontSize: '.75rem',
         fontWeight: 'bold',
         marginLeft: 3,
@@ -38,7 +38,7 @@ const styles = {
         padding: '5px',
         '&:hover': {
             backgroundColor: 'white',
-            color: '#EF7C8E'
+            color: '#4ecdc4'
         },
     },
     login: {
@@ -70,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         display: 'none',
-        color: '#ef798a',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
@@ -195,12 +194,12 @@ const Header = () => {
         </Menu>
     );
     return (
-        <div className={classes.grow}>
+        <div className={classes.grow + ' header'}>
             <AppBar position="static" style={{ boxShadow: 'none' }}>
                 <Toolbar style={{ backgroundColor: '#FFFFFF', color: '#3e3e3e', boxShadow: '0px 0px 0px 0px black' }}>
                     <LeftDrawer />
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Kafka
+                    <Typography className={classes.title + ' logo'} onClick={() => history.push('/')} variant="h6" noWrap>
+                        kafka
                     </Typography>
                     <div className={classes.grow} />
                     {
@@ -253,19 +252,23 @@ const Header = () => {
                                 </Link>
                             </>
                     }
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </div>
+                    {
+                        accessToken &&
+
+                        <div className={classes.sectionMobile}>
+                            <IconButton
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                onClick={handleMobileMenuOpen}
+                            >
+                                <MoreIcon />
+                            </IconButton>
+                        </div>
+                    }
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
+            { renderMobileMenu}
             {renderMenu}
         </div>
     );

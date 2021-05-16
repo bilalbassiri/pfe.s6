@@ -1,5 +1,4 @@
 .profile {
-    margin-top: 20px;
     .right-arrow {
         @include DisplayGridCenter;
         padding: 0px 15px;
@@ -25,6 +24,7 @@
         span {
             font-size: 0.8rem;
         }
+        
         .edit-btn-save {
             background-color: $boss-color;
             color: white;

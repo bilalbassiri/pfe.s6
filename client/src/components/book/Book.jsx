@@ -17,12 +17,12 @@ import { updateCart, updateFavoris, getBookDetailFromDB } from '../../helpers/ax
 
 const styles = {
     cart: {
-        backgroundColor: '#EF7C8E',
+        backgroundColor: '#4ecdc4',
         padding: '8.5px 16px',
         borderRadius: 20,
         width: '100%',
         '&:hover': {
-            backgroundColor: '#DA7080',
+            backgroundColor: '#41aaa3',
         },
     },
     favoris: {

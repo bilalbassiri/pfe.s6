@@ -19,15 +19,15 @@ import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 const getCustomStyles = permission => ({
-    backgroundColor: permission ? 'white' : '#EF7C8E',
+    backgroundColor: permission ? 'white' : '#4ecdc4',
     padding: '8.5px 16px',
     borderRadius: 20,
     fontWeight: '600',
     width: '100%',
-    color: permission ? '#EF7C8E' : 'white',
-    border: permission ? '1px solid #EF7C8E' : '',
+    color: permission ? '#4ecdc4' : 'white',
+    border: permission ? '1px solid #4ecdc4' : '',
     '&:hover': {
-        backgroundColor: permission ? '#FFF6F8' : '#DA7080',
+        backgroundColor: permission ? 'white' : '#41aaa3',
     },
 })
 

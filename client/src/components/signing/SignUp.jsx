@@ -28,12 +28,12 @@ const useStyles = makeStyles(() => ({
 const styles = {
     signup: {
         margin: `10px 0px`,
-        backgroundColor: '#EF7C8E',
+        backgroundColor: '#4ecdc4',
         padding: '8px',
         borderRadius: 20,
         width: '130px',
         '&:hover': {
-            backgroundColor: '#DA7080',
+            backgroundColor: '#41aaa3',
         },
     }
 }

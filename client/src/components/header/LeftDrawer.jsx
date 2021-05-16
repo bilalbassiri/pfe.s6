@@ -10,7 +10,8 @@ import {
     Divider,
     ListItem,
     ListItemIcon,
-    ListItemText
+    ListItemText,
+    Typography
 } from '@material-ui/core';
 
 //Material UI icons
@@ -49,6 +50,9 @@ const LeftDrawer = () => {
             onKeyDown={toggleDrawer(false)}
         >
             <List className="list-1">
+                <Typography variant="h6" style={{textAlign: 'center', padding: '15px 0px'}} className="logo" noWrap onClick={() => history.push('/')}>
+                    kafka
+                </Typography>
                 <ListItem button onClick={() => history.push('/')}>
                     <ListItemIcon ><HomeOutlinedIcon /></ListItemIcon>
                     <ListItemText primary="Home" />

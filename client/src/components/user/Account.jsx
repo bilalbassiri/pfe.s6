@@ -24,14 +24,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const styles = {
-    signup: {
+    save: {
         margin: `10px 0px`,
-        backgroundColor: '#EF7C8E',
+        backgroundColor: '#4ecdc4',
         padding: '8px',
         borderRadius: 20,
         width: '130px',
         '&:hover': {
-            backgroundColor: '#DA7080',
+            backgroundColor: '#41aaa3',
         },
     }
 }
@@ -156,7 +156,7 @@ const Account = () => {
                                 <CustomizedButton
                                     className={clsx(classes.margin)}
                                     type="button"
-                                    style={styles.signup}
+                                    style={styles.save}
                                     onClick={() => setValues(prev => ({ ...prev, change: true, disabled: true }))}
                                 >
                                     Discard
@@ -165,7 +165,7 @@ const Account = () => {
                                     disabled={values.disabled}
                                     className={clsx(classes.margin)}
                                     type="submit"
-                                    style={styles.signup}
+                                    style={styles.save}
                                 >
                                     Save
                             </CustomizedButton>

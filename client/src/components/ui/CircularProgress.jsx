@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const CircularIndeterminate = ({ porpose, size }) => {
-  const h = porpose === 'reviews' ? '100px' : porpose === 'favoris' ? '15px' : 'calc(100vh - 64px)';
+  const h = porpose === 'reviews' ? '100px' : porpose === 'favoris' ? '15px' : 'calc(100vh - 64px - 60px)';
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,7 +13,7 @@ const CircularIndeterminate = ({ porpose, size }) => {
       width: '100%',
       placeContent: 'center',
       '& .MuiCircularProgress-colorSecondary': {
-        color: '#EF7C8E'
+        color: '#4ecdc4'
       },
 
     },
