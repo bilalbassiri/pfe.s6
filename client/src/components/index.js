@@ -25,3 +25,5 @@ export { default as CustomizedInput } from './ui/CustomizedInput';
 export { default as Rating } from './ui/Rating';
 export { default as CustomizedButton } from './ui/CustomizedButton';
 export { default as CircularProgress } from './ui/CircularProgress';
+export { default as Scroller } from './ui/Scroller';
+

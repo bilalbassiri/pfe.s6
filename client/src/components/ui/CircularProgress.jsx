@@ -3,19 +3,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-const CircularIndeterminate = ({ porpose, size }) => {
-  const h = porpose === 'reviews' ? '100px' : porpose === 'favoris' ? '15px' : 'calc(100vh - 64px - 60px)';
-
-  const useStyles = makeStyles((theme) => ({
+const CircularIndeterminate = ({ plan, size }) => {
+  const useStyles = makeStyles(() => ({
     root: {
       display: 'grid',
-      height: h,
-      width: '100%',
       placeContent: 'center',
+      height: plan.h,
+      width: plan.w,
       '& .MuiCircularProgress-colorSecondary': {
         color: '#4ecdc4'
       },
-
     },
   }));
   const classes = useStyles();

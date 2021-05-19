@@ -37,6 +37,9 @@
     }
 
     .general-section {
+        @include flexColumn;
+        justify-content: space-between;
+        height: calc(100vh - 84px);
         .personal-info {
             @include flexColumn;
             align-items: center;
@@ -109,6 +112,20 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 5px;
+            }
+        }
+        .joined {
+            @include flexRowCenter;
+            justify-content: center;
+            gap: 5px;
+            padding: 5px;
+            .MuiSvgIcon-root {
+                font-size: 1.3rem;
+                color: grey;
+            }
+            p {
+                font-size: .85rem;
+                color: grey;
             }
         }
     }

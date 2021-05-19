@@ -1,25 +1,45 @@
-.books {
-    .books-title {
-        margin-bottom: 15px;
+.books,
+.favoris {
+    .genre-head {
+        @include flexRowCenter;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .books-title {
+            font-weight: 400;
+            color: $headings-color;
+        }
+        .bar {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #d9e6e5;
+            margin-left: 20px;
+        }
     }
-    margin-bottom: 30px;
+
+    margin-bottom: 60px;
     .books-container {
         display: flex;
-        gap: 25px;
+        gap: 15px;
         flex-wrap: nowrap;
         overflow-x: scroll;
         scroll-behavior: smooth;
+        padding: 8px;
         &::-webkit-scrollbar {
             display: none;
         }
 
         .item {
             @include flexColumn;
-            gap: 3px;
-            width: 150px;
+            gap: 5px;
+            width: 170px;
             cursor: pointer;
             border-radius: 15px;
-            padding: 0px;
+            padding: 10px;
+            transition-duration: 200ms;
+            &:hover {
+                box-shadow: 2px 2px 10px -5px black;
+            }
             .cover {
                 height: 200px;
                 position: relative;
@@ -44,7 +64,7 @@
                     }
                 }
                 img {
-                    width: 100%;
+                    width: 150px;
                     height: 100%;
                 }
             }
@@ -64,15 +84,23 @@
                 font-size: 0.9rem;
                 color: rgb(172, 172, 172);
             }
-            .price {
-                color: $headings-color;
-                font-size: 1rem;
-                &::before {
-                    content: "$";
-                    font-size: 0.7rem;
-                    position: relative;
-                    top: -0.2rem;
-                    margin-right: 5px;
+
+            .nums {
+                display: flex;
+                justify-content: space-between;
+                .MuiRating-root {
+                    font-size: 0.9rem;
+                }
+                .price {
+                    color: $headings-color;
+                    font-size: 1rem;
+                    &::before {
+                        content: "$";
+                        font-size: 0.7rem;
+                        position: relative;
+                        top: -0.2rem;
+                        margin-right: 5px;
+                    }
                 }
             }
         }

@@ -79,7 +79,7 @@ const LogIn = () => {
         }
         else setformErrors(getLoginError(formValues).message)
     }
-    
+
     const handleClickShowPassword = () => {
         /** handle password visibility */
         setFormValues({ ...formValues, showPassword: !formValues.showPassword });
@@ -97,9 +97,9 @@ const LogIn = () => {
     }, [user, history])
     return (
         isLoading ?
-            <CircularProgress />
+            <CircularProgress plan={{ h: '100vh', w: '100%' }} />
             :
-             <form onSubmit={handleSubmit} className="sign-in-page">
+            <form onSubmit={handleSubmit} className="sign-in-page">
                 <Grid className="signing-side">
                     <h2>Welcome Back!</h2>
                     <h4>Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad voluptate.</h4>
@@ -111,6 +111,7 @@ const LogIn = () => {
                     <Grid>
                         <FormControl className="fieldset" variant="outlined">
                             <TextField
+                                autoFocus
                                 label="Email"
                                 variant="outlined"
                                 type="email"

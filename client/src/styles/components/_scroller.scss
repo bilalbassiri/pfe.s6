@@ -1,0 +1,22 @@
+.scroll-horizontally {
+    display: flex;
+    flex-wrap: nowrap;
+    border: 1px solid #d9e6e5;
+    border-radius: 15px;
+    button {
+        @include boxSize(30px, 30px, 50%);
+        display: block;
+        @include DisplayGridCenter;
+        .MuiSvgIcon-root {
+            font-size: 1rem;
+            color: #6c8a8f;
+            transition-duration: 100ms;
+        }
+        &:hover {
+            .MuiSvgIcon-root {
+                color: #1a535c;
+                transform: scale(1.08);
+            }
+        }
+    }
+}

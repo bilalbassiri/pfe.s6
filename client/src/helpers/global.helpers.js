@@ -1,5 +1,5 @@
 const getFormattedDate = date => {
-    return new Date(date).toDateString()
+    return new Date(date).getFullYear()
 }
 
 export {

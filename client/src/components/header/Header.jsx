@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
@@ -96,6 +96,7 @@ const Header = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { user: { cart, favoris, notifications, credentials, accessToken } } = useSelector(state => state);
+    const [scrollDown, setScrollDown] = useState(false);
     // Handling Material UI components
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -193,10 +194,15 @@ const Header = () => {
             </MenuItem>
         </Menu>
     );
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            setScrollDown(window.scrollY > 20)
+        })
+    }, [])
     return (
         <div className={classes.grow + ' header'}>
-            <AppBar position="static" style={{ boxShadow: 'none' }}>
-                <Toolbar style={{ backgroundColor: '#FFFFFF', color: '#3e3e3e', boxShadow: '0px 0px 0px 0px black' }}>
+            <AppBar position="fixed">
+                <Toolbar style={{ borderColor: scrollDown ? '#dfdfdf' : 'transparent' }}>
                     <LeftDrawer />
                     <Typography className={classes.title + ' logo'} onClick={() => history.push('/')} variant="h6" noWrap>
                         kafka

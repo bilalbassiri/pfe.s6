@@ -1,11 +1,17 @@
 .header {
-    margin-bottom: 20px;
+    .MuiToolbar-root {
+        background-color: hsla(0, 0%, 100%, 0.97);
+        color: $color-main-text;
+        box-shadow: none;
+        border-bottom: 1px solid transparent;
+        transition-duration: 1s;
+    }
 }
 .MuiToolbar-gutters {
-    padding:0px !important;
+    padding: 0px 10px !important;
 }
 @media screen and (min-width: 600px) {
     .MuiToolbar-gutters {
-        padding:0px !important;
+        padding: 0px 40px !important;
     }
 }

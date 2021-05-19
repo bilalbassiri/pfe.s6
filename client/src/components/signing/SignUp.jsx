@@ -84,7 +84,7 @@ const SignUp = () => {
     }, [user, errorMessages, isSignedUp, history, dispatch, values])
     return (
         isLoading ?
-            <CircularProgress />
+            <CircularProgress plan={{ h: '100vh', w: '100%' }} />
             :
             <form onSubmit={handleSubmit} className="sign-up-page">
                 <Grid className="signing-side">

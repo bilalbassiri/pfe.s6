@@ -157,7 +157,7 @@ const Book = () => {
                 </section>
             </div>
             :
-            <CircularProgress />
+            <CircularProgress plan={{ h: 'calc(100vh - 84px)', w: '100%' }} />
     )
 }
 

@@ -18,6 +18,8 @@ import Typography from '@material-ui/core/Typography';
 import DoneRoundedIcon from '@material-ui/icons/DoneRounded';
 import BookmarkBorderRoundedIcon from '@material-ui/icons/BookmarkBorderRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+
 const getCustomStyles = permission => ({
     backgroundColor: permission ? 'white' : '#4ecdc4',
     padding: '8.5px 16px',
@@ -108,7 +110,7 @@ const Profile = () => {
         <>
             {
                 isLoading.profile ?
-                    <CircularProgress />
+                    <CircularProgress plan={{ h: 'calc(100vh - 84px)', w: '100%' }} />
                     :
                     <Grid container justify="space-evenly" className="profile">
                         <Grid item sm={2} xs={12} className="general-section">
@@ -127,7 +129,7 @@ const Profile = () => {
                                             </div>
                                             :
                                             <div className="loading-image">
-                                                <CircularProgress porpose="reviews" size={{ height: 35, width: 35 }} />
+                                                <CircularProgress plan={{h: 35, w: 35}} size={{ height: 35, width: 35 }} />
                                             </div>)
                                     }
                                 </div>
@@ -184,7 +186,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className="joined">
-                                <p>Joined {getFormattedDate(info.createdAt)}</p>
+                                <ScheduleIcon /><p>Joined {getFormattedDate(info.createdAt)}</p>
                             </div>
                         </Grid>
                         <Grid item sm={5} xs={12} className="detail-section">

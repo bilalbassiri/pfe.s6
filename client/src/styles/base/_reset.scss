@@ -27,22 +27,6 @@ button {
     cursor: pointer;
 }
 
-.index {
-    padding: 20px;
-}
-@media screen and (min-width: 600px) {
-    .index {
-        padding:20px 40px;
-    }
-}
-.logo {
-    transition-duration: 200ms;
-    font-family: "Kaushan Script", cursive !important;
-    cursor: pointer;
-    &:hover {
-        opacity: 0.95;
-    }
-}
 // Reset CustomizedInput component styles
 .MuiFormLabel-root {
     font-weight: bold !important;

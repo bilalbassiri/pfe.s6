@@ -4,11 +4,9 @@
     h1 {
         text-align: center;
     }
-    .container {
-        display: flex;
+    .books-container {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 35px;
         padding: 20px;
     }
 }

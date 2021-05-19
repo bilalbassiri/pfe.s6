@@ -9,7 +9,7 @@ const Favoris = () => {
             <h1>
                 Favoris
             </h1>
-            <div className="container">
+            <div className="books-container">
                 {
                     favoris.map(item => <BookCard key={item._id} item={item} favoris={true} />)
                 }

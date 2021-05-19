@@ -1,17 +1,27 @@
 import React from 'react'
 import BookCard from './BookCard';
-import Skeleton from '@material-ui/lab/Skeleton';
+import { CircularProgress, Scroller } from '..';
+
 const Collection = ({ title, books }) => {
     return (
         <section className="books">
-            <h1 className="books-title">
-                {title}
-            </h1>
-            <div className="books-container">
+            <div className="genre-head">
+                <h1 className="books-title">
+                    {title}
+                </h1>
+                <div className="bar">
+
+                </div>
+                <Scroller title={title} />
+            </div>
+            <div className="books-container" id={"bc" + title}>
                 {
-                        
-                        books.map(item => <BookCard item={item} key={item._id} />)
-                        
+                books.length ?
+
+                    books.map(item => <BookCard item={item} key={item._id} />)
+                    :
+                    <CircularProgress plan={{ h: '200px', w: '100%' }} />
+
                 }
             </div>
         </section>
