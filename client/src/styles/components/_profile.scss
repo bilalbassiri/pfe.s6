@@ -73,18 +73,20 @@
                     }
                     label {
                         display: block;
+                    
                         cursor: pointer;
                         box-shadow: 0px 0px 0px 3px white;
-                        background-color: rgb(232, 232, 232);
+                        background-color: rgb(255, 255, 255);
                         @include boxSize(30px, 30px, 50%);
                         @include DisplayGridCenter;
-                        transition-duration: 200ms;
-                        &:hover {
-                            background-color: white;
-                        }
                         .icon {
+                            transition-duration: 200ms;
                             color: $content-color;
                             font-size: 1rem;
+                        }
+
+                        &:hover .icon{
+                            color: $color-main-text;
                         }
                     }
                 }
@@ -131,6 +133,10 @@
     }
     .detail-section {
         .bio {
+            .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+                border-color: $boss-color;
+                border-width: 1px;
+            }
             .edit-bio {
                 width: 100%;
                 resize: none;

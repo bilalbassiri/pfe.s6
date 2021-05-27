@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
 // Material UI components
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, FormControl } from '@material-ui/core';
@@ -9,7 +11,8 @@ import { Grid, FormControl } from '@material-ui/core';
 import { CircularProgress, CustomizedButton, FormError, CustomizedInput } from '..';
 // Helper functions
 import { setFormErrors, isValidatedForm } from '../../helpers/account.helpers';
-import { updateUserAccount } from '../../helpers/axios.helpers';
+import { updateUserAccount, deleteAccount } from '../../helpers/axios.helpers';
+import { userLogout } from '../../redux/actions/userActions';
 
 const useStyles = makeStyles(() => ({
     margin: {
@@ -33,11 +36,23 @@ const styles = {
         '&:hover': {
             backgroundColor: '#41aaa3',
         },
+    },
+    delete: {
+        margin: `10px 0px`,
+        backgroundColor: '#e63946',
+        padding: '8px',
+        fontSize: '.8rem',
+        borderRadius: 20,
+        width: '130px',
+        '&:hover': {
+            backgroundColor: '#c7333e',
+        },
     }
 }
 const Account = () => {
     const classes = useStyles();
-    const { credentials, accessToken } = useSelector(state => state.user)
+    const { credentials, accessToken } = useSelector(state => state.user);
+    const dispatch = useDispatch();
     const [values, setValues] = useState({
         first_name: '',
         last_name: '',
@@ -89,9 +104,9 @@ const Account = () => {
                 <form className="account" noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Grid container justify="center" alignItems="center" direction="column">
                         <Grid style={{ marginBottom: '20px' }}>
-                            <h1>Sign Up</h1>
+                            <h1>Account</h1>
                         </Grid>
-                        <Grid>
+                        <Grid style={{marginTop: 30}}>
                             <div style={{ display: 'flex', gap: '2ch' }}>
                                 <FormControl className={clsx(classes.margin, classes.semiWidth)} variant="outlined">
                                     <CustomizedInput
@@ -170,12 +185,33 @@ const Account = () => {
                                     Save
                             </CustomizedButton>
                             </Grid>
+                            <Grid style={{textAlign: 'center'}}>
+                            <CustomizedButton
+                                    onClick ={()=>{
+                                       const psw = prompt('Your account will be dispear forever, to valid this enter your password.');
+                                       if(!psw) return;
+                                       deleteAccount(psw, accessToken).then(res => {
+                                           if(res.deleted){
+                                            axios.get('/user/logout');
+                                            dispatch(userLogout());
+                                            history.push('/');
+                                           }
+                                           console.log(res)
+                                       })
+                                    }}
+                                    className={clsx(classes.margin)}
+                                    type="submit"
+                                    style={styles.delete}
+                                >
+                                    Delete Account
+                            </CustomizedButton>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </form>
             </div>
             :
-            <p>Hi</p>
+            <CircularProgress plan={{h: 'calc(100vh - 84px)', w: '100%'}}/>
     )
 }
 export default Account;

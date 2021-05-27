@@ -1,4 +1,54 @@
 .header {
+    .notifications {
+        opacity: 0;
+        width: 100%;
+        background-color: aqua;
+        z-index: 999;
+        position: absolute;
+        top: 64px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        gap: 15px;
+        padding: 20px;
+        min-height: calc(100vh - 84px);
+        border-radius: 15px;
+        animation: det 250ms ease-in-out forwards;
+        margin-right: 5px;
+        button {
+            &:hover {
+                color: $headings-color;
+            }
+        }
+        .container {
+            gap: 15px;
+            display: flex;
+            .pic {
+                img {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 50%;
+                }
+            }
+            .content {
+                font-size: .9rem;
+                .name {
+                    font-weight: bold;
+                }
+                .rev {
+                    font-style: italic;
+                    background-color: rgb(235, 235, 235);
+                }
+                .date {
+                    font-weight: bold;
+                    color: rgb(75, 75, 75);
+                    font-size: .7rem;
+                    margin-top: 7px;
+                }
+            }
+        }
+    }
     .MuiToolbar-root {
         background-color: hsla(0, 0%, 100%, 0.97);
         color: $color-main-text;
@@ -11,6 +61,12 @@
     padding: 0px 10px !important;
 }
 @media screen and (min-width: 600px) {
+    .header {
+        .notifications {
+            border: 1px solid rgb(165, 165, 165);
+            width: 450px;
+        }
+    }
     .MuiToolbar-gutters {
         padding: 0px 40px !important;
     }

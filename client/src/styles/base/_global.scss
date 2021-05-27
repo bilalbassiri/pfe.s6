@@ -30,6 +30,17 @@
     margin-top: 84px;
     padding:0px 20px;
 }
+.form-error {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    gap: 5px;
+    margin: 3px 0px 0px 0px;
+    color: #f44336;
+    & > * {
+        font-size: 1rem;
+    }
+}
 @media screen and (min-width: 600px) {
     .index {
         padding:0px 40px;

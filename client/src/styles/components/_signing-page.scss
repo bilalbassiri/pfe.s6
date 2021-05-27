@@ -27,17 +27,6 @@
             color: $boss-color;
         }
     }
-    .form-error {
-        display: flex;
-        align-items: center;
-        font-size: 0.7rem;
-        gap: 5px;
-        margin: 3px 0px 0px 0px;
-        color: #f44336;
-        & > * {
-            font-size: 1rem;
-        }
-    }
 }
 .sign-in-page {
     .login-error {

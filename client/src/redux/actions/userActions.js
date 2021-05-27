@@ -7,7 +7,8 @@ const {
     CART_ADD_REMOVE,
     FAVORIS_ADD_REMOVE,
     CHANGE_AVATAR,
-    UPDATE_USER_CREDENTIALS
+    UPDATE_USER_CREDENTIALS,
+    UPDATE_READING_LIST
 } = types;
 
 const userLogin = payload => ({ type: LOG_IN, payload })
@@ -18,7 +19,9 @@ const cartAddRemoveItem = payload => ({ type: CART_ADD_REMOVE, payload })
 const favorisAddRemoveItem = payload => ({ type: FAVORIS_ADD_REMOVE, payload });
 const updateItemQuantity = (payload, action) => ({ type: action, payload });
 const changeUserAvatar = payload => ({ type: CHANGE_AVATAR, payload });
-const updateUserCredentials = payload => ({ type: UPDATE_USER_CREDENTIALS, payload })
+const updateUserCredentials = payload => ({ type: UPDATE_USER_CREDENTIALS, payload });
+const switchReadingList = payload => ({type: UPDATE_READING_LIST, payload});
+
 export {
     userLogin,
     userSignUp,
@@ -28,5 +31,6 @@ export {
     favorisAddRemoveItem,
     updateItemQuantity,
     changeUserAvatar,
-    updateUserCredentials
+    updateUserCredentials,
+    switchReadingList
 }

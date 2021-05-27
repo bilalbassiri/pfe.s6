@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Home, LogIn, SignUp, Header, Book, Profile, Account, Cart, Favoris, Genre } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { userLogin, userSetAccessToken } from './redux/actions/userActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setBooks } from './redux/actions/bookActions';
 import { getBooksFromDB, getAccessTokenAndUser } from './helpers/axios.helpers';
 

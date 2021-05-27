@@ -25,7 +25,7 @@ export const AllReviews = () => {
                     reviews?.all && start ?
                         reviews.all.map((reviewInfo, index) => index < visibleReviews ? <Review info={reviewInfo} key={reviewInfo._id} /> : null)
                         :
-                        <CircularProgress porpose="reviews" />
+                        <CircularProgress plan={{w: '100%', h: '100px'}} />
                 }
 
             </div>

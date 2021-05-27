@@ -21,7 +21,7 @@ const styles = {
 const AddReview = () => {
     const { bookId: _id } = useParams();
     const dispatch = useDispatch()
-    const { user: { credentials, accessToken }, book: { currentBook } } = useSelector(state => state);
+    const { user: { credentials, accessToken }, books: { currentBook } } = useSelector(state => state);
     const [newReview, setNewReview] = useState({
         content: '',
         rating: 0,

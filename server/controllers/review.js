@@ -15,15 +15,6 @@ const controllers = {
             return res.json({ msg: err.message })
         }
     },
-    updateReview: async (req, res) => {
-        try {
-            const { _id, content } = req.body;
-            const oldReview = await Reviews.findOneAndUpdate(_id, { content });
-            return res.status(200).json(oldReview)
-        } catch (err) {
-            return res.json({ msg: err.message })
-        }
-    },
     getReviews: async (req, res) => {
         try {
             const { bookId: book_id } = req.params;

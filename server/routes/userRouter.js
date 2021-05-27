@@ -14,5 +14,8 @@ router.post('/profile', controllers.getPublicInfo);
 router.post('/update', auth, controllers.updateUserInfo);
 router.post('/highlight', auth, controllers.highlightReader);
 router.post('/account', auth, controllers.updateUserAccount);
+router.delete('/delete', auth, controllers.deleteAccount);
+router.post('/reading', auth, controllers.updateReadingList);
+router.post('/notifications', auth, controllers.updateNotifications);
 
 module.exports = router

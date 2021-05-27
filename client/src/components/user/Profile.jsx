@@ -207,7 +207,7 @@ const Profile = () => {
                                                 }
                                                 setBioState({ ...bioState, edit: !bioState.edit })
                                             }}>
-                                                { bioState.edit ? 'Save' : 'Edit'}
+                                                { bioState.edit ? 'Done' : 'Edit'}
                                             </button>
                                         )
                                     }
