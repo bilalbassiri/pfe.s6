@@ -13,6 +13,7 @@ import {
   MenuItem,
   Menu,
   Tooltip,
+  Avatar,
 } from "@material-ui/core";
 // Material UI icons
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
@@ -25,12 +26,14 @@ import { CustomizedButton } from "..";
 import LeftDrawer from "./LeftDrawer";
 // Redux actions
 import { userLogout } from "../../redux/actions/userActions";
+import { sendNotifications } from "../../helpers/axios.helpers";
+import { getPassedTime } from "../../helpers/global.helpers";
 
 const styles = {
   signup: {
     color: "white",
-    backgroundColor: "#4ecdc4",
-    border: "1px solid #4ecdc4",
+    backgroundColor: "#2a9d8f",
+    border: "1px solid #2a9d8f",
     fontSize: ".75rem",
     fontWeight: "bold",
     marginLeft: 3,
@@ -38,7 +41,7 @@ const styles = {
     padding: "5px",
     "&:hover": {
       backgroundColor: "white",
-      color: "#4ecdc4",
+      color: "#2a9d8f",
     },
   },
   login: {
@@ -95,13 +98,20 @@ const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const {
-    user: { cart, favoris, notifications, credentials, accessToken },
+    user: {
+      cart,
+      favoris,
+      notifications,
+      new_notifications,
+      credentials,
+      accessToken,
+    },
   } = useSelector((state) => state);
   const [scrollDown, setScrollDown] = useState(false);
   // Handling Material UI components
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNot, setOpenNot] = useState(false);
-
+  const [notificationsRead, setNotificationsRead] = useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const history = useHistory();
@@ -109,7 +119,7 @@ const Header = () => {
   const count = {
     cart: cart?.length,
     favoris: favoris?.length,
-    notifications: notifications?.length,
+    new_notifications: new_notifications?.length,
   };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -186,11 +196,16 @@ const Header = () => {
         </IconButton>
         <p> Favoris</p>
       </MenuItem>
-      <MenuItem onClick={() => setOpenNot(!openNot)}>
+      <MenuItem
+        onClick={() => {
+          setNotificationsRead(true);
+          setOpenNot(!openNot);
+        }}
+      >
         <IconButton
-          aria-label={`Show ${count.notifications} new notifications`}
+          aria-label={`Show ${count.new_notifications} new notifications`}
         >
-          <StyledBadge badgeContent={count.notifications} color="secondary">
+          <StyledBadge badgeContent={count.new_notifications} color="secondary">
             <NotificationsOutlinedIcon />
           </StyledBadge>
         </IconButton>
@@ -213,17 +228,50 @@ const Header = () => {
       setScrollDown(window.scrollY > 20);
     });
   }, []);
+  useEffect(() => {
+    if (notificationsRead) {
+      sendNotifications(credentials?._id, "", "read", accessToken);
+    }
+  }, [notificationsRead, credentials, accessToken]);
+  const Notification = ({ cls, str }) => (
+    <div
+      className={"container " + cls}
+      onClick={() => {
+        setOpenNot(false);
+        if (str.direction === "/readers/me") {
+          history.push("/readers/" + credentials?._id);
+          return;
+        }
+        history.push(str.direction);
+      }}
+    >
+      <Avatar className="avatar" src={str.picture} alt={str.name}>
+        {str.name[0]}
+      </Avatar>
+      <div className="content">
+        <div
+          className="text"
+          dangerouslySetInnerHTML={{ __html: str.content }}
+        ></div>
+        <div class="date">{getPassedTime(str.date)}</div>
+      </div>
+    </div>
+  );
   return (
     <div className={classes.grow + " header"}>
       {openNot && (
         <div className="notifications">
-          <button onClick={()=> setOpenNot(false)} type="button">Close</button>
+          <div className="topMain">
+            <h2>Notifications</h2>
+            <button onClick={() => setOpenNot(false)} type="button">
+              Close
+            </button>
+          </div>
+          {new_notifications?.map((str, i) => (
+            <Notification key={i} cls="new_not" str={str} />
+          ))}
           {notifications?.map((str, i) => (
-            <div
-              key={i}
-              className="container"
-              dangerouslySetInnerHTML={{ __html: str }}
-            ></div>
+            <Notification key={i} cls="old_not" str={str} />
           ))}
         </div>
       )}
@@ -270,13 +318,16 @@ const Header = () => {
               <Tooltip
                 title="Notifications"
                 arrow
-                onClick={() => setOpenNot(!openNot)}
+                onClick={() => {
+                  setNotificationsRead(true);
+                  setOpenNot(!openNot);
+                }}
               >
                 <IconButton
-                  aria-label={`Show ${count.notifications} new notifications`}
+                  aria-label={`Show ${count.new_notifications} new notifications`}
                 >
                   <StyledBadge
-                    badgeContent={count.notifications}
+                    badgeContent={count.new_notifications}
                     color="secondary"
                   >
                     <NotificationsOutlinedIcon />

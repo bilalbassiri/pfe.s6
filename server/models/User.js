@@ -47,6 +47,10 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    new_notifications: {
+      type: Array,
+      default: [],
+    },
     currently_reading: [
       {
         type: Schema.Types.ObjectId,

@@ -24,11 +24,11 @@ import { userLogin, userSetAccessToken } from '../../redux/actions/userActions';
 
 const styles = {
     login: {
-        backgroundColor: '#4ecdc4',
+        backgroundColor: '#2a9d8f',
         padding: '8px',
         width: '100%',
         '&:hover': {
-            backgroundColor: '#41aaa3',
+            backgroundColor: '#1f776d',
         },
     }
 }

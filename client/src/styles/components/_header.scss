@@ -4,47 +4,77 @@
         width: 100%;
         background-color: aqua;
         z-index: 999;
-        position: absolute;
+        position: fixed;
         top: 64px;
         right: 0;
         display: flex;
         flex-direction: column;
         background-color: white;
         gap: 15px;
-        padding: 20px;
-        min-height: calc(100vh - 84px);
-        border-radius: 15px;
+        padding: 25px;
+        height: calc(100vh - 84px);
+        border-radius: 15px 0px 0px 15px;
         animation: det 250ms ease-in-out forwards;
         margin-right: 5px;
-        button {
-            &:hover {
-                color: $headings-color;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            width: 6px;
+            border-radius: 20px;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgb(255, 255, 255);
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgb(124, 124, 124);
+            border-radius: 20px;
+        }
+        .topMain {
+            @include flexRowCenter;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            h2 {
+                font-size: 1rem;
+            }
+            button {
+                font-size: .8rem;
+                &:hover {
+                    color: $headings-color;
+                }
             }
         }
+
         .container {
             gap: 15px;
             display: flex;
-            .pic {
-                img {
-                    height: 40px;
-                    width: 40px;
-                    border-radius: 50%;
-                }
+            cursor: pointer;
+            transition-duration: 200ms;
+            &.old_not {
+                opacity: 0.7;
+            }
+            &.new_not {
+                opacity: 0.95;
+            }
+            &:hover {
+                opacity: 1;
+            }
+            .avatar {
+                height: 35px;
+                width: 35px;
             }
             .content {
-                font-size: .9rem;
+                font-size: 0.9rem;
                 .name {
                     font-weight: bold;
                 }
                 .rev {
                     font-style: italic;
-                    background-color: rgb(235, 235, 235);
+                    background-color: rgb(240, 240, 240);
                 }
                 .date {
                     font-weight: bold;
-                    color: rgb(75, 75, 75);
-                    font-size: .7rem;
-                    margin-top: 7px;
+                    color: rgb(116, 116, 116);
+                    font-size: 0.7rem;
+                    margin-top: 5px;
                 }
             }
         }

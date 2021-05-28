@@ -11,7 +11,7 @@ const CircularIndeterminate = ({ plan, size }) => {
       height: plan.h,
       width: plan.w,
       '& .MuiCircularProgress-colorSecondary': {
-        color: '#4ecdc4'
+        color: '#2a9d8f'
       },
     },
   }));

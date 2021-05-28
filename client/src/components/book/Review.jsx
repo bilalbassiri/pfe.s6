@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 import {
   upvoteReview,
   deleteBookReview,
-  sendNotifications
+  sendNotifications,
 } from "../../helpers/axios.helpers";
 import { useSelector, useDispatch } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
@@ -16,9 +16,16 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { removeReview } from "../../redux/actions/reviewActions";
+import { useParams } from "react-router-dom";
 
 const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
-  const { credentials, notifications, accessToken } = useSelector((state) => state.user);
+  const {
+    user: { credentials, accessToken },
+    books: {
+      currentBook: { name },
+    },
+  } = useSelector((state) => state);
+  const { bookId } = useParams();
   const reduxDispatch = useDispatch();
   const [readReview, setReadReview] = useState(false);
   const reducer = (state, action) => {
@@ -133,12 +140,29 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
           )}
         </div>
         <div className="cheer-sec">
+          <span>{currentVotes?.length !== 0 && currentVotes?.length}</span>
           <button
             type="click"
             onClick={() => {
               voteReview();
-              if (voted) return;
-              sendNotifications(owner._id, `<div class='pic'><img src='${credentials?.picture}' alt='${credentials?.name}'/></div><div class='content'><span class='name'>${credentials?.name}</span> liked your review: <span class='rev'>${content.substring(0, 50)}</span><div class='date'>${new Date().toDateString()}</div></div>`, accessToken);
+              if (voted || credentials?._id === owner?._id) return;
+              sendNotifications(
+                owner._id,
+                {
+                  content: `<span class='name'>${
+                    credentials?.name
+                  }</span> liked your review: <span class='rev'>${content.substring(
+                    0,
+                    50
+                  )}...</span> about <b>${name}</b> book.`,
+                  picture: credentials?.picture,
+                  name: credentials?.name,
+                  direction: "/book/" + bookId,
+                  date: new Date(),
+                },
+                "send",
+                accessToken
+              );
             }}
           >
             {voted ? (
@@ -147,7 +171,6 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
               <FavoriteBorderIcon className="border-i" />
             )}
           </button>
-          <span>{currentVotes?.length !== 0 && currentVotes?.length}</span>
         </div>
       </div>
       <article onClick={() => setReadReview(!readReview)}>

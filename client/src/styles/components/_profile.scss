@@ -1,4 +1,43 @@
 .profile {
+    .avatar-scope {
+        top: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.774);
+        z-index: 99999;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+            height: 80%;
+            max-width: 90%;
+            img {
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+        button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            border: 2px solid white;
+            @include DisplayGridCenter;
+            border-radius: 5px;
+            transition-duration: 200ms;
+            &:hover {
+                background-color: white;
+                .arr {
+                    color: rgba(0, 0, 0, 0.774);
+                }
+            }
+            .arr {
+                color: white;
+                font-size: 1.7rem;
+            }
+        }
+    }
     .right-arrow {
         @include DisplayGridCenter;
         padding: 0px 15px;
@@ -24,7 +63,7 @@
         span {
             font-size: 0.8rem;
         }
-        
+
         .edit-btn-save {
             background-color: $boss-color;
             color: white;
@@ -73,7 +112,7 @@
                     }
                     label {
                         display: block;
-                    
+
                         cursor: pointer;
                         box-shadow: 0px 0px 0px 3px white;
                         background-color: rgb(255, 255, 255);
@@ -85,7 +124,7 @@
                             font-size: 1rem;
                         }
 
-                        &:hover .icon{
+                        &:hover .icon {
                             color: $color-main-text;
                         }
                     }
@@ -98,7 +137,7 @@
                     font-weight: 700;
                 }
                 .email {
-                    font-size: .8rem;
+                    font-size: 0.8rem;
                     color: rgb(158, 158, 158);
                 }
             }
@@ -110,7 +149,7 @@
             }
         }
         .intersted-in {
-            &> div {
+            & > div {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 5px;
@@ -126,7 +165,7 @@
                 color: grey;
             }
             p {
-                font-size: .85rem;
+                font-size: 0.85rem;
                 color: grey;
             }
         }
@@ -181,10 +220,10 @@
                                 font-size: 0.9rem;
                                 color: $content-color;
                                 .upvotes {
-                                    font-size: .7rem;
+                                    font-size: 0.7rem;
                                     font-weight: bold;
                                     .icon {
-                                        font-size: .8rem;
+                                        font-size: 0.8rem;
                                     }
                                     @include flexRowCenter;
                                     gap: 3px;

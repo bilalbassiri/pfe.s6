@@ -29,12 +29,12 @@ const useStyles = makeStyles(() => ({
 const styles = {
     save: {
         margin: `10px 0px`,
-        backgroundColor: '#4ecdc4',
+        backgroundColor: '#2a9d8f',
         padding: '8px',
         borderRadius: 20,
         width: '130px',
         '&:hover': {
-            backgroundColor: '#41aaa3',
+            backgroundColor: '#1f776d',
         },
     },
     delete: {

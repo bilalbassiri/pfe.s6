@@ -26,12 +26,12 @@ import { Description } from "./Description";
 
 const styles = {
   cart: {
-    backgroundColor: "#4ecdc4",
+    backgroundColor: "#2a9d8f",
     padding: "8.5px 16px",
     borderRadius: 20,
     width: "100%",
     "&:hover": {
-      backgroundColor: "#41aaa3",
+      backgroundColor: "#1f776d",
     },
   },
   favoris: {

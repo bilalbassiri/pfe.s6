@@ -10,7 +10,7 @@ import { CircularProgress } from "..";
 const Home = () => {
   const {
     books: { all, popular, most_rated },
-    user: { genres, notifications, accessToken },
+    user: { genres, accessToken },
   } = useSelector((state) => state);
   const history = useHistory();
   return all.length ? (
@@ -32,16 +32,6 @@ const Home = () => {
                 <ArrowForwardRoundedIcon />
               </Fab>
             </div>
-          </section>
-          <section className="right">
-            {/* <div className="categories">
-                        <h3> Explore </h3>
-                        <div className='cont'>
-                            {
-                                ['Romance', 'Fantsy', 'Philosophy', 'History'].map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} onClick={() => history.push('/genres/' + genre)} />)
-                            }
-                        </div>
-                    </div> */}
           </section>
         </div>
       )}

@@ -49,7 +49,7 @@
                     cursor: pointer;
                     .price {
                         font-size: 1.3rem;
-                        color: $boss-color;
+                        color: $headings-color;
                         &::before {
                             content: "$";
                             font-size: 0.9rem;

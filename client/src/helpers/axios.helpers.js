@@ -252,7 +252,7 @@ const updateReadingList = async (data, token) => {
     console.log(error.message);
   }
 };
-const sendNotifications = async (_id, notification, token) => {
+const sendNotifications = async (_id, notification, action, token) => {
   try {
     await axios({
       method: "post",
@@ -260,6 +260,7 @@ const sendNotifications = async (_id, notification, token) => {
       data: {
         _id,
         notification,
+        action
       },
       headers: { authorization: token },
     });

@@ -3,7 +3,6 @@ const {
   LOG_IN,
   LOG_OUT,
   REFRESH,
-  SIGN_UP,
   CART_ADD_REMOVE,
   FAVORIS_ADD_REMOVE,
   QUANTITY_DECREMENT,
@@ -19,6 +18,7 @@ const initialState = {
   cart: [],
   favoris: [],
   notifications: [],
+  new_notifications: [],
   to_read: [],
   currently_reading: [],
   read: [],
@@ -42,6 +42,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         currently_reading,
         read,
         genres,
+        new_notifications,
       } = payload;
       return {
         credentials: {
@@ -56,6 +57,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         cart,
         favoris,
         notifications,
+        new_notifications,
         to_read,
         currently_reading,
         read,
@@ -63,12 +65,6 @@ const userReducer = (state = initialState, { type, payload }) => {
       };
     case LOG_OUT:
       return initialState;
-    case SIGN_UP:
-      return {
-        ...state,
-        credentials: payload.credentials,
-        accessToken: payload.ACCESS_TOKEN,
-      };
     case CART_ADD_REMOVE:
       return {
         ...state,

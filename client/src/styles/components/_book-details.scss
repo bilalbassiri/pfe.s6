@@ -26,9 +26,9 @@
             margin-top: 40px;
             .like-button {
                 & > * {
-                    color: #4ecdc4;
+                    color: $boss-color;
                     &:hover {
-                        color: #41aaa3;
+                        color: $hover-boss-color;
                     }
                 }
             }
@@ -199,11 +199,10 @@
                                 }
                             }
                             .cheer-sec {
-                                display: flex;
-                                align-items: center;
+                                @include flexRowCenter;
                                 font-size: 0.8rem;
+                                gap: 7px;
                                 button {
-                                    margin-right: 5px;
                                     display: grid;
                                     place-content: center;
                                     & > * {
@@ -217,7 +216,7 @@
                                         }
                                     }
                                     .fav-i {
-                                        color: $boss-color;
+                                        color: #e76f51;
                                     }
                                 }
                             }

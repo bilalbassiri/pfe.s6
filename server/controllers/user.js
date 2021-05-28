@@ -13,10 +13,21 @@ const controllers = {
       const user = await Users.findOne({ email });
       if (user) return res.json({ msg: "Email already exist", signed: false });
       const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
+
       const newUser = new Users({
         name: first_name + " " + last_name,
         email,
         password: passwordHash,
+        new_notifications: [
+          {
+            picture:
+              "https://www.pngkit.com/png/detail/148-1485970_related-wallpapers-hand-wave-emoji-png.png",
+            name: "Kafka",
+            direction: "/readers/me",
+            date: new Date(),
+            content: `Hi <span class='name'>${first_name} 👋</span>, you're welcome in our community.<br/>Add your picture and tell something about you on your profile, <b>Enjoy your journey </b> 🎉 `,
+          },
+        ],
       });
       newUser.save(); // Save mongoDB
       const ACCESS_TOKEN = createAccessToken({ id: newUser._id });
@@ -104,13 +115,24 @@ const controllers = {
   },
   updateNotifications: async (req, res) => {
     try {
-      const { _id, notification } = req.body;
-      const { notifications } = await Users.findOne({ _id });
-      await Users.findByIdAndUpdate(
-        _id,
-        { notifications: [notification, ...notifications] },
-        { new: true }
-      );
+      const { _id, notification, action } = req.body;
+      const { notifications, new_notifications } = await Users.findOne({ _id });
+      if (action === "read") {
+        await Users.findByIdAndUpdate(_id, {
+          notifications: [...new_notifications, ...notifications],
+          new_notifications: [],
+        });
+      } else {
+        const filtred_notifications = new_notifications.filter(
+          (item) => item.content !== notification.content
+        );
+        await Users.findByIdAndUpdate(_id, {
+          notifications: [...new_notifications, ...notifications].filter(
+            (item) => item.content !== notification.content
+          ),
+          new_notifications: [notification, ...filtred_notifications],
+        });
+      }
       return;
     } catch (error) {
       console.log(error.message);
