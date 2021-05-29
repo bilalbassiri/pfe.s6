@@ -1,5 +1,5 @@
 const Users = require("../models/User");
-const Orders = require("../models/Order");
+const { Orders } = require("../models/Order");
 const Books = require("../models/Book");
 const Reviews = require("../models/Review");
 const bcrypt = require("bcrypt");
@@ -13,7 +13,6 @@ const controllers = {
       const user = await Users.findOne({ email });
       if (user) return res.json({ msg: "Email already exist", signed: false });
       const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
-
       const newUser = new Users({
         name: first_name + " " + last_name,
         email,
@@ -45,7 +44,7 @@ const controllers = {
     try {
       const { email, password } = req.body;
       const user = await Users.findOne({ email });
-      if (!user) {
+      if (!user || !user.active) {
         res.json({ msg: "Invalid email address!", logged: false });
       } else {
         const passwordMatch = await bcrypt.compare(password, user.password);
@@ -172,9 +171,13 @@ const controllers = {
       const newOrder = await new Orders(order);
       newOrder.save(async (err, result) => {
         if (!err) {
-          const { cart } = await Users.findByIdAndUpdate(
+          const { cart, payed, orders } = await Users.findByIdAndUpdate(
             order.user._id,
-            { cart: [] },
+            {
+              cart: [],
+              payed: order.user.payed + order.total,
+              orders: [result._id, ...order.user.orders],
+            },
             { new: true }
           );
           Array.from(order.books).forEach(
@@ -183,11 +186,11 @@ const controllers = {
                 quantity: quantity - inCart,
               })
           );
-          return res.json({ cart, result });
+          return res.json({ cart, payed, orders,result });
         }
       });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.json({ msg: err.message });
     }
   },
   refreshToken: async (req, res) => {
@@ -270,7 +273,7 @@ const controllers = {
       const { password: correctPassword } = await Users.findOne({ _id: id });
       const passwordMatch = await bcrypt.compare(password, correctPassword);
       if (passwordMatch) {
-        const user = await Users.findByIdAndDelete(id);
+        const user = await Users.findByIdAndUpdate(id, { active: false });
         return res.status(200).json({
           msg:
             user.name +

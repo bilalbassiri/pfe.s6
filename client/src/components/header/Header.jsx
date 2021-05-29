@@ -21,6 +21,7 @@ import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import ClearIcon from "@material-ui/icons/Clear";
 //Components
 import { CustomizedButton } from "..";
 import LeftDrawer from "./LeftDrawer";
@@ -264,7 +265,7 @@ const Header = () => {
           <div className="topMain">
             <h2>Notifications</h2>
             <button onClick={() => setOpenNot(false)} type="button">
-              Close
+              <ClearIcon className="icon" />
             </button>
           </div>
           {new_notifications?.map((str, i) => (

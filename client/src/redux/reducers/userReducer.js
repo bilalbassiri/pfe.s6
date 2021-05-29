@@ -10,6 +10,7 @@ const {
   CHANGE_AVATAR,
   UPDATE_USER_CREDENTIALS,
   UPDATE_READING_LIST,
+  HANDLE_ORDER_DONE,
 } = types;
 
 const initialState = {
@@ -43,6 +44,8 @@ const userReducer = (state = initialState, { type, payload }) => {
         read,
         genres,
         new_notifications,
+        payed,
+        orders,
       } = payload;
       return {
         credentials: {
@@ -52,7 +55,9 @@ const userReducer = (state = initialState, { type, payload }) => {
           email,
           picture,
           createdAt,
+          payed,
           role,
+          orders,
         },
         cart,
         favoris,
@@ -74,6 +79,16 @@ const userReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         favoris: payload,
+      };
+    case HANDLE_ORDER_DONE:
+      return {
+        ...state,
+        cart: payload.cart,
+        credentials: {
+          ...state.credentials,
+          payed: payload.payed,
+          orders: payload.orders
+        },
       };
     case QUANTITY_DECREMENT:
       const dec_cart = state.cart.map((item) => {

@@ -17,6 +17,12 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "orders",
+      },
+    ],
     password: {
       type: String,
       required: true,
@@ -27,9 +33,17 @@ const userSchema = new Schema(
         ref: "users",
       },
     ],
+    active: {
+      type: Boolean,
+      default: true,
+    },
     genres: {
       type: Array,
       default: [],
+    },
+    payed: {
+      type: Number,
+      default: 0,
     },
     cart: [
       {

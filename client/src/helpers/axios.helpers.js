@@ -260,10 +260,22 @@ const sendNotifications = async (_id, notification, action, token) => {
       data: {
         _id,
         notification,
-        action
+        action,
       },
       headers: { authorization: token },
     });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+const getDashboardData = async (token) => {
+  try {
+    const { data } = await axios({
+      method: "get",
+      url: "/admin/all",
+      headers: { authorization: token },
+    });
+    return data;
   } catch (err) {
     console.log(err.message);
   }
@@ -288,4 +300,5 @@ export {
   deleteAccount,
   deleteBookReview,
   updateReadingList,
+  getDashboardData,
 };

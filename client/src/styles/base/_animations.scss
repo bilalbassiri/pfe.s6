@@ -3,6 +3,12 @@
         opacity: 1;
     }
 }
+@keyframes scp {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
 @keyframes dance {
     0%,
     100% {
@@ -19,7 +25,8 @@
     }
 }
 @keyframes slp {
-     0%, 100% {
+    0%,
+    100% {
         transform: scale(1);
     }
     50% {

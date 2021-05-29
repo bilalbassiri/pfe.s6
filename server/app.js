@@ -15,6 +15,7 @@ connectDB();
 
 //Routes
 app.use("/user", require("./routes/userRouter"));
+app.use("/admin", require("./routes/adminRouter"));
 app.use("/api", require("./routes/bookRouter"));
 app.use("/api/book", require("./routes/reviewRouter"));
 app.use("/api", require("./routes/uploadRouter"));

@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const controllers = require('../controllers/review');
 const auth = require('../middleware/auth');
-const authAdmin = require('../middleware/authAdmin');
 
 router.route('/review')
     .post(auth, controllers.addReview)

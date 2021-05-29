@@ -9,8 +9,7 @@
         right: 0;
         display: flex;
         flex-direction: column;
-        background-color: white;
-        gap: 15px;
+        background-color: #edf6f9;
         padding: 25px;
         height: calc(100vh - 84px);
         border-radius: 15px 0px 0px 15px;
@@ -22,7 +21,7 @@
             border-radius: 20px;
         }
         &::-webkit-scrollbar-track {
-            background: rgb(255, 255, 255);
+            background-color: #edf6f9;
         }
         &::-webkit-scrollbar-thumb {
             background-color: rgb(124, 124, 124);
@@ -36,20 +35,23 @@
                 font-size: 1rem;
             }
             button {
-                font-size: .8rem;
+                font-size: 0.8rem;
+                .icon {
+                    font-size: .9rem;
+                }
                 &:hover {
                     color: $headings-color;
                 }
             }
         }
-
         .container {
             gap: 15px;
             display: flex;
             cursor: pointer;
             transition-duration: 200ms;
+            padding: 10px;
             &.old_not {
-                opacity: 0.7;
+                opacity: 0.6;
             }
             &.new_not {
                 opacity: 0.95;
