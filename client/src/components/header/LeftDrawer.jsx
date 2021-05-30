@@ -12,6 +12,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Badge,
 } from "@material-ui/core";
 
 //Material UI icons
@@ -20,7 +21,11 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
-
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
+import CardTravelOutlinedIcon from '@material-ui/icons/CardTravelOutlined';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
@@ -36,6 +41,7 @@ const LeftDrawer = () => {
   const [state, setState] = useState(false);
   const {
     user: { credentials },
+    dashboard: { orders },
   } = useSelector((state) => state);
   const toggleDrawer = (open) => (event) => {
     if (
@@ -96,6 +102,55 @@ const LeftDrawer = () => {
                 <PeopleAltOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Users" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/admin/dashboard/books")}
+            >
+              <ListItemIcon>
+                <LibraryBooksOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Books" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/admin/dashboard/reviews")}
+            >
+              <ListItemIcon>
+                <CreateOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Reviews" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/admin/dashboard/orders")}
+            >
+              <ListItemIcon>
+                <Badge badgeContent={orders.length} color="primary">
+                  <CardTravelOutlinedIcon />
+                </Badge>
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/admin/dashboard/sales")}
+            >
+              <ListItemIcon>
+                <LocalAtmIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sales" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/admin/dashboard/messages")}
+            >
+              <ListItemIcon>
+                <Badge badgeContent={orders.length} color="primary">
+                  <EmailOutlinedIcon />
+                </Badge>
+              </ListItemIcon>
+              <ListItemText primary="Messages" />
             </ListItem>
           </List>
         </>

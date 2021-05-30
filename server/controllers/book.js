@@ -36,9 +36,13 @@ const controllers = {
   },
   deleteBook: async (req, res) => {
     try {
-      const { _id } = req.body;
-      const deletedCategory = await Books.findByIdAndDelete({ _id });
-      return res.json(deletedCategory);
+      const { ids } = req.body;
+      const deleteState = await Books.deleteMany({
+        _id: {
+          $in: ids,
+        },
+      });
+      return res.json(deleteState);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

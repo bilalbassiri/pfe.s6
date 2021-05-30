@@ -280,6 +280,38 @@ const getDashboardData = async (token) => {
     console.log(err.message);
   }
 };
+const adminDeleteBooks = async (selectedBooks, token) => {
+  try {
+    const { data } = await axios({
+      method: "delete",
+      url: "/admin/books",
+      data: {
+        ids: selectedBooks,
+      },
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const adminSetUsersActive = async (obj, token) => {
+  try {
+    const { data } = await axios({
+      method: "put",
+      url: "/admin/users",
+      data: obj,
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -301,4 +333,6 @@ export {
   deleteBookReview,
   updateReadingList,
   getDashboardData,
+  adminDeleteBooks,
+  adminSetUsersActive
 };

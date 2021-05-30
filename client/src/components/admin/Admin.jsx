@@ -7,6 +7,12 @@ import { setAdminDashboard } from "../../redux/actions/adminActions";
 import { Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
+import Orders from "./Orders";
+import Books from "./Books";
+import Sales from "./Sales";
+import Messages from "./Messages";
+import Reviews from "./Reviews";
+import EditBook from "./EditBook";
 
 const Admin = () => {
   const history = useHistory();
@@ -31,6 +37,12 @@ const Admin = () => {
     <>
       <Route path="/admin/dashboard" exact component={Dashboard} />
       <Route path="/admin/dashboard/users" exact component={Users} />
+      <Route path="/admin/dashboard/books" exact component={Books} />
+      <Route path="/admin/dashboard/reviews" exact component={Reviews} />
+      <Route path="/admin/dashboard/orders" exact component={Orders} />
+      <Route path="/admin/dashboard/messages" exact component={Messages} />
+      <Route path="/admin/dashboard/sales" exact component={Sales} />
+      <Route path="/admin/edit/book/:book_id" exact component={EditBook} />
     </>
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />

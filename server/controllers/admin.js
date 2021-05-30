@@ -18,5 +18,17 @@ const controllers = {
       return res.status(500).json({ msg: error.message });
     }
   },
+  setUsersActive: async (req, res) => {
+    try {
+      const { selectionModel, active } = req.body;
+      const updateState = await Users.updateMany(
+        { _id: { $in: selectionModel } },
+        { active }
+      );
+      return res.status(200).json(updateState);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
 };
 module.exports = controllers;

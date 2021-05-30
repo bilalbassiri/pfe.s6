@@ -108,6 +108,7 @@ const Header = () => {
       accessToken,
     },
   } = useSelector((state) => state);
+  const history = useHistory();
   const [scrollDown, setScrollDown] = useState(false);
   // Handling Material UI components
   const [anchorEl, setAnchorEl] = useState(null);
@@ -115,7 +116,6 @@ const Header = () => {
   const [notificationsRead, setNotificationsRead] = useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
-  const history = useHistory();
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const count = {
     cart: cart?.length,
@@ -163,7 +163,7 @@ const Header = () => {
           handleMenuClose();
           axios.get("/user/logout");
           dispatch(userLogout());
-          history.push("/");
+          history.push("/login");
         }}
       >
         Log out

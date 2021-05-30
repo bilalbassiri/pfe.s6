@@ -46,6 +46,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         new_notifications,
         payed,
         orders,
+        active,
       } = payload;
       return {
         credentials: {
@@ -58,6 +59,7 @@ const userReducer = (state = initialState, { type, payload }) => {
           payed,
           role,
           orders,
+          active,
         },
         cart,
         favoris,
@@ -87,7 +89,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         credentials: {
           ...state.credentials,
           payed: payload.payed,
-          orders: payload.orders
+          orders: payload.orders,
         },
       };
     case QUANTITY_DECREMENT:

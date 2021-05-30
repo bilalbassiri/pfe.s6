@@ -71,7 +71,6 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <div className="review">
       {accessToken && (
@@ -90,7 +89,7 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            {credentials._id === owner._id && (
+            {credentials?._id === owner?._id && (
               <MenuItem
                 onClick={() => {
                   handleClose();
@@ -127,7 +126,10 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
               <Avatar className="review-writer-pic" src={owner.picture ?? ""}>
                 {owner.name[0]}
               </Avatar>
-              <Link to={`/readers/${owner._id}`} className="review-writer-name">
+              <Link
+                to={`/readers/${owner?._id}`}
+                className="review-writer-name"
+              >
                 <h4>{owner.name}</h4>
               </Link>
               <Rating porpose="review_read" rating={rating} notext={true} />

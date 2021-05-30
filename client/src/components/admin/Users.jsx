@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   DataGrid,
   useGridSlotComponentProps,
@@ -10,6 +10,31 @@ import { Avatar } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { useHistory } from "react-router-dom";
+import CustomizedButton from "../ui/CustomizedButton";
+import { CustomAlert } from "..";
+import {
+  setActiveUsers,
+  updateDashboardData,
+} from "../../redux/actions/adminActions";
+import { adminSetUsersActive } from "../../helpers/axios.helpers";
+const styles = {
+  activate: {
+    backgroundColor: "#65b56d",
+    padding: "8.5px 16px",
+    width: "100%",
+    "&:hover": {
+      backgroundColor: "#4f8e56",
+    },
+  },
+  deactivate: {
+    backgroundColor: "#e64d59",
+    padding: "8.5px 16px",
+    width: "100%",
+    "&:hover": {
+      backgroundColor: "#c53f4a",
+    },
+  },
+};
 const columns = [
   {
     field: "picture",
@@ -59,17 +84,14 @@ const CustomPagination = () => {
     />
   );
 };
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-      <h1 className="title">Users</h1>
-      <GridToolbarExport />
-    </GridToolbarContainer>
-  );
-}
+
 const Users = () => {
   const history = useHistory();
-  const users = useSelector((state) => state.dashboard.users);
+  const dispatch = useDispatch();
+  const {
+    dashboard: { users },
+    user: { accessToken },
+  } = useSelector((state) => state);
   const rows = users.map(
     ({
       _id,
@@ -93,6 +115,65 @@ const Users = () => {
       orders: orders.length,
     })
   );
+  const [selectionModel, setSelectionModel] = useState([]);
+  const [deleteState, setDeleteState] = useState({
+    loading: false,
+    deleted: false,
+    openAlert: false,
+    message: "",
+  });
+  const CustomToolbar = () => {
+    return (
+      <GridToolbarContainer>
+        {selectionModel.length ? (
+          <div style={{ display: "flex", gap: 5 }}>
+            <CustomizedButton
+              disableElevation
+              style={styles.activate}
+              onClick={() => {
+                adminSetUsersActive(
+                  { selectionModel, active: true },
+                  accessToken
+                ).then((res) => {
+                  if (res.ok) {
+                    dispatch(
+                      setActiveUsers({ data: selectionModel, active: true })
+                    );
+                    setSelectionModel([]);
+                  }
+                });
+              }}
+            >
+              Activate
+            </CustomizedButton>
+            <CustomizedButton
+              disableElevation
+              style={styles.deactivate}
+              onClick={() => {
+                adminSetUsersActive(
+                  { selectionModel, active: false },
+                  accessToken
+                ).then((res) => {
+                  if (res.ok) {
+                    dispatch(
+                      setActiveUsers({ data: selectionModel, active: false })
+                    );
+                    setSelectionModel([]);
+                  }
+                });
+              }}
+            >
+              Deactivate
+            </CustomizedButton>
+          </div>
+        ) : (
+          <h1 className="g-title">Users</h1>
+        )}
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    );
+  };
+
   return (
     <div className="users">
       <div style={{ height: 600, width: "100%" }}>
@@ -102,13 +183,23 @@ const Users = () => {
           columns={columns}
           pageSize={8}
           checkboxSelection
+          loading={deleteState.loading}
           onRowClick={(params) => history.push("/readers/" + params.row.id)}
+          onSelectionModelChange={(param) =>
+            setSelectionModel(param.selectionModel)
+          }
           components={{
             Pagination: CustomPagination,
             Toolbar: CustomToolbar,
           }}
         />
       </div>
+      {deleteState.openAlert && (
+        <CustomAlert
+          message={deleteState.message}
+          severity={deleteState.deleted ? "success" : "error"}
+        />
+      )}
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+
 import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
 import { useHistory } from "react-router-dom";
@@ -55,16 +57,23 @@ const styles = {
     },
   },
 };
-const Account = () => {
+const EditBook = () => {
+  const { book_id } = useParams();
+  const {
+    dashboard: { books },
+  } = useSelector((state) => state);
+  const book = books.filter((book) => book._id === book_id);
   const classes = useStyles();
   const { credentials, accessToken } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    old_password: "",
-    new_password: "",
+    name: "",
+    cover: "",
+    author: "",
+    release: "",
+    quantity: "",
+    price: "",
+    genres: "",
     change: true,
     disabled: true,
   });
@@ -105,14 +114,14 @@ const Account = () => {
   return accessToken && credentials ? (
     <div>
       <form
-        className="account"
+        className="edit-book"
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
       >
         <Grid container justify="center" alignItems="center" direction="column">
           <Grid style={{ marginBottom: "20px" }}>
-            <h1>Account</h1>
+            <h1>Update Book</h1>
           </Grid>
           <Grid style={{ marginTop: 30 }}>
             <div style={{ display: "flex", gap: "2ch" }}>
@@ -121,11 +130,11 @@ const Account = () => {
                 variant="outlined"
               >
                 <CustomizedInput
-                  label="First name"
+                  label="Name"
                   variant="outlined"
-                  value={values.first_name}
+                  value={values.name}
                   type="text"
-                  onChange={handleChange("first_name")}
+                  onChange={handleChange("name")}
                 />
                 <FormError message={errorMessages.firstNameErr} />
               </FormControl>
@@ -134,11 +143,11 @@ const Account = () => {
                 variant="outlined"
               >
                 <CustomizedInput
-                  label="Last name"
+                  label="Author"
                   variant="outlined"
-                  value={values.last_name}
+                  value={values.author}
                   type="text"
-                  onChange={handleChange("last_name")}
+                  onChange={handleChange("author")}
                 />
                 <FormError message={errorMessages.lastNameErr} />
               </FormControl>
@@ -149,11 +158,12 @@ const Account = () => {
                 variant="outlined"
               >
                 <CustomizedInput
-                  label="Email"
+                  label="Genres"
                   variant="outlined"
-                  value={values.email}
+                  value={values.genres}
+                  placeholder="Ex: Romance, Fantasy, History"
                   type="text"
-                  onChange={handleChange("email")}
+                  onChange={handleChange("genres")}
                 />
                 <FormError message={errorMessages.emailErr} />
               </FormControl>
@@ -165,9 +175,9 @@ const Account = () => {
               >
                 <CustomizedInput
                   variant="outlined"
-                  type="password"
-                  label="Old password"
-                  onChange={handleChange("old_password")}
+                  type="number"
+                  label="Price"
+                  onChange={handleChange("price")}
                 />
                 <FormError message={errorMessages.oldPasswordErr} />
               </FormControl>
@@ -178,11 +188,11 @@ const Account = () => {
                 variant="outlined"
               >
                 <CustomizedInput
-                  type="password"
-                  value={values.confirmPassword}
-                  label="New password"
+                  type="number"
+                  value={values.quantity}
+                  label="Quantity"
                   variant="outlined"
-                  onChange={handleChange("new_password")}
+                  onChange={handleChange("quantity")}
                 />
                 <FormError message={errorMessages.newPasswordErr} />
               </FormControl>
@@ -205,7 +215,7 @@ const Account = () => {
                   }))
                 }
               >
-                Discard
+                Reset
               </CustomizedButton>
               <CustomizedButton
                 disabled={values.disabled}
@@ -213,7 +223,7 @@ const Account = () => {
                 type="submit"
                 style={styles.save}
               >
-                Save
+                Update
               </CustomizedButton>
             </Grid>
             <Grid style={{ textAlign: "center" }}>
@@ -237,7 +247,7 @@ const Account = () => {
                 type="submit"
                 style={styles.delete}
               >
-                Delete Account
+                Delete
               </CustomizedButton>
             </Grid>
           </Grid>
@@ -248,4 +258,4 @@ const Account = () => {
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />
   );
 };
-export default Account;
+export default EditBook;

@@ -4,7 +4,7 @@
         flex-wrap: wrap;
         gap: 30px;
         &-chip {
-            background-color: #DEF7F3;
+            background-color: #def7f3;
             border-radius: 15px;
             width: 150px;
             padding: 20px;
@@ -33,15 +33,25 @@
             }
         }
     }
-
 }
-.users {
-    .title {
-        font-size: 1.2rem;
-        color: $headings-color;
-    }
-    .MuiDataGrid-root .MuiDataGrid-toolbar{
-        justify-content: space-between;
-        padding: 10px;
+.g-title {
+    font-size: 1.2rem;
+    color: $headings-color;
+}
+.MuiDataGrid-root .MuiDataGrid-toolbar {
+    justify-content: space-between;
+    padding: 15px !important;
+}
+.books {
+    .book-quantity {
+        &.still {
+            background-color: rgb(170, 255, 170);
+        }
+        &.empty {
+            background-color: rgb(255, 166, 166);
+        }
+        &.lack {
+            background-color: rgb(255, 222, 160);
+        }
     }
 }
