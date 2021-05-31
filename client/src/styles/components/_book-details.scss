@@ -11,6 +11,7 @@
 
     .left {
         padding: 40px;
+        padding-top: 0;
         .cover-container {
             width: 230px;
             display: grid;
@@ -201,12 +202,13 @@
                             .cheer-sec {
                                 @include flexRowCenter;
                                 font-size: 0.8rem;
+                                font-weight: bold;
                                 gap: 7px;
                                 button {
                                     display: grid;
                                     place-content: center;
                                     & > * {
-                                        font-size: 0.9rem;
+                                        font-size: 1rem;
                                     }
                                     .border-i {
                                         color: rgb(94, 94, 94);
@@ -216,7 +218,7 @@
                                         }
                                     }
                                     .fav-i {
-                                        color: #e76f51;
+                                        color: #f50057;
                                     }
                                 }
                             }

@@ -13,7 +13,9 @@ const controllers = {
       const orders = await Orders.find().sort("-createdAt");
       const sales = await Sales.find().sort("-createdAt");
       const books = await Books.find().sort("-createdAt");
-      return res.status(200).json({ users, reviews, books, orders, sales });
+      return res
+        .status(200)
+        .json({ users, reviews, books, orders, sales, isLoading: false });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

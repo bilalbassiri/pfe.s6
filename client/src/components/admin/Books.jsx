@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 // Material UI components
 import {
   DataGrid,
-  useGridSlotComponentProps,
   GridToolbarContainer,
   GridToolbarExport,
 } from "@material-ui/data-grid";
-import Pagination from "@material-ui/lab/Pagination";
 import Rating from "@material-ui/lab/Rating";
-import { CustomAlert, CustomizedButton } from "..";
+import { CustomAlert, CustomizedButton, CustomPagination } from "..";
 import { adminDeleteBooks } from "../../helpers/axios.helpers";
 import { updateDashboardData } from "../../redux/actions/adminActions";
+import EditBook from "./EditBook";
+
 const columns = [
-  { field: "id", headerName: "ID", width: 150 },
+  { field: "id", headerName: "ID", width: 100 },
   { field: "name", headerName: "Name", width: 200 },
-  { field: "author", headerName: "Author", width: 150 },
+  { field: "author", headerName: "Author", width: 140 },
   { field: "price", headerName: "Price", width: 110 },
   {
     field: "quantity",
@@ -30,10 +29,10 @@ const columns = [
   {
     field: "rating",
     headerName: "Rating",
-    width: 140,
+    width: 120,
     renderCell: (params) => (
       <Rating
-        style={{ fontSize: "1.2rem" }}
+        style={{ fontSize: "1rem" }}
         name="half-rating-read"
         defaultValue={params.value}
         precision={0.1}
@@ -52,37 +51,29 @@ const columns = [
     width: 130,
   },
   {
+    field: "release",
+    headerName: "Released",
+    width: 150,
+  },
+  {
     field: "createdAt",
     headerName: "Added",
-    width: 160,
+    width: 150,
   },
   {
     field: "updatedAt",
     headerName: "Last Update",
-    width: 160,
+    width: 150,
   },
 ];
-const CustomPagination = () => {
-  const { state, apiRef } = useGridSlotComponentProps();
-
-  return (
-    <Pagination
-      color="primary"
-      count={state.pagination.pageCount}
-      page={state.pagination.page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
-    />
-  );
-};
 
 const Books = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
   const {
     dashboard: { books },
     user: { accessToken },
   } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const rows = books?.map(
+  const rows = books.map(
     ({
       _id,
       name,
@@ -104,17 +95,22 @@ const Books = () => {
       quantity,
       rating,
       cover,
-      release,
       rating_count,
       genres: genres ? genres.join(", ") : "-",
       createdAt: new Date(createdAt).toDateString(),
       updatedAt: new Date(updatedAt).toDateString(),
+      release: new Date(release).toDateString(),
     })
   );
   const [selectionModel, setSelectionModel] = useState([]);
-  const [deleteState, setDeleteState] = useState({
+  const [editMode, setEditMode] = useState({
+    book_id: "",
+    open: false,
+  });
+
+  const [actionState, setActionState] = useState({
     loading: false,
-    deleted: false,
+    actionDone: false,
     openAlert: false,
     message: "",
   });
@@ -126,9 +122,9 @@ const Books = () => {
           <CustomizedButton
             disableElevation
             onClick={() => {
-              setDeleteState((prev) => ({
+              setActionState((prev) => ({
                 ...prev,
-                deleted: false,
+                actionDone: false,
                 loading: true,
                 openAlert: false,
               }));
@@ -142,10 +138,10 @@ const Books = () => {
                       ),
                     })
                   );
-                  setDeleteState((prev) => ({
+                  setActionState((prev) => ({
                     ...prev,
                     loading: false,
-                    deleted: true,
+                    actionDone: true,
                     openAlert: true,
                     message: `${selectionModel.length} book${
                       selectionModel.length > 1 ? "s" : ""
@@ -153,9 +149,9 @@ const Books = () => {
                   }));
                   setSelectionModel([]);
                 } else {
-                  setDeleteState((prev) => ({
+                  setActionState((prev) => ({
                     ...prev,
-                    deleted: false,
+                    actionDone: false,
                     loading: false,
                     openAlert: true,
                     message: "Sorry, deleting process went wrong",
@@ -167,7 +163,7 @@ const Books = () => {
             Delete {selectionModel.length || ""}
           </CustomizedButton>
         ) : (
-          <h1 className="g-title">Books</h1>
+          <h1 className="g-title">Books </h1>
         )}
         <GridToolbarExport />
       </GridToolbarContainer>
@@ -182,23 +178,33 @@ const Books = () => {
           columns={columns}
           pageSize={8}
           checkboxSelection
-          loading={deleteState.loading}
+          loading={actionState.loading}
           onSelectionModelChange={(param) =>
             setSelectionModel(param.selectionModel)
           }
-          onRowClick={(param) =>
-            history.push("/admin/dashboard/books/" + param.row.id)
-          }
+          onRowDoubleClick={(param) => {
+            setEditMode({
+              book: books.filter((book) => param.row.id === book._id)[0],
+              open: true,
+            });
+          }}
           components={{
             Pagination: CustomPagination,
             Toolbar: CustomToolbar,
           }}
         />
       </div>
-      {deleteState.openAlert && (
+      {editMode.open && (
+        <EditBook
+          setEditMode={setEditMode}
+          setActionState={setActionState}
+          book={editMode.book}
+        />
+      )}
+      {actionState.openAlert && (
         <CustomAlert
-          message={deleteState.message}
-          severity={deleteState.deleted ? "success" : "error"}
+          message={actionState.message}
+          severity={actionState.actionDone ? "success" : "error"}
         />
       )}
     </div>

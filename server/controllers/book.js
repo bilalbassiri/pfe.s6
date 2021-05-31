@@ -7,8 +7,11 @@ const controllers = {
         .limit(50);
       const popular = await Books.find({ quantity: { $gt: 0 } })
         .sort("-rating_count")
-        .limit(10);
-      res.status(200).json({ all: books, popular });
+        .limit(15);
+      const most_rated = await Books.find({ quantity: { $gt: 0 } })
+        .sort("-rating")
+        .limit(15);
+      res.status(200).json({ all: books, popular, most_rated });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -50,8 +53,10 @@ const controllers = {
   updateBook: async (req, res) => {
     try {
       const { _id, update } = req.body;
-      const originalBook = await Books.findByIdAndUpdate(_id, update);
-      return res.json(originalBook);
+      const updatedBook = await Books.findByIdAndUpdate(_id, update, {
+        new: true,
+      });
+      return res.status(200).json(updatedBook);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

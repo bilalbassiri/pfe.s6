@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   DataGrid,
-  useGridSlotComponentProps,
   GridToolbarContainer,
   GridToolbarExport,
 } from "@material-ui/data-grid";
 import { Avatar } from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { useHistory } from "react-router-dom";
 import CustomizedButton from "../ui/CustomizedButton";
-import { CustomAlert } from "..";
-import {
-  setActiveUsers,
-  updateDashboardData,
-} from "../../redux/actions/adminActions";
+import { CustomAlert, CustomLoadingOverlay, CustomPagination } from "..";
+import { setActiveUsers } from "../../redux/actions/adminActions";
 import { adminSetUsersActive } from "../../helpers/axios.helpers";
+
 const styles = {
   activate: {
     backgroundColor: "#65b56d",
@@ -72,18 +68,6 @@ const columns = [
     ),
   },
 ];
-const CustomPagination = () => {
-  const { state, apiRef } = useGridSlotComponentProps();
-
-  return (
-    <Pagination
-      color="primary"
-      count={state.pagination.pageCount}
-      page={state.pagination.page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
-    />
-  );
-};
 
 const Users = () => {
   const history = useHistory();
@@ -116,12 +100,34 @@ const Users = () => {
     })
   );
   const [selectionModel, setSelectionModel] = useState([]);
-  const [deleteState, setDeleteState] = useState({
+  const [actionState, setActionState] = useState({
     loading: false,
-    deleted: false,
+    actionDone: false,
     openAlert: false,
     message: "",
   });
+  const handleUserActivation = (active) => {
+    setActionState({
+      ...actionState,
+      loading: true,
+      actionDone: false,
+      openAlert: false,
+    });
+    adminSetUsersActive({ selectionModel, active }, accessToken).then((res) => {
+      if (res.ok) {
+        dispatch(setActiveUsers({ data: selectionModel, active }));
+        setActionState({
+          loading: false,
+          actionDone: true,
+          openAlert: true,
+          message: `${selectionModel.length} user${
+            selectionModel.length > 1 ? "s" : ""
+          } has been ${!active ? "de" : ""}activited successfully`,
+        });
+        setSelectionModel([]);
+      }
+    });
+  };
   const CustomToolbar = () => {
     return (
       <GridToolbarContainer>
@@ -130,38 +136,14 @@ const Users = () => {
             <CustomizedButton
               disableElevation
               style={styles.activate}
-              onClick={() => {
-                adminSetUsersActive(
-                  { selectionModel, active: true },
-                  accessToken
-                ).then((res) => {
-                  if (res.ok) {
-                    dispatch(
-                      setActiveUsers({ data: selectionModel, active: true })
-                    );
-                    setSelectionModel([]);
-                  }
-                });
-              }}
+              onClick={() => handleUserActivation(true)}
             >
               Activate
             </CustomizedButton>
             <CustomizedButton
               disableElevation
               style={styles.deactivate}
-              onClick={() => {
-                adminSetUsersActive(
-                  { selectionModel, active: false },
-                  accessToken
-                ).then((res) => {
-                  if (res.ok) {
-                    dispatch(
-                      setActiveUsers({ data: selectionModel, active: false })
-                    );
-                    setSelectionModel([]);
-                  }
-                });
-              }}
+              onClick={() => handleUserActivation(false)}
             >
               Deactivate
             </CustomizedButton>
@@ -173,7 +155,6 @@ const Users = () => {
       </GridToolbarContainer>
     );
   };
-
   return (
     <div className="users">
       <div style={{ height: 600, width: "100%" }}>
@@ -183,7 +164,7 @@ const Users = () => {
           columns={columns}
           pageSize={8}
           checkboxSelection
-          loading={deleteState.loading}
+          loading={actionState.loading}
           onRowClick={(params) => history.push("/readers/" + params.row.id)}
           onSelectionModelChange={(param) =>
             setSelectionModel(param.selectionModel)
@@ -191,13 +172,14 @@ const Users = () => {
           components={{
             Pagination: CustomPagination,
             Toolbar: CustomToolbar,
+            LoadingOverlay: CustomLoadingOverlay,
           }}
         />
       </div>
-      {deleteState.openAlert && (
+      {actionState.openAlert && (
         <CustomAlert
-          message={deleteState.message}
-          severity={deleteState.deleted ? "success" : "error"}
+          message={actionState.message}
+          severity={actionState.actionDone ? "success" : "error"}
         />
       )}
     </div>

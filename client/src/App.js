@@ -18,30 +18,41 @@ import {
   userLogout,
   userSetAccessToken,
 } from "./redux/actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
-import { setBooks } from "./redux/actions/bookActions";
-import { getBooksFromDB, getAccessTokenAndUser } from "./helpers/axios.helpers";
+import { useDispatch } from "react-redux";
+import {
+  getAccessTokenAndUser,
+  getBooksFromDB,
+  getDashboardData,
+} from "./helpers/axios.helpers";
 import axios from "axios";
+import { setAdminDashboard } from "./redux/actions/adminActions";
+import { setBooks } from "./redux/actions/bookActions";
 
 function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { credentials, accessToken } = useSelector((state) => state.user);
   useEffect(() => {
     getAccessTokenAndUser().then(({ data, _ACCESS_TOKEN }) => {
-      dispatch(userLogin(data));
-      dispatch(userSetAccessToken(_ACCESS_TOKEN));
-      getBooksFromDB().then((books) => dispatch(setBooks(books)));
+      if (data.hasOwnProperty("active")) {
+        if (data.active) {
+          dispatch(userSetAccessToken(_ACCESS_TOKEN));
+          dispatch(userLogin(data));
+          getBooksFromDB().then((books) => dispatch(setBooks(books)));
+          if (data.role) {
+            getDashboardData(_ACCESS_TOKEN).then((data) =>
+              dispatch(setAdminDashboard(data))
+            );
+          }
+        } else {
+          axios.get("/user/logout").then(() => {
+            dispatch(userLogout());
+            history.push("/login");
+            console.log(1);
+          });
+        }
+      }
     });
-  }, [dispatch]);
-  useEffect(() => {
-    if (accessToken && !credentials.active) {
-      axios.get("/user/logout").then(() => {
-        dispatch(userLogout());
-        history.push("/login");
-      });
-    }
-  }, [accessToken, credentials, history, dispatch]);
+  }, [dispatch, history]);
   return (
     <div className="App">
       <Switch>

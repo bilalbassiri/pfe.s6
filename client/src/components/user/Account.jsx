@@ -103,18 +103,25 @@ const Account = () => {
     }
   }, [credentials, errorMessages, accessToken, values]);
   return accessToken && credentials ? (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        placeContent: "center",
+        height: "calc(100vh - 84px",
+      }}
+    >
       <form
-        className="account"
+        style={{
+          padding: 25,
+          borderRadius: 15,
+          boxShadow: "0px 0px 10px -3px grey",
+        }}
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit}
       >
         <Grid container justify="center" alignItems="center" direction="column">
-          <Grid style={{ marginBottom: "20px" }}>
-            <h1>Account</h1>
-          </Grid>
-          <Grid style={{ marginTop: 30 }}>
+          <Grid>
             <div style={{ display: "flex", gap: "2ch" }}>
               <FormControl
                 className={clsx(classes.margin, classes.semiWidth)}

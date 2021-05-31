@@ -277,7 +277,7 @@ const controllers = {
         return res.status(200).json({
           msg:
             user.name +
-            " your account has been deleted permanently, we hope to meet you again",
+            " Your account has been deleted permanently, we hope to meet you again",
           deleted: true,
         });
       } else {

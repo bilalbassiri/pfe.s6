@@ -7,7 +7,7 @@ import { BookCard } from '..';
 const Genre = () => {
     const { genre } = useParams();
     const { books } = useSelector(state => state);
-    const getBooksByGenre = () => books?.all?.filter(item => item.categories.includes(genre) === true);
+    const getBooksByGenre = () => books?.all?.filter(item => item.genres.includes(genre) === true);
     return (
         <div>
             <h1>
@@ -15,7 +15,7 @@ const Genre = () => {
             </h1>
             <div className="result" style={{display: 'flex', gap: 20}}>
         {
-            getBooksByGenre()?.map(book => <BookCard item={book}/>)
+            getBooksByGenre()?.map(book => <BookCard item={book} key={book._id}/>)
         }
             </div>
         </div>

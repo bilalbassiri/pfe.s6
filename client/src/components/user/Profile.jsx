@@ -29,6 +29,7 @@ import BookmarkBorderRoundedIcon from "@material-ui/icons/BookmarkBorderRounded"
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 const getCustomStyles = (permission) => ({
   backgroundColor: permission ? "white" : "#2a9d8f",
   padding: "8.5px 16px",
@@ -45,7 +46,9 @@ const getCustomStyles = (permission) => ({
 const Profile = () => {
   const dispatch = useDispatch();
   const { user_id } = useParams();
-  const { credentials, accessToken } = useSelector((state) => state.user);
+  const { credentials, accessToken, highlights } = useSelector(
+    (state) => state.user
+  );
   const [isLoading, setIsLoading] = useState({
     profile: true,
     image: false,
@@ -131,8 +134,15 @@ const Profile = () => {
               <button type="button" onClick={() => setOpenPicture(false)}>
                 <KeyboardBackspaceIcon className="arr" />
               </button>
-              <a href={info.picture} target="_blank" rel="noreferrer">
-                <img src={info.picture} alt={info.name} />
+              <a
+                href={isMyProfile() ? credentials.picture : info.picture}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src={isMyProfile() ? credentials.picture : info.picture}
+                  alt={info.name}
+                />
               </a>
             </div>
           )}
@@ -180,17 +190,31 @@ const Profile = () => {
                   ))}
               </div>
               <div className="inf">
-                <h1 className="name">{info.name}</h1>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <h1 className="name">{info.name}</h1>
+                  {isMyProfile() && (
+                    <button
+                      type="button"
+                      style={{ display: "grid", placeContent: "center" }}
+                      onClick={() => history.push("/me/account")}
+                    >
+                      <SettingsOutlinedIcon
+                        style={{ fontSize: "1.1rem", color: "#88908f" }}
+                      />
+                    </button>
+                  )}
+                </div>
                 {isMyProfile() && <p className="email">{credentials.email}</p>}
               </div>
               <div className="highlight">
-                {!isMyProfile() && accessToken && (
+                {!isMyProfile() && (
                   <CustomizedButton
                     disableElevation
                     type="button"
                     style={getCustomStyles(highlighted)}
                     disabled={isLoading.highlight}
                     onClick={() => {
+                      if (!accessToken) history.push("/login");
                       setIsLoading({ ...isLoading, highlight: true });
                       updateUserHighlights(
                         {
@@ -234,7 +258,13 @@ const Profile = () => {
                         <DoneRoundedIcon className="icon" />{" "}
                       </>
                     ) : (
-                      <BookmarkBorderRoundedIcon className="icon" />
+                      <>
+                        {!isMyProfile() &&
+                          accessToken &&
+                          highlights.includes(user_id) &&
+                          " Back"}
+                        <BookmarkBorderRoundedIcon className="icon" />
+                      </>
                     )}
                   </CustomizedButton>
                 )}

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Chip } from '@material-ui/core';
 
-export const Description = ({ book : { description, categories }}) => {
+export const Description = ({ book : { description, genres }}) => {
     const [readMore, setReadMore] = useState(false);
     const history = useHistory();
 
@@ -23,7 +23,7 @@ export const Description = ({ book : { description, categories }}) => {
                 }
                 <span className="book-genres">
                     {
-                        categories?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} onClick={() => history.push('/genres/' + genre)} />)
+                        genres?.map((genre, i) => <Chip variant="outlined" size="small" label={genre} key={i} onClick={() => history.push('/genres/' + genre)} />)
                     }
                 </span>
         </div>

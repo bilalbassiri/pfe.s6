@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { CircularProgress } from "..";
-import { getDashboardData } from "../../helpers/axios.helpers";
-import { setAdminDashboard } from "../../redux/actions/adminActions";
 import { Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
@@ -12,28 +10,19 @@ import Books from "./Books";
 import Sales from "./Sales";
 import Messages from "./Messages";
 import Reviews from "./Reviews";
-import EditBook from "./EditBook";
 
 const Admin = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const [dashboardIsLoding, setDashboardIsLoading] = useState(true);
   const {
-    user: { accessToken, credentials },
+    dashboard: { isLoading },
+    user: { credentials },
   } = useSelector((state) => state);
   useEffect(() => {
-    if (!accessToken) return;
-    if (credentials?.role === 0) {
+    if (!isLoading && !credentials?.role) {
       history.push("/");
-      return;
-    } else {
-      getDashboardData(accessToken).then((data) => {
-        dispatch(setAdminDashboard(data));
-        setDashboardIsLoading(false);
-      });
     }
-  }, [accessToken, dispatch, credentials, history]);
-  return !dashboardIsLoding ? (
+  }, [credentials, history, isLoading]);
+  return !isLoading ? (
     <>
       <Route path="/admin/dashboard" exact component={Dashboard} />
       <Route path="/admin/dashboard/users" exact component={Users} />
@@ -42,7 +31,6 @@ const Admin = () => {
       <Route path="/admin/dashboard/orders" exact component={Orders} />
       <Route path="/admin/dashboard/messages" exact component={Messages} />
       <Route path="/admin/dashboard/sales" exact component={Sales} />
-      <Route path="/admin/edit/book/:book_id" exact component={EditBook} />
     </>
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />

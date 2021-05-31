@@ -14,6 +14,10 @@ const orderSchema = new Schema(
       type: Number,
       required: true,
     },
+    exist: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

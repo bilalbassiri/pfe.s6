@@ -312,6 +312,21 @@ const adminSetUsersActive = async (obj, token) => {
     console.log(error.message);
   }
 };
+const adminUpdateBook = async (obj, token) => {
+  try {
+    const { data } = await axios({
+      method: "put",
+      url: "/admin/books",
+      data: obj,
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -334,5 +349,6 @@ export {
   updateReadingList,
   getDashboardData,
   adminDeleteBooks,
-  adminSetUsersActive
+  adminSetUsersActive,
+  adminUpdateBook
 };

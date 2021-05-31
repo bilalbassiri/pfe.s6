@@ -29,3 +29,5 @@ export { default as CustomizedButton } from "./ui/CustomizedButton";
 export { default as CircularProgress } from "./ui/CircularProgress";
 export { default as Scroller } from "./ui/Scroller";
 export { default as CustomAlert } from "./ui/CustomAlert";
+export { default as CustomLoadingOverlay } from "./ui/CustomLoadingOverlay";
+export { default as CustomPagination } from "./ui/CustomPagination";

@@ -24,6 +24,7 @@ const initialState = {
   currently_reading: [],
   read: [],
   genres: [],
+  isLoading: true,
 };
 const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -47,8 +48,10 @@ const userReducer = (state = initialState, { type, payload }) => {
         payed,
         orders,
         active,
+        highlights,
       } = payload;
       return {
+        ...state,
         credentials: {
           _id,
           name,
@@ -69,6 +72,8 @@ const userReducer = (state = initialState, { type, payload }) => {
         currently_reading,
         read,
         genres,
+        highlights,
+        isLoading: false,
       };
     case LOG_OUT:
       return initialState;

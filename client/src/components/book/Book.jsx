@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 // Components
 import SimpleTabs from "./Tabs";
-import ReadingList from './ReadingList';
+import ReadingList from "./ReadingList";
 import { Rating, CircularProgress, CustomizedButton } from "..";
 //Material UI Icons
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
@@ -44,8 +44,9 @@ const styles = {
 };
 const Book = () => {
   const { bookId } = useParams();
+  const history = useHistory();
   const {
-    books: { currentBook: book },
+    books: { currentBook: book, all },
     user: { cart, favoris, accessToken },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const Book = () => {
     favoris: false,
   });
   const [isLoading, setIsLoading] = useState(true);
+
   const alreadyExist = (prop) => {
     if (prop === "cart") return cart?.map((item) => item._id)?.includes(bookId);
     if (prop === "favoris")
@@ -95,7 +97,7 @@ const Book = () => {
           }
         );
       } else return;
-    } else return;
+    } else history.push("/login");
   };
 
   useEffect(() => {
@@ -168,6 +170,25 @@ const Book = () => {
             </button>
           </div>
           <ReadingList />
+          <div className="similar">
+            {all
+              .filter((item) => {
+                let isSimilar = false;
+                for (let i = 0; i < item.genres.length; i++) {
+                  if (
+                    book.genres.includes(item.genres[i]) &&
+                    book._id !== item._id
+                  ) {
+                    isSimilar = true;
+                    break;
+                  }
+                }
+                return isSimilar;
+              })
+              .map((item) => (
+                <h1 key={item._id}>{item.name}</h1>
+              ))}
+          </div>
         </div>
         <div className="right">
           <h1>{book.name}</h1>

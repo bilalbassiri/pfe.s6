@@ -10,10 +10,10 @@ import { CircularProgress } from "..";
 const Home = () => {
   const {
     books: { all, popular, most_rated },
-    user: { genres, accessToken },
+    user: { genres, accessToken, isloading },
   } = useSelector((state) => state);
   const history = useHistory();
-  return all.length ? (
+  return all.length && !isloading ? (
     <div className="home">
       {!accessToken && (
         <div className="main-page">
