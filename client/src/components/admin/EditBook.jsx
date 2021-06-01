@@ -67,7 +67,7 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
     setValues((prev) => ({
       ...prev,
       [prop]:
-        prop === "genres" ? event.target.value.split(",") : event.target.value,
+        prop === "genres" ? event.target.value.split(",").map(genre=> genre.trim()) : event.target.value,
       disabled: false,
     }));
   };

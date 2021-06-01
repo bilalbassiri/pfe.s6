@@ -37,7 +37,9 @@ function App() {
         if (data.active) {
           dispatch(userSetAccessToken(_ACCESS_TOKEN));
           dispatch(userLogin(data));
-          getBooksFromDB().then((books) => dispatch(setBooks(books)));
+          if (!(window.location.pathname === "/")) {
+            getBooksFromDB().then((books) => dispatch(setBooks(books)));
+          }
           if (data.role) {
             getDashboardData(_ACCESS_TOKEN).then((data) =>
               dispatch(setAdminDashboard(data))

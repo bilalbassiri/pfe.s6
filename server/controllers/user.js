@@ -225,7 +225,10 @@ const controllers = {
         .sort("-createdAt")
         .select("-createdAt -updatedAt");
       if (!info) return res.json(null);
-      return res.status(200).json({ info, reviews: reviews.filter(review => review.book_id !== null) });
+      return res.status(200).json({
+        info,
+        reviews: reviews.filter((review) => review.book_id !== null),
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

@@ -9,7 +9,8 @@ import MenuList from "@material-ui/core/MenuList";
 import { useDispatch, useSelector } from "react-redux";
 import { switchReadingList } from "../../redux/actions/userActions";
 import { updateReadingList } from "../../helpers/axios.helpers";
-
+import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import DoneAllRoundedIcon from "@material-ui/icons/DoneAllRounded";
 export default function ReadingList() {
   const dispatch = useDispatch();
   const {
@@ -54,6 +55,8 @@ export default function ReadingList() {
         to_read: [...list.to_read, currentBook?._id],
         currently_reading: list.currently_reading,
       };
+    } else if (section === "not-interested") {
+      newList = list;
     } else {
       newList = {
         read: list.read,
@@ -75,24 +78,28 @@ export default function ReadingList() {
   }, [open]);
   return (
     <div className="reading-list">
-      <Button
+      <button
+      className="reading-button"
         ref={anchorRef}
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        {(read?.includes(currentBook?._id) && "I have read it") ||
-          (to_read?.includes(currentBook?._id) && "I want to read it") ||
-          (currently_reading?.includes(currentBook?._id) &&
-            "I'm currently reading it") ||
-          "Have you read this book?"}
-      </Button>
+        {read?.includes(currentBook?._id) ||
+        to_read?.includes(currentBook?._id) ||
+        currently_reading?.includes(currentBook?._id) ? (
+          <DoneAllRoundedIcon />
+        ) : (
+          <AddRoundedIcon />
+        )}
+      </button>
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
         disablePortal
+        style={{ zIndex: 1 }}
       >
         {({ TransitionProps, placement }) => (
           <Grow
@@ -132,6 +139,14 @@ export default function ReadingList() {
                     }}
                   >
                     I'm currently reading
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(e) => {
+                      addToReadingList("not-interested");
+                      handleClose(e);
+                    }}
+                  >
+                    I'm not interested
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

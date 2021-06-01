@@ -29,12 +29,17 @@ const controllers = {
     try {
       const { name } = req.body;
       const book = await Books.findOne({ name });
-      if (book) return res.status(400).json({ msg: "This book already exist" });
+      if (book)
+        return res.json({ msg: "This book already exist", added: false });
       const newBook = new Books(req.body);
-      await newBook.save();
-      return res.json({ msg: "Added 🍻" });
+      const result = await newBook.save();
+      return res.json({
+        msg: newBook.name + " has been added successfully",
+        added: true,
+        result,
+      });
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      return res.json({ msg: err.message, added: false });
     }
   },
   deleteBook: async (req, res) => {

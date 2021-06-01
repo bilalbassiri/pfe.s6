@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 // Material UI components
 import {
   DataGrid,
@@ -69,9 +70,10 @@ const columns = [
 
 const Books = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const {
     dashboard: { books },
-    user: { accessToken },
+    user: { accessToken, credentials },
   } = useSelector((state) => state);
   const rows = books.map(
     ({
@@ -114,14 +116,18 @@ const Books = () => {
     openAlert: false,
     message: "",
   });
-
   const CustomToolbar = () => {
     return (
       <GridToolbarContainer>
         {selectionModel.length ? (
           <CustomizedButton
             disableElevation
+            color="secondary"
             onClick={() => {
+              const isOK = window.confirm(
+                `Hi ${credentials.name} 👋, you are in process to delete ${selectionModel.length} number of books permanently!, if you are sure just press OK otherwise press Cancel.`
+              );
+              if (!isOK) return;
               setActionState((prev) => ({
                 ...prev,
                 actionDone: false,
@@ -165,7 +171,21 @@ const Books = () => {
         ) : (
           <h1 className="g-title">Books </h1>
         )}
-        <GridToolbarExport />
+        <div style={{ display: "flex", gap: 10 }}>
+          <CustomizedButton
+            disableElevation
+            style={{
+              backgroundColor: "#2a9d8f",
+              "&:hover": {
+                backgroundColor: "#1f776d",
+              },
+            }}
+            onClick={() => history.push("/admin/dashboard/books/add-new-book")}
+          >
+            New
+          </CustomizedButton>
+          <GridToolbarExport />
+        </div>
       </GridToolbarContainer>
     );
   };

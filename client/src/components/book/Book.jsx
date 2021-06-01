@@ -23,6 +23,8 @@ import {
   getBookDetailFromDB,
 } from "../../helpers/axios.helpers";
 import { Description } from "./Description";
+import Similar from "./Similar";
+import MiniBookCard from "./MiniBookCard";
 
 const styles = {
   cart: {
@@ -46,7 +48,7 @@ const Book = () => {
   const { bookId } = useParams();
   const history = useHistory();
   const {
-    books: { currentBook: book, all },
+    books: { currentBook: book, most_rated, popular },
     user: { cart, favoris, accessToken },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -103,6 +105,7 @@ const Book = () => {
   useEffect(() => {
     let isMounted = true;
     (async () => {
+      setIsLoading(true);
       const res = await getBookDetailFromDB(bookId);
       dispatch(setCurrentBook(res));
       if (isMounted) setIsLoading(false);
@@ -113,8 +116,8 @@ const Book = () => {
   }, [dispatch, bookId]);
   return !isLoading ? (
     <div className="book-details">
-      <section className="main-section">
-        <div className="left">
+      <div className="left">
+        <div className="left-top">
           <div className="cover-container">
             <img src={book.cover} alt={book.name} className="cover" />
           </div>
@@ -169,44 +172,36 @@ const Book = () => {
               )}
             </button>
           </div>
-          <ReadingList />
-          <div className="similar">
-            {all
-              .filter((item) => {
-                let isSimilar = false;
-                for (let i = 0; i < item.genres.length; i++) {
-                  if (
-                    book.genres.includes(item.genres[i]) &&
-                    book._id !== item._id
-                  ) {
-                    isSimilar = true;
-                    break;
-                  }
-                }
-                return isSimilar;
-              })
-              .map((item) => (
-                <h1 key={item._id}>{item.name}</h1>
-              ))}
-          </div>
         </div>
-        <div className="right">
+        <Similar />
+        <MiniBookCard title="Popular" books={popular.slice(0, 3)} />
+        <MiniBookCard title="Most rated" books={most_rated.slice(0, 3)} />
+      </div>
+      <div className="right">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <h1>{book.name}</h1>
-          <h3 className="author">by {book.author}</h3>
-          <div className="other">
-            <h3 className="price">{book.price.toFixed(2) ?? "00.00"}</h3>
-            <Rating
-              porpose="global_read"
-              count={book.rating_count}
-              rating={book.rating}
-            />
-          </div>
-          <div>
-            <Description book={book} />
-            <SimpleTabs book={book} />
-          </div>
+          <ReadingList />
         </div>
-      </section>
+        <h3 className="author">by {book.author}</h3>
+        <div className="other">
+          <h3 className="price">{book.price.toFixed(2) ?? "00.00"}</h3>
+          <Rating
+            porpose="global_read"
+            count={book.rating_count}
+            rating={book.rating}
+          />
+        </div>
+        <div>
+          <Description book={book} />
+          <SimpleTabs book={book} />
+        </div>
+      </div>
     </div>
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />

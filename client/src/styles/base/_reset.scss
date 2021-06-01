@@ -18,6 +18,7 @@ img {
 }
 
 body {
+    background-color: #ffffff;
     color: $color-main-text;
 }
 button {
@@ -70,4 +71,7 @@ button {
 }
 .MuiOutlinedInput-multiline {
     padding: 5px !important;
+}
+.MuiTabs-centered {
+    justify-content: initial !important;
 }

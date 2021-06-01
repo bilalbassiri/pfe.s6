@@ -1,18 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Collection from "../collection/Collection";
 import Category from "../collection/Category";
 import Fab from "@material-ui/core/Fab";
 import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import { useHistory } from "react-router-dom";
 import { CircularProgress } from "..";
+import { getBooksFromDB } from "../../helpers/axios.helpers";
+import { setBooks } from "../../redux/actions/bookActions";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const {
     books: { all, popular, most_rated },
     user: { genres, accessToken, isloading },
   } = useSelector((state) => state);
   const history = useHistory();
+  useEffect(() => {
+    getBooksFromDB().then((books) => dispatch(setBooks(books)));
+  }, [dispatch]);
   return all.length && !isloading ? (
     <div className="home">
       {!accessToken && (

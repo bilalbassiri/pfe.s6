@@ -10,6 +10,7 @@ import Books from "./Books";
 import Sales from "./Sales";
 import Messages from "./Messages";
 import Reviews from "./Reviews";
+import AddNewBook from "./AddNewBook";
 
 const Admin = () => {
   const history = useHistory();
@@ -24,13 +25,17 @@ const Admin = () => {
   }, [credentials, history, isLoading]);
   return !isLoading ? (
     <>
+      <Route path="/admin/dashboard/users" component={Users} />
+      <Route path="/admin/dashboard/books" component={Books} />
+      <Route path="/admin/dashboard/reviews" component={Reviews} />
+      <Route path="/admin/dashboard/orders" component={Orders} />
+      <Route path="/admin/dashboard/messages" component={Messages} />
+      <Route path="/admin/dashboard/sales" component={Sales} />
       <Route path="/admin/dashboard" exact component={Dashboard} />
-      <Route path="/admin/dashboard/users" exact component={Users} />
-      <Route path="/admin/dashboard/books" exact component={Books} />
-      <Route path="/admin/dashboard/reviews" exact component={Reviews} />
-      <Route path="/admin/dashboard/orders" exact component={Orders} />
-      <Route path="/admin/dashboard/messages" exact component={Messages} />
-      <Route path="/admin/dashboard/sales" exact component={Sales} />
+      <Route
+        path="/admin/dashboard/books/add-new-book"
+        component={AddNewBook}
+      />
     </>
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />

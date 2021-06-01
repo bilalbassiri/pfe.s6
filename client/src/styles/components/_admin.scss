@@ -58,45 +58,45 @@
             background-color: rgb(255, 222, 160);
         }
     }
-    .edit-book {
-        background-color: rgba(63, 63, 63, 0.555);
+}
+.edit-book, .fly {
+    background-color: rgba(63, 63, 63, 0.555);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    width: 100%;
+    height: 100vh;
+    background-color: #717171c4;
+    opacity: 0;
+    transform: translateX(-100%);
+    animation: scp 500ms ease-in-out forwards;
+    @include DisplayGridCenter;
+    form {
+        border-radius: 15px;
+        background-color: white;
+        padding: 25px;
+    }
+    .cls-scp {
         position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 999999;
-        width: 100%;
-        height: 100vh;
-        background-color: #717171c4;
-        opacity: 0;
-        transform: translateX(-100%);
-        animation: scp 500ms ease-in-out forwards;
+        top: 20px;
+        left: 20px;
+        border: 2px solid white;
         @include DisplayGridCenter;
-        form {
-            border-radius: 15px;
-            background-color: white;
-            padding: 25px;
-        }
-        .cls-scp {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            border: 2px solid white;
-            @include DisplayGridCenter;
-            border-radius: 50%;
-            padding: 3px;
-            transition-duration: 200ms;
-            background-color: white;
+        border-radius: 50%;
+        padding: 3px;
+        transition-duration: 200ms;
+        background-color: white;
 
-            &:hover {
-                background-color: transparent;
-                .arr {
-                    color: white;
-                }
-            }
+        &:hover {
+            background-color: transparent;
             .arr {
-                color: #717171c4;
-                font-size: 1.3rem;
+                color: white;
             }
+        }
+        .arr {
+            color: #717171c4;
+            font-size: 1.3rem;
         }
     }
 }

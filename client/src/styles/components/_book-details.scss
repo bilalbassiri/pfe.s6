@@ -1,52 +1,129 @@
 .book-details {
     opacity: 0;
     animation: det 500ms ease-in-out forwards;
-}
-
-.main-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 40px;
-
+    .right,
+    .left-top,
+    .other-books {
+        @extend %cardStyles;
+    }
     .left {
-        padding: 40px;
-        padding-top: 0;
-        .cover-container {
-            width: 230px;
-            display: grid;
-            place-content: center;
-            .cover {
-                width: 180px;
-                object-fit: contain;
+        flex: 0.2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .left-top {
+            .cover-container {
+                display: grid;
+                place-content: center;
+                .cover {
+                    width: 180px;
+                    object-fit: contain;
+                }
+            }
+            .add-to-cart-or-favoris {
+                @include flexRowCenter;
+                justify-content: space-between;
+                margin-top: 40px;
+                .like-button {
+                    & > * {
+                        color: $boss-color;
+                        &:hover {
+                            color: $hover-boss-color;
+                        }
+                    }
+                }
+                .spn {
+                    padding-left: 10px;
+                }
+                .heart {
+                    animation: dance 400ms ease-in-out;
+                }
             }
         }
-        .add-to-cart-or-favoris {
-            @include flexRowCenter;
-            justify-content: space-between;
-            margin-top: 40px;
-            .like-button {
-                & > * {
-                    color: $boss-color;
-                    &:hover {
-                        color: $hover-boss-color;
+        .other-books {
+            @include flexColumn;
+            gap: 10px;
+            .title {
+                font-size: 1rem;
+                color: rgb(182, 182, 182);
+                margin-bottom: 10px;
+            }
+            &-item {
+                display: flex;
+                gap: 10px;
+                cursor: pointer;
+                position: relative;
+                align-items: center;
+                &::before {
+                    display: none;
+                    content: "";
+                    @include boxSize(7px, 7px, 50%);
+                    background-color: $headings-color;
+                    position: absolute;
+                    left: -14px;
+                }
+                &:hover {
+                    .detail h1 {
+                        color: $headings-color;
+                    }
+                    &::before {
+                        display: block;
+                    }
+                }
+                .cvr {
+                    img {
+                        width: 60px;
+                        height: 80px;
+                    }
+                }
+                .detail {
+                    font-size: 0.8rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 3px;
+                    h1 {
+                        font-size: 0.8rem;
+                    }
+                    h4 {
+                        font-weight: 400;
+                        color: $content-color;
+                    }
+                    .nbrs {
+                        display: flex;
+                        gap: 10px;
+                        font-size: 0.7rem;
+                        font-weight: bold;
+                        color: $content-color;
                     }
                 }
             }
-            .spn {
-                padding-left: 10px;
-            }
-            .heart {
-                animation: dance 400ms ease-in-out;
-            }
-        }
-        .reading-list {
-            margin-top: 40px;
-            text-align: center;
         }
     }
     .right {
-        flex-grow: 1;
+        flex: 0.8;
+        .reading-list {
+            text-align: center;
+            .reading-button {
+                display: grid;
+                place-content: center;
+                border-radius: 50%;
+                padding: 4px;
+                border: 1px solid $color-main-text;
+                &:hover {
+                    border: 1px solid rgb(105, 105, 105);
+                    & > * {
+                        color: rgb(105, 105, 105);
+                    }
+                }
+                & > * {
+                    font-size: 1.2rem;
+                }
+            }
+        }
         h1 {
             color: $headings-color;
         }
@@ -107,16 +184,16 @@
         }
         .desc {
             margin-top: 20px;
-                font-size: 0.9rem;
-                color: rgb(107, 107, 107);
-                .more-btn {
-                    font-weight: bold;
-                    color: $boss-color;
-                }
-                .MuiChip-label::first-letter {
-                    text-transform: uppercase !important;
-                }
+            font-size: 0.9rem;
+            color: rgb(107, 107, 107);
+            .more-btn {
+                font-weight: bold;
+                color: $boss-color;
             }
+            .MuiChip-label::first-letter {
+                text-transform: uppercase !important;
+            }
+        }
         .tabs {
             margin-top: 70px !important;
             .detail {
@@ -255,10 +332,8 @@
 
 @media screen and (min-width: 600px) {
     .book-details {
-        padding: 25px;
-        .main-section {
-            flex-direction: row;
-            align-items: flex-start;
-        }
+        padding: 20px 0px;
+        flex-direction: row;
+        align-items: flex-start;
     }
 }

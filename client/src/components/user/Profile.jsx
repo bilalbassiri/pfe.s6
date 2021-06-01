@@ -190,7 +190,14 @@ const Profile = () => {
                   ))}
               </div>
               <div className="inf">
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 10,
+                  }}
+                >
                   <h1 className="name">{info.name}</h1>
                   {isMyProfile() && (
                     <button
