@@ -141,7 +141,7 @@ const updateFavoris = async (books, token) => {
 };
 const makeOrder = async (user, books, total, token) => {
   try {
-    const order = { user, books, total };
+    const order = { user: user._id, books, total };
     const { data } = await axios({
       method: "post",
       url: "/user/order",
@@ -150,6 +150,7 @@ const makeOrder = async (user, books, total, token) => {
       },
       data: {
         order,
+        user,
       },
     });
     return data;
@@ -342,6 +343,52 @@ const adminAddNewBook = async (book, token) => {
     console.log(error.message);
   }
 };
+const adminUpdateDeliveringState = async (orderState, token) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "/admin/orders",
+      data: orderState,
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const adminDeleteOrder = async (_id, token) => {
+  try {
+    const { data } = await axios({
+      method: "delete",
+      url: "/admin/orders",
+      data: {
+        _id,
+      },
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const adminDeleteAllReviews = async (token) => {
+  try {
+    const { data } = await axios({
+      method: "delete",
+      url: "/admin/reviews",
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -367,4 +414,7 @@ export {
   adminSetUsersActive,
   adminUpdateBook,
   adminAddNewBook,
+  adminUpdateDeliveringState,
+  adminDeleteOrder,
+  adminDeleteAllReviews,
 };

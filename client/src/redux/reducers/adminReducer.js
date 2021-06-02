@@ -5,6 +5,9 @@ const {
   SET_ACTIVE_USERS,
   UPDATE_BOOK,
   ADD_NEW_BOOK,
+  UPDATE_ORDER_STATE,
+  DELETE_ORDER,
+  DELETE_ALL_REVIEWS,
 } = types;
 const initialState = {
   users: [],
@@ -45,6 +48,23 @@ const adminReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         books: [payload, ...state.books],
+      };
+    case UPDATE_ORDER_STATE:
+      return {
+        ...state,
+        orders: state.orders.map((order) =>
+          payload._id === order._id ? payload.updatedOrder : order
+        ),
+      };
+    case DELETE_ORDER:
+      return {
+        ...state,
+        orders: state.orders.filter((order) => order._id !== payload.order_id),
+      };
+    case DELETE_ALL_REVIEWS:
+      return {
+        ...state,
+        reviews: [],
       };
     default:
       return state;

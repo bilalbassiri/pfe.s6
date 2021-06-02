@@ -11,4 +11,11 @@ router
   .delete(auth, authAdmin, controllers.deleteBook)
   .put(auth, authAdmin, controllers.updateBook);
 router.route("/users").put(auth, authAdmin, adminControllers.setUsersActive);
+router
+  .route("/orders")
+  .post(auth, authAdmin, adminControllers.deliverOrder)
+  .delete(auth, authAdmin, adminControllers.deleteOrder);
+router
+  .route("/reviews")
+  .delete(auth, authAdmin, adminControllers.deleteAllReviews);
 module.exports = router;

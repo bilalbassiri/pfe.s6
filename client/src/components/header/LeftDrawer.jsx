@@ -21,11 +21,11 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
-import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
-import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
-import CardTravelOutlinedIcon from '@material-ui/icons/CardTravelOutlined';
-import LocalAtmIcon from '@material-ui/icons/LocalAtm';
-import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import CardTravelOutlinedIcon from "@material-ui/icons/CardTravelOutlined";
+import LocalAtmIcon from "@material-ui/icons/LocalAtm";
+import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
@@ -43,6 +43,9 @@ const LeftDrawer = () => {
     user: { credentials },
     dashboard: { orders },
   } = useSelector((state) => state);
+  const getNewOrders = () =>
+    orders.filter((order) => !order.delivered && !order.delivering).length;
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -126,7 +129,7 @@ const LeftDrawer = () => {
               onClick={() => history.push("/admin/dashboard/orders")}
             >
               <ListItemIcon>
-                <Badge badgeContent={orders.length} color="primary">
+                <Badge badgeContent={getNewOrders()} color="primary">
                   <CardTravelOutlinedIcon />
                 </Badge>
               </ListItemIcon>

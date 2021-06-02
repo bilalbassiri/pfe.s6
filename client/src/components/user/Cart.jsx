@@ -83,7 +83,12 @@ const Cart = () => {
                 onClick={() => {
                   setOrderState({ ...orderState, sending: true });
                   makeOrder(
-                    credentials,
+                    {
+                      _id: credentials._id,
+                      payed: credentials.payed,
+                      orders: credentials.orders,
+                      total: credentials.total,
+                    },
                     cart,
                     parseInt(getTotal()),
                     accessToken

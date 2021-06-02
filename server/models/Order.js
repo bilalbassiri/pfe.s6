@@ -3,8 +3,8 @@ const { Schema, model } = require("mongoose");
 const orderSchema = new Schema(
   {
     user: {
-      type: Object,
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "users",
     },
     books: {
       type: Array,
@@ -14,9 +14,13 @@ const orderSchema = new Schema(
       type: Number,
       required: true,
     },
-    exist: {
+    delivered: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    delivering: {
+      type: Boolean,
+      default: false,
     },
   },
   {

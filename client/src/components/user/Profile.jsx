@@ -268,7 +268,7 @@ const Profile = () => {
                       <>
                         {!isMyProfile() &&
                           accessToken &&
-                          highlights.includes(user_id) &&
+                          highlights?.includes(user_id) &&
                           " Back"}
                         <BookmarkBorderRoundedIcon className="icon" />
                       </>

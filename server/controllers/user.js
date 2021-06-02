@@ -73,9 +73,9 @@ const controllers = {
   getUser: async (req, res) => {
     try {
       const { id } = await req.user;
-      const user = await Users.findOne({ _id: id })
-        .populate("cart")
-        .populate("favoris");
+      const user = await Users.findOne({ _id: id }).populate(
+        "cart favoris orders"
+      );
       if (!user) return res.json(null);
       return res.status(200).json(user);
     } catch (err) {
@@ -167,16 +167,16 @@ const controllers = {
   },
   addAnOrder: async (req, res) => {
     try {
-      const { order } = req.body;
+      const { order, user } = req.body;
       const newOrder = await new Orders(order);
       newOrder.save(async (err, result) => {
         if (!err) {
           const { cart, payed, orders } = await Users.findByIdAndUpdate(
-            order.user._id,
+            user._id,
             {
               cart: [],
-              payed: order.user.payed + order.total,
-              orders: [result._id, ...order.user.orders],
+              payed: user.payed + order.total,
+              orders: [result._id, ...user.orders],
             },
             { new: true }
           );
