@@ -17,5 +17,6 @@ router.post("/account", auth, controllers.updateUserAccount);
 router.delete("/delete", auth, controllers.deleteAccount);
 router.post("/reading", auth, controllers.updateReadingList);
 router.post("/notifications", auth, controllers.updateNotifications);
+router.post("/contact", controllers.userSendMail);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const Users = require("../models/User");
 const { Orders } = require("../models/Order");
 const Books = require("../models/Book");
 const Reviews = require("../models/Review");
+const Mails = require("../models/Mail");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
@@ -301,6 +302,16 @@ const controllers = {
       return res.status(200).json(user);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
+    }
+  },
+  userSendMail: async (req, res) => {
+    try {
+      const { values } = req.body;
+      const mail = new Mails(values);
+      mail.save();
+      return res.status(200).json(mail);
+    } catch (error) {
+      return res.status(200).json({ msg: error.message });
     }
   },
 };

@@ -7,8 +7,7 @@ import Dashboard from "./Dashboard";
 import Users from "./Users";
 import Orders from "./Orders";
 import Books from "./Books";
-import Sales from "./Sales";
-import Messages from "./Messages";
+import Mails from "./Messages";
 import Reviews from "./Reviews";
 import AddNewBook from "./AddNewBook";
 
@@ -29,8 +28,7 @@ const Admin = () => {
       <Route path="/admin/dashboard/books" component={Books} />
       <Route path="/admin/dashboard/reviews" component={Reviews} />
       <Route path="/admin/dashboard/orders" component={Orders} />
-      <Route path="/admin/dashboard/messages" component={Messages} />
-      <Route path="/admin/dashboard/sales" component={Sales} />
+      <Route path="/admin/dashboard/mails" component={Mails} />
       <Route path="/admin/dashboard" exact component={Dashboard} />
       <Route
         path="/admin/dashboard/books/add-new-book"

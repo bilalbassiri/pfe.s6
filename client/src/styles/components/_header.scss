@@ -1,82 +1,84 @@
 .header {
-    .notifications {
+    .notifications-container {
         opacity: 0;
         width: 100%;
-        background-color: aqua;
         z-index: 999;
         position: fixed;
-        top: 64px;
+        top: 70px;
         right: 0;
         display: flex;
         flex-direction: column;
-        background-color: #edf6f9;
-        padding: 25px;
+        background-color: #ffffff;
         height: calc(100vh - 84px);
-        border-radius: 15px 0px 0px 15px;
+        border-radius: 15px;
         animation: det 250ms ease-in-out forwards;
-        margin-right: 5px;
-        overflow-y: scroll;
-        &::-webkit-scrollbar {
-            width: 6px;
-            border-radius: 20px;
-        }
-        &::-webkit-scrollbar-track {
-            background-color: #edf6f9;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: rgb(124, 124, 124);
-            border-radius: 20px;
-        }
+        padding-bottom: 10px;
         .topMain {
+            padding: 15px;
             @include flexRowCenter;
             justify-content: space-between;
-            margin-bottom: 10px;
             h2 {
                 font-size: 1rem;
             }
             button {
                 font-size: 0.8rem;
                 .icon {
-                    font-size: .9rem;
+                    font-size: 0.9rem;
                 }
                 &:hover {
                     color: $headings-color;
                 }
             }
         }
-        .container {
-            gap: 15px;
-            display: flex;
-            cursor: pointer;
-            transition-duration: 200ms;
-            padding: 10px;
-            &.old_not {
-                opacity: 0.6;
+        .notifications {
+            padding: 0px 15px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                width: 6px;
+                border-radius: 20px;
             }
-            &.new_not {
-                opacity: 0.95;
+            &::-webkit-scrollbar-track {
+                background-color: #ffffff;
             }
-            &:hover {
-                opacity: 1;
+            &::-webkit-scrollbar-thumb {
+                background-color: rgb(124, 124, 124);
+                border-radius: 20px;
             }
-            .avatar {
-                height: 35px;
-                width: 35px;
-            }
-            .content {
-                font-size: 0.9rem;
-                .name {
-                    font-weight: bold;
+
+            .container {
+                gap: 15px;
+                display: flex;
+                cursor: pointer;
+                transition-duration: 200ms;
+                padding: 10px;
+                &.old_not {
+                    opacity: 0.7;
                 }
-                .rev {
-                    font-style: italic;
-                    background-color: rgb(240, 240, 240);
+                &.new_not {
+                    opacity: 0.95;
                 }
-                .date {
-                    font-weight: bold;
-                    color: rgb(116, 116, 116);
-                    font-size: 0.7rem;
-                    margin-top: 5px;
+                &:hover {
+                    opacity: 1;
+                }
+                .avatar {
+                    height: 35px;
+                    width: 35px;
+                }
+                .content {
+                    font-size: 0.9rem;
+                    .name {
+                        font-weight: bold;
+                    }
+                    .rev {
+                        font-style: italic;
+                        background-color: rgb(240, 240, 240);
+                    }
+                    .date {
+                        font-weight: bold;
+                        color: rgb(116, 116, 116);
+                        font-size: 0.7rem;
+                        margin-top: 5px;
+                    }
                 }
             }
         }
@@ -95,9 +97,10 @@
 }
 @media screen and (min-width: 600px) {
     .header {
-        .notifications {
-            border: 1px solid rgb(165, 165, 165);
+        .notifications-container {
+            box-shadow: 0px 0px 10px -4px rgb(102, 102, 102);
             width: 450px;
+            right: 40px;
         }
     }
     .MuiToolbar-gutters {

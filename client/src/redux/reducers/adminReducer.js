@@ -8,6 +8,7 @@ const {
   UPDATE_ORDER_STATE,
   DELETE_ORDER,
   DELETE_ALL_REVIEWS,
+  READ_MAIL,
 } = types;
 const initialState = {
   users: [],
@@ -15,6 +16,7 @@ const initialState = {
   reviews: [],
   orders: [],
   sales: [],
+  mails: [],
   isLoading: true,
 };
 
@@ -65,6 +67,14 @@ const adminReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         reviews: [],
+      };
+    case READ_MAIL:
+      console.log(1);
+      return {
+        ...state,
+        mails: state.mails.map((mail) =>
+          mail._id === payload._id ? { ...mail, read: true } : mail
+        ),
       };
     default:
       return state;

@@ -8,6 +8,7 @@ const {
   UPDATE_ORDER_STATE,
   DELETE_ORDER,
   DELETE_ALL_REVIEWS,
+  READ_MAIL,
 } = types;
 
 const setAdminDashboard = (payload) => ({ type: SET_DASHBOARD, payload });
@@ -21,6 +22,7 @@ const setNewBook = (payload) => ({ type: ADD_NEW_BOOK, payload });
 const setNewOrderState = (payload) => ({ type: UPDATE_ORDER_STATE, payload });
 const deleteOrder = (payload) => ({ type: DELETE_ORDER, payload });
 const deleteAllReviews = () => ({ type: DELETE_ALL_REVIEWS });
+const readMessage = (payload) => ({ type: READ_MAIL, payload });
 
 export {
   setAdminDashboard,
@@ -30,5 +32,6 @@ export {
   setNewBook,
   setNewOrderState,
   deleteOrder,
-  deleteAllReviews
+  deleteAllReviews,
+  readMessage,
 };

@@ -46,7 +46,6 @@
     border: none !important;
 }
 .books {
-
     .book-quantity {
         &.still {
             background-color: rgb(170, 255, 170);
@@ -59,7 +58,8 @@
         }
     }
 }
-.edit-book, .fly {
+.edit-book,
+.fly {
     background-color: rgba(63, 63, 63, 0.555);
     position: absolute;
     top: 0;
@@ -98,5 +98,261 @@
             color: #717171c4;
             font-size: 1.3rem;
         }
+    }
+}
+.admin-reviews {
+    .reviews-container {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .reviews-item {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            .bar,
+            .review-header,
+            .review-footer {
+                @extend %class_1;
+            }
+            .bar {
+                @extend %admin_bar;
+            }
+            .review-header,
+            .content,
+            .review-footer {
+                padding: 10px;
+            }
+            .review-footer {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.8rem;
+            }
+            .content {
+                position: relative;
+                color: $content-color;
+            }
+            .review-header {
+                .owner-name {
+                    cursor: pointer;
+                    &:hover {
+                        color: $headings-color;
+                    }
+                }
+                .active {
+                    margin-top: 5px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: white;
+                }
+                .credentials {
+                    display: flex;
+                    gap: 10px;
+                }
+            }
+        }
+    }
+}
+.orders {
+    .sections {
+        margin-bottom: 30px;
+        ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            li {
+                transition-duration: 250ms;
+                cursor: pointer;
+                font-weight: bold;
+                border-bottom: 3px solid transparent;
+                color: #cad1d0;
+            }
+        }
+    }
+    .orders-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        .order-item {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: hidden;
+            .bar {
+                @extend %class_1, %admin_bar;
+            }
+            .active {
+                border-radius: 5px;
+                color: white;
+                padding: 5px;
+            }
+            .order-item-header {
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                .credentials {
+                    display: flex;
+                    gap: 10px;
+                }
+            }
+            .orders-footer {
+                &,
+                & > div {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                }
+            }
+        }
+    }
+    .total {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 30px;
+        p {
+            color: rgb(189, 189, 189);
+        }
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+    .name {
+        cursor: pointer;
+        &:hover {
+            color: $headings-color;
+        }
+    }
+    .content {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .book {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .quantity {
+                @include boxSize(40px, 40px, 50%);
+                color: white;
+                position: absolute;
+                background-color: #2a9d8f;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                top: -15px;
+                left: -15px;
+                .icon {
+                    font-size: 1rem;
+                }
+            }
+            .booky {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                .detail {
+                    @include flexColumn;
+                    gap: 5px;
+                }
+            }
+            .price {
+                display: flex;
+                align-items: center;
+                color: rgb(163, 163, 163);
+                span {
+                    padding-left: 10px;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: $color-main-text;
+                }
+            }
+
+            img {
+                width: 60px;
+                height: 80px;
+            }
+        }
+    }
+}
+.mails {
+    display: flex;
+    .mails-container {
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        max-height: calc(100vh - 100px);
+        &::-webkit-scrollbar {
+            width: 6px;
+            border-radius: 20px;
+        }
+        &::-webkit-scrollbar-track {
+            background-color: #d5e0df;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgb(124, 124, 124);
+            border-radius: 20px;
+        }
+        flex: 0.25;
+        @include flexColumn;
+        .mail-item {
+            padding: 25px;
+            cursor: pointer;
+            border-radius: 15px 0px 0px 15px;
+            transition-duration: 200ms;
+            &:hover {
+                background-color: #ebf1f0;
+            }
+            &.current-mail {
+                background-color: #d5e0df;
+            }
+            &-read {
+                position: relative;
+                &::before {
+                    content: "";
+                    display: block;
+                    @include boxSize(7px, 7px, 50%);
+                    background-color: $boss-color;
+                    position: absolute;
+                    top: 50%;
+                    left: 5px;
+                    transform: translateY(-50%);
+                }
+            }
+            .user {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                .info {
+                    display: flex;
+                    gap: 10px;
+                    .name-email {
+                        h5 {
+                            color: grey;
+                            font-weight: 500;
+                        }
+                    }
+                }
+                .date {
+                    font-size: 0.7rem;
+                    font-weight: bold;
+                }
+            }
+            .subject {
+                font-weight: bold;
+            }
+            .message {
+                font-size: 0.9rem;
+                color: $content-color;
+            }
+        }
+    }
+    .screen {
+        flex: 0.75;
+        background-color: #d5e0df;
+        border-radius: 0px 15px 15px 0px;
     }
 }

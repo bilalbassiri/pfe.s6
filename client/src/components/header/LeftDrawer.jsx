@@ -24,7 +24,6 @@ import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import CardTravelOutlinedIcon from "@material-ui/icons/CardTravelOutlined";
-import LocalAtmIcon from "@material-ui/icons/LocalAtm";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -41,7 +40,7 @@ const LeftDrawer = () => {
   const [state, setState] = useState(false);
   const {
     user: { credentials },
-    dashboard: { orders },
+    dashboard: { orders, mails },
   } = useSelector((state) => state);
   const getNewOrders = () =>
     orders.filter((order) => !order.delivered && !order.delivering).length;
@@ -84,6 +83,12 @@ const LeftDrawer = () => {
             <SearchOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Search" />
+        </ListItem>
+        <ListItem button onClick={() => history.push("/contact-us")}>
+          <ListItemIcon>
+            <SearchOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary="Contact Us" />
         </ListItem>
       </List>
       {credentials?.role === 1 && (
@@ -137,19 +142,15 @@ const LeftDrawer = () => {
             </ListItem>
             <ListItem
               button
-              onClick={() => history.push("/admin/dashboard/sales")}
+              onClick={() => history.push("/admin/dashboard/mails")}
             >
               <ListItemIcon>
-                <LocalAtmIcon />
-              </ListItemIcon>
-              <ListItemText primary="Sales" />
-            </ListItem>
-            <ListItem
-              button
-              onClick={() => history.push("/admin/dashboard/messages")}
-            >
-              <ListItemIcon>
-                <Badge badgeContent={orders.length} color="primary">
+                <Badge
+                  badgeContent={
+                    mails.filter((mail) => mail.read === false).length
+                  }
+                  color="primary"
+                >
                   <EmailOutlinedIcon />
                 </Badge>
               </ListItemIcon>

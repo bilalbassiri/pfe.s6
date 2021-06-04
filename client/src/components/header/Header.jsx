@@ -261,19 +261,21 @@ const Header = () => {
   return (
     <div className={classes.grow + " header"}>
       {openNot && (
-        <div className="notifications">
+        <div className="notifications-container">
           <div className="topMain">
             <h2>Notifications</h2>
             <button onClick={() => setOpenNot(false)} type="button">
               <ClearIcon className="icon" />
             </button>
           </div>
-          {new_notifications?.map((str, i) => (
-            <Notification key={i} cls="new_not" str={str} />
-          ))}
-          {notifications?.map((str, i) => (
-            <Notification key={i} cls="old_not" str={str} />
-          ))}
+          <div className="notifications">
+            {new_notifications?.map((str, i) => (
+              <Notification key={i} cls="new_not" str={str} />
+            ))}
+            {notifications?.map((str, i) => (
+              <Notification key={i} cls="old_not" str={str} />
+            ))}
+          </div>
         </div>
       )}
       <AppBar position="fixed">

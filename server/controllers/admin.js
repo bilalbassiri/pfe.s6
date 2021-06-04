@@ -2,9 +2,10 @@ const Users = require("../models/User");
 const Reviews = require("../models/Review");
 const { Orders, Sales } = require("../models/Order");
 const Books = require("../models/Book");
+const Mails = require("../models/Mail");
 
 const controllers = {
-  getAllUsersReviews: async (req, res) => {
+  getAllData: async (req, res) => {
     try {
       const users = await Users.find().select("-password");
       const reviews = await Reviews.find({ owner: { $ne: null } })
@@ -18,9 +19,21 @@ const controllers = {
         .sort("-createdAt");
       const sales = await Sales.find().sort("-createdAt");
       const books = await Books.find().sort("-createdAt");
-      return res
-        .status(200)
-        .json({ users, reviews, books, orders, sales, isLoading: false });
+      const mails = await Mails.find()
+        .populate({
+          path: "user",
+          select: "_id name email picture active",
+        })
+        .sort("-createdAt");
+      return res.status(200).json({
+        users,
+        reviews,
+        books,
+        orders,
+        sales,
+        mails,
+        isLoading: false,
+      });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -40,7 +53,6 @@ const controllers = {
   deliverOrder: async (req, res) => {
     try {
       const { order_id, action } = req.body;
-      console.log(req.body);
       const order = await Orders.findByIdAndUpdate(order_id, action, {
         new: true,
       }).populate({
@@ -64,6 +76,15 @@ const controllers = {
   deleteAllReviews: async (req, res) => {
     try {
       const result = await Reviews.deleteMany();
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.json({ msg: error.message });
+    }
+  },
+  readMessage: async (req, res) => {
+    try {
+      const { mail_id } = req.body;
+      await Mails.findByIdAndUpdate(mail_id, { read: true });
       return res.status(200).json(result);
     } catch (error) {
       return res.json({ msg: error.message });

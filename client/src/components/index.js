@@ -18,9 +18,10 @@ export { default as Account } from "./user/Account";
 export { default as Profile } from "./user/Profile";
 // ./admin/
 export { default as Admin } from "./admin/Admin";
-
 // ./search/
 export { default as Genre } from "./search/Genre";
+// ./contact/ContactUs
+export { default as ContactUs } from "./contact/ContactUs";
 // ./ui/
 export { default as FormError } from "./ui/FormError";
 export { default as CustomizedInput } from "./ui/CustomizedInput";

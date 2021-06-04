@@ -4,7 +4,7 @@ const controllers = require("../controllers/book");
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 
-router.route("/all").get(auth, authAdmin, adminControllers.getAllUsersReviews);
+router.route("/all").get(auth, authAdmin, adminControllers.getAllData);
 router
   .route("/books")
   .post(auth, authAdmin, controllers.addBook)
@@ -18,4 +18,5 @@ router
 router
   .route("/reviews")
   .delete(auth, authAdmin, adminControllers.deleteAllReviews);
+router.route("/mails").post(auth, authAdmin, adminControllers.readMessage);
 module.exports = router;

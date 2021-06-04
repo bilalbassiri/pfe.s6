@@ -11,6 +11,7 @@ import {
   Favoris,
   Genre,
   Admin,
+  ContactUs,
 } from "./components";
 import { Route, Switch, useHistory } from "react-router-dom";
 import {
@@ -40,7 +41,7 @@ function App() {
           if (!(window.location.pathname === "/")) {
             getBooksFromDB().then((books) => dispatch(setBooks(books)));
           }
-          if (data.role) {
+          if (data.role === 1) {
             getDashboardData(_ACCESS_TOKEN).then((data) =>
               dispatch(setAdminDashboard(data))
             );
@@ -52,6 +53,8 @@ function App() {
             console.log(1);
           });
         }
+      } else {
+        dispatch(userLogin({}));
       }
     });
   }, [dispatch, history]);
@@ -70,6 +73,7 @@ function App() {
             <Route path="/me/cart" exact component={Cart} />
             <Route path="/me/favoris" exact component={Favoris} />
             <Route path="/genres/:genre" exact component={Genre} />
+            <Route path="/contact-us" component={ContactUs} />
             <Route path="/admin" component={Admin} />
           </div>
         </Route>

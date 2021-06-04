@@ -389,6 +389,21 @@ const adminDeleteAllReviews = async (token) => {
     console.log(error.message);
   }
 };
+const adminReadMessage = async (mail_id, token) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "/admin/mails",
+      data: { mail_id },
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -417,4 +432,5 @@ export {
   adminUpdateDeliveringState,
   adminDeleteOrder,
   adminDeleteAllReviews,
+  adminReadMessage,
 };
