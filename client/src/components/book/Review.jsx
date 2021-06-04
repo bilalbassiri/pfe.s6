@@ -6,7 +6,6 @@ import {
 } from "../../helpers/axios.helpers";
 import { useSelector, useDispatch } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
-import Skeleton from "@material-ui/lab/Skeleton";
 import { Rating } from "..";
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -121,25 +120,13 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
       )}
       <div className="review-bar">
         <div className="review-writer">
-          {owner && owner.name ? (
-            <>
-              <Avatar className="review-writer-pic" src={owner.picture ?? ""}>
-                {owner.name[0]}
-              </Avatar>
-              <Link
-                to={`/readers/${owner?._id}`}
-                className="review-writer-name"
-              >
-                <h4>{owner.name}</h4>
-              </Link>
-              <Rating porpose="review_read" rating={rating} notext={true} />
-            </>
-          ) : (
-            <>
-              <Skeleton variant="circle" width={35} height={35} />
-              <Skeleton variant="text" width={200} />
-            </>
-          )}
+          <Avatar className="review-writer-pic" src={owner.picture ?? ""}>
+            {owner.name[0]}
+          </Avatar>
+          <Link to={`/readers/${owner?._id}`} className="review-writer-name">
+            <h4>{owner.name}</h4>
+          </Link>
+          <Rating porpose="review_read" rating={rating} notext={true} />
         </div>
         <div className="cheer-sec">
           <span>{currentVotes?.length !== 0 && currentVotes?.length}</span>

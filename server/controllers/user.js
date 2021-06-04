@@ -6,7 +6,21 @@ const Mails = require("../models/Mail");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
+const _ = require("lodash");
 
+const getUserInterests = (list) => {
+  let g = "";
+  for (let i in list.read) {
+    g += list.read[i].genres.join(" ") + " ";
+  }
+  for (let i in list.currently_reading) {
+    g += list.currently_reading[i].genres.join(" ") + " ";
+  }
+  for (let i in list.to_read) {
+    g += list.to_read[i].genres.join(" ") + " ";
+  }
+  return g.length ? _.union(g.trim().split(" ")) : [];
+};
 const controllers = {
   register: async (req, res) => {
     try {
@@ -74,9 +88,15 @@ const controllers = {
   getUser: async (req, res) => {
     try {
       const { id } = await req.user;
-      const user = await Users.findOne({ _id: id }).populate(
-        "cart favoris orders"
-      );
+      const { read, currently_reading, to_read } = await Users.findOne({
+        _id: id,
+      }).populate({ path: "read currently_reading to_read", select: "genres" });
+      const genres = getUserInterests({ read, currently_reading, to_read });
+      const user = await Users.findByIdAndUpdate(
+        id,
+        { genres },
+        { new: true }
+      ).populate("cart favoris orders");
       if (!user) return res.json(null);
       return res.status(200).json(user);
     } catch (err) {
@@ -105,7 +125,7 @@ const controllers = {
         new: true,
       }).populate({
         path: "read currently_reading to_read ",
-        select: "name rating price",
+        select: "name rating price genres",
       });
       if (!updatedUser) return res.status.json({ msg: "Failed" });
       else return res.status(200).json(updatedUser);
@@ -214,13 +234,23 @@ const controllers = {
   getPublicInfo: async (req, res) => {
     try {
       const { _id } = await req.body;
-      const info = await Users.findOne({ _id })
-        .select("-password -email -cart -favoris -notifications")
+      const { read, currently_reading, to_read } = await Users.findById(
+        _id
+      ).populate({
+        path: "read currently_reading to_read",
+        select: "genres",
+      });
+      const genres = getUserInterests({ read, currently_reading, to_read });
+      const info = await Users.findByIdAndUpdate(_id, { genres }, { new: true })
+        .select("-password -cart -favoris -notifications -payed -orders")
         .populate({
           path: "read currently_reading to_read",
-          select: "name rating price",
+          select: "name rating price genres",
         })
-        .populate({ path: "highlights", select: "name picture" });
+        .populate({
+          path: "highlights",
+          select: "name picture",
+        });
       const reviews = await Reviews.find({ owner: _id })
         .populate({ path: "book_id", select: "name cover" })
         .sort("-createdAt")

@@ -20,6 +20,7 @@ export { default as Profile } from "./user/Profile";
 export { default as Admin } from "./admin/Admin";
 // ./search/
 export { default as Genre } from "./search/Genre";
+export { default as Search } from "./search/Search";
 // ./contact/ContactUs
 export { default as ContactUs } from "./contact/ContactUs";
 // ./ui/

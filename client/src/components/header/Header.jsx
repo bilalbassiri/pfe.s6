@@ -345,7 +345,12 @@ const Header = () => {
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
                 >
-                  <AccountCircleOutlinedIcon />
+                  <Avatar
+                    src={credentials?.picture}
+                    style={{ height: 25, width: 25 }}
+                  >
+                    {credentials?.name[0]}
+                  </Avatar>
                 </IconButton>
               </Tooltip>
             </div>

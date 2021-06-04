@@ -12,6 +12,7 @@ import {
   Genre,
   Admin,
   ContactUs,
+  Search
 } from "./components";
 import { Route, Switch, useHistory } from "react-router-dom";
 import {
@@ -74,6 +75,7 @@ function App() {
             <Route path="/me/favoris" exact component={Favoris} />
             <Route path="/genres/:genre" exact component={Genre} />
             <Route path="/contact-us" component={ContactUs} />
+            <Route path="/search" component={Search} />
             <Route path="/admin" component={Admin} />
           </div>
         </Route>

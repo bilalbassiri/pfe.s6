@@ -3,11 +3,76 @@
     animation: det 500ms ease-in-out forwards;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
     .right,
     .left-top,
     .other-books {
         @extend %cardStyles;
+    }
+    .right-side-books {
+        flex: 0.2;
+    }
+    .other-books {
+        @include flexColumn;
+        gap: 10px;
+        .title {
+            font-size: 1rem;
+            color: rgb(182, 182, 182);
+            margin-bottom: 10px;
+        }
+        &-item {
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+            align-items: center;
+            opacity: 0;
+            animation: det 250ms ease-in-out forwards;
+            &::before {
+                display: none;
+                content: "";
+                @include boxSize(7px, 7px, 50%);
+                background-color: $headings-color;
+                position: absolute;
+                left: -14px;
+            }
+            &:hover {
+                .detail h1 {
+                    color: $headings-color;
+                }
+                &::before {
+                    display: block;
+                }
+            }
+            .cvr {
+                img {
+                    border-radius: 5px;
+                    width: 60px;
+                    height: 80px;
+                }
+            }
+            .detail {
+                font-size: 0.8rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 3px;
+                h1 {
+                    font-size: 0.8rem;
+                }
+                h4 {
+                    font-weight: 400;
+                    color: $content-color;
+                }
+                .nbrs {
+                    display: flex;
+                    gap: 10px;
+                    font-size: 0.7rem;
+                    font-weight: bold;
+                    color: $content-color;
+                }
+            }
+        }
     }
     .left {
         flex: 0.2;
@@ -43,68 +108,9 @@
                 }
             }
         }
-        .other-books {
-            @include flexColumn;
-            gap: 10px;
-            .title {
-                font-size: 1rem;
-                color: rgb(182, 182, 182);
-                margin-bottom: 10px;
-            }
-            &-item {
-                display: flex;
-                gap: 10px;
-                cursor: pointer;
-                position: relative;
-                align-items: center;
-                &::before {
-                    display: none;
-                    content: "";
-                    @include boxSize(7px, 7px, 50%);
-                    background-color: $headings-color;
-                    position: absolute;
-                    left: -14px;
-                }
-                &:hover {
-                    .detail h1 {
-                        color: $headings-color;
-                    }
-                    &::before {
-                        display: block;
-                    }
-                }
-                .cvr {
-                    img {
-                        width: 60px;
-                        height: 80px;
-                    }
-                }
-                .detail {
-                    font-size: 0.8rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    gap: 3px;
-                    h1 {
-                        font-size: 0.8rem;
-                    }
-                    h4 {
-                        font-weight: 400;
-                        color: $content-color;
-                    }
-                    .nbrs {
-                        display: flex;
-                        gap: 10px;
-                        font-size: 0.7rem;
-                        font-weight: bold;
-                        color: $content-color;
-                    }
-                }
-            }
-        }
     }
     .right {
-        flex: 0.8;
+        flex: 0.6;
         .reading-list {
             text-align: center;
             .reading-button {
@@ -186,6 +192,7 @@
             margin-top: 20px;
             font-size: 0.9rem;
             color: rgb(107, 107, 107);
+            word-break: break-all;
             .more-btn {
                 font-weight: bold;
                 color: $boss-color;
@@ -335,5 +342,11 @@
         padding: 20px 0px;
         flex-direction: row;
         align-items: flex-start;
+        justify-content: space-between;
+        .right,
+        .left-top,
+        .other-books {
+            padding: 20px;
+        }
     }
 }

@@ -174,8 +174,6 @@ const Book = () => {
           </div>
         </div>
         <Similar />
-        <MiniBookCard title="Popular" books={popular.slice(0, 3)} />
-        <MiniBookCard title="Most rated" books={most_rated.slice(0, 3)} />
       </div>
       <div className="right">
         <div
@@ -201,6 +199,10 @@ const Book = () => {
           <Description book={book} />
           <SimpleTabs book={book} />
         </div>
+      </div>
+      <div className="right-side-books">
+        <MiniBookCard title="Popular" books={popular} />
+        <MiniBookCard title="Most rated" books={most_rated} />
       </div>
     </div>
   ) : (

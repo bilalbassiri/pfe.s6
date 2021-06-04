@@ -30,6 +30,8 @@ import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+var _ = require("lodash");
+
 const getCustomStyles = (permission) => ({
   backgroundColor: permission ? "white" : "#2a9d8f",
   padding: "8.5px 16px",
@@ -99,6 +101,7 @@ const Profile = () => {
         : 0
     }ms ease forwards`,
   });
+
   const handleImageUpload = async (e) => {
     try {
       setIsLoading({ ...isLoading, image: true });
@@ -278,7 +281,9 @@ const Profile = () => {
               </div>
             </div>
             <div className="intersted-in">
-              <h2 className="headings">Interested in</h2>
+              {info.genres.length > 0 && (
+                <h2 className="headings">Interested in</h2>
+              )}
               <div>
                 {info.genres?.map((genre, i) => (
                   <Chip

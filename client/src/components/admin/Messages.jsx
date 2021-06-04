@@ -3,6 +3,8 @@ import { Avatar } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { adminReadMessage } from "../../helpers/axios.helpers";
 import { readMessage } from "../../redux/actions/adminActions";
+import DraftsIcon from "@material-ui/icons/Drafts";
+import MailIcon from "@material-ui/icons/Mail";
 const Messages = () => {
   const dispatch = useDispatch();
   const {
@@ -54,8 +56,37 @@ const Messages = () => {
         ))}
       </div>
       <div className="screen">
-        {message && (
-          <h2>{message.loggedIn ? message.user.name : message.fullName}</h2>
+        {message ? (
+          <div className="mail">
+            <div className="header">
+              <div className="user">
+                <Avatar
+                  src={message.loggedIn ? message.user.picture : ""}
+                  alt="sender"
+                >
+                  {(message.loggedIn ? message.user.name : message.fullName)[0]}
+                </Avatar>
+                <h3>
+                  {message.loggedIn ? message.user.name : message.fullName}
+                </h3>
+              </div>
+              <h6>{new Date(message.createdAt).toDateString()}</h6>
+            </div>
+            <div className="body">
+              <h5>
+                <MailIcon style={{ fontSize: "1.1rem", color: "#3f51b5" }} />
+                {message.loggedIn ? message.user.email : message.email}
+              </h5>
+              <h3><span>Subject: </span>{message.subject}</h3>
+              <p>{message.message}</p>
+            </div>
+          </div>
+        ) : (
+          <h1 className="no-msg">
+            <DraftsIcon />
+            <br />
+            Messages will be showen here
+          </h1>
         )}
       </div>
     </div>

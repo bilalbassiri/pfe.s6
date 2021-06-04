@@ -1,0 +1,33 @@
+.search-component {
+    .MuiLinearProgress-barColorPrimary {
+        background-color: $boss-color;
+    }
+    .MuiLinearProgress-colorPrimary {
+        background-color: #aad8d2;
+    }
+    .search-form {
+        @include flexRowCenter;
+        margin-top: 40px;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        .MuiSlider-root {
+            color: $boss-color;
+        }
+        .search-input {
+            outline: none;
+            height: 40px;
+            border: 2px solid rgb(206, 206, 206);
+            border-radius: 5px;
+            padding: 5px;
+            transition: 250ms ease-out;
+            width: 30ch;
+            &:hover {
+                border-color: grey;
+            }
+            &:focus {
+                border-color: $boss-color;
+            }
+        }
+    }
+}

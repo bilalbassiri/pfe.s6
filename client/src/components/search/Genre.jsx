@@ -10,8 +10,16 @@ const Genre = () => {
     books?.all?.filter((item) => item.genres.includes(genre) === true);
   return (
     <div>
-      <h1>In {genre}</h1>
-      <div className="result" style={{ display: "flex", gap: 20 }}>
+      <h2>In {genre}</h2>
+      <div
+        className="result"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: 20,
+        }}
+      >
         {getBooksByGenre()?.map((book) => (
           <BookCard item={book} key={book._id} />
         ))}

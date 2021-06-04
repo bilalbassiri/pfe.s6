@@ -4,7 +4,7 @@ const controllers = {
     try {
       const books = await Books.find({ quantity: { $gt: 0 } })
         .sort("-createdAt")
-        .limit(50);
+        .limit(30);
       const popular = await Books.find({ quantity: { $gt: 0 } })
         .sort("-rating_count")
         .limit(15);
@@ -77,7 +77,9 @@ const controllers = {
   },
   getBooksCategory: async (req, res) => {
     try {
-      const books = await Books.find();
+      const { name } = req.params;
+      console.log(name);
+      const books = await Books.find({ genres: { $in: name } }).limit(25);
       return res.json({ books });
     } catch (error) {
       console.log(error.message);
