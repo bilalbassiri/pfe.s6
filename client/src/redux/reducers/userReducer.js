@@ -11,6 +11,7 @@ const {
   UPDATE_USER_CREDENTIALS,
   UPDATE_READING_LIST,
   HANDLE_ORDER_DONE,
+  OPEN_NOTIFICATIONS,
 } = types;
 
 const initialState = {
@@ -138,6 +139,12 @@ const userReducer = (state = initialState, { type, payload }) => {
         read: payload.read,
         to_read: payload.to_read,
         currently_reading: payload.currently_reading,
+      };
+    case OPEN_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: [...state.new_notifications, ...state.notifications],
+        new_notifications: [],
       };
     case REFRESH:
       return { ...state, accessToken: payload };

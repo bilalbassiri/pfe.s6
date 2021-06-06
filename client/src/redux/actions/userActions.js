@@ -9,6 +9,7 @@ const {
   UPDATE_USER_CREDENTIALS,
   UPDATE_READING_LIST,
   HANDLE_ORDER_DONE,
+  OPEN_NOTIFICATIONS,
 } = types;
 
 const userLogin = (payload) => ({ type: LOG_IN, payload });
@@ -27,6 +28,7 @@ const updateUserCredentials = (payload) => ({
 });
 const switchReadingList = (payload) => ({ type: UPDATE_READING_LIST, payload });
 const newPayedAmount = (payload) => ({ type: HANDLE_ORDER_DONE, payload });
+const readNotifications = (payload) => ({ type: OPEN_NOTIFICATIONS });
 
 export {
   userLogin,
@@ -39,4 +41,5 @@ export {
   updateUserCredentials,
   switchReadingList,
   newPayedAmount,
+  readNotifications
 };

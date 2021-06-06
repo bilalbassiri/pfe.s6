@@ -56,6 +56,7 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
     name: "",
     cover: "",
     author: "",
+    description: "",
     release: "",
     quantity: "",
     price: "",
@@ -67,7 +68,9 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
     setValues((prev) => ({
       ...prev,
       [prop]:
-        prop === "genres" ? event.target.value.split(",").map(genre=> genre.trim()) : event.target.value,
+        prop === "genres"
+          ? event.target.value.split(",").map((genre) => genre.trim())
+          : event.target.value,
       disabled: false,
     }));
   };
@@ -111,6 +114,7 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
         ...prev,
         name: book.name,
         author: book.author,
+        description: book.description,
         release: getReleaseDate(book.release),
         quantity: book.quantity,
         price: book.price,
@@ -174,6 +178,21 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
                 value={values.author}
                 type="text"
                 onChange={handleChange("author")}
+              />
+            </FormControl>
+          </Grid>
+          <Grid>
+            <FormControl
+              className={clsx(classes.margin, classes.width)}
+              variant="outlined"
+            >
+              <CustomizedInput
+                label="Description"
+                required
+                variant="outlined"
+                value={values.description}
+                type="text"
+                onChange={handleChange("description")}
               />
             </FormControl>
           </Grid>

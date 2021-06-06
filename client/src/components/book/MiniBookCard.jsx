@@ -1,8 +1,8 @@
 import React from "react";
-import StarIcon from "@material-ui/icons/Star";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { Rating } from "@material-ui/lab";
 
 const MiniBookCard = ({ title, books }) => {
   const history = useHistory();
@@ -27,10 +27,7 @@ const MiniBookCard = ({ title, books }) => {
                 <h1>{item.name}</h1>
                 <h4>{item.author}</h4>
                 <div className="nbrs">
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {item.rating.toFixed(1)}
-                    <StarIcon style={{ fontSize: ".9rem" }} />
-                  </div>
+                  <Rating name="read-only" value={item.rating} readOnly style={{fontSize: ".8rem", color: "#616161"}} />
                   <div>{item.price}$</div>
                   <div>{item.quantity} in stock</div>
                 </div>

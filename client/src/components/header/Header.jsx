@@ -26,7 +26,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { CustomizedButton } from "..";
 import LeftDrawer from "./LeftDrawer";
 // Redux actions
-import { userLogout } from "../../redux/actions/userActions";
+import { readNotifications, userLogout } from "../../redux/actions/userActions";
 import { sendNotifications } from "../../helpers/axios.helpers";
 import { getPassedTime } from "../../helpers/global.helpers";
 
@@ -239,6 +239,7 @@ const Header = () => {
       className={"container " + cls}
       onClick={() => {
         setOpenNot(false);
+        dispatch(readNotifications());
         if (str.direction === "/readers/me") {
           history.push("/readers/" + credentials?._id);
           return;
@@ -264,7 +265,13 @@ const Header = () => {
         <div className="notifications-container">
           <div className="topMain">
             <h2>Notifications</h2>
-            <button onClick={() => setOpenNot(false)} type="button">
+            <button
+              onClick={() => {
+                setOpenNot(false);
+                dispatch(readNotifications());
+              }}
+              type="button"
+            >
               <ClearIcon className="icon" />
             </button>
           </div>

@@ -30,7 +30,6 @@ import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-var _ = require("lodash");
 
 const getCustomStyles = (permission) => ({
   backgroundColor: permission ? "white" : "#2a9d8f",

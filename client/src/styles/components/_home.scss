@@ -1,9 +1,29 @@
 .home {
     .main-page {
+        background-size: 100% 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
+        .scroll-down {
+            position: fixed;
+            bottom: 150px;
+            left: -100px;
+            transform: rotate(-90deg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: $boss-color;
+            &::after,
+            &::before {
+                content: "";
+                display: block;
+                height: 2px;
+                width: 100px;
+                background-color: $boss-color;
+            }
+        }
         .left {
+            flex: 0.6;
             h1 {
                 font-size: 4rem;
                 color: $headings-color;
@@ -42,15 +62,47 @@
             }
         }
         .right {
-            .categories {
-                .cont {
-                    display: flex;
-                    gap: 5px;
+            flex: 0.4;
+            display: grid;
+            place-content: center;
+            .images-container {
+                display: flex;
+                gap: 20px;
+                div {
+                    cursor: pointer;
+                }
+                .big-cover {
+                    height: 340px;
+                    width: 240px;
+                    cursor: pointer;
+                }
+                .big-cover,
+                .small-covers-cont div {
+                    opacity: 0.9;
+                    transition-duration: 250ms;
+                    &:hover {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+                .small-covers-cont {
+                    display: grid;
+                    grid-template-columns: 120px 120px;
+                    grid-template-rows: 160px 160px;
+                    gap: 0px;
+                    place-content: center;
+                    opacity: 0;
+                    animation: fd 1s ease-in-out forwards;
+                    div {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 10px;
+                        background-size: 100% 100%;
+                        background-position: center;
+                    }
                 }
             }
         }
-    }
-    .home-body {
     }
 }
 @media screen and (min-width: 600px) {
@@ -66,7 +118,7 @@
 @media screen and (min-width: 600px) {
     .home {
         .main-page {
-            height: calc(100vh - 64px - 60px);
+            height: calc(100vh - 80px);
             flex-direction: row;
             .left,
             .right {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import GlobalSection from "./GlobalSection";
 import { useHistory } from "react-router-dom";
 const Dashboard = () => {

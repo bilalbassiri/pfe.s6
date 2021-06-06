@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 import { CircularProgress } from "..";
 import { getBooksFromDB } from "../../helpers/axios.helpers";
 import { setBooks } from "../../redux/actions/bookActions";
-
 const Home = () => {
   const dispatch = useDispatch();
   const {
@@ -16,6 +15,33 @@ const Home = () => {
     user: { genres, accessToken, isloading },
   } = useSelector((state) => state);
   const history = useHistory();
+  const RandomCovers = () => {
+    let i = Math.floor(Math.random() * all.length) - 5;
+    i = i < 0 ? i + 5 : i;
+    const books = all.slice(i, i + 5);
+    if (!books) return;
+    return (
+      <>
+        <div className="small-covers-cont">
+          {books.slice(0, 4).map((book) => (
+            <div
+              key={book._id}
+              style={{ backgroundImage: "url(" + book.cover + ")" }}
+              onClick={() => history.push("/book/" + book._id)}
+            ></div>
+          ))}
+        </div>
+        <img
+          key={books[4]._id}
+          src={books[4].cover}
+          alt={books[4].name}
+          className="big-cover"
+          onClick={() => history.push("/book/" + books[4]._id)}
+        />
+      </>
+    );
+  };
+
   useEffect(() => {
     getBooksFromDB().then((books) => dispatch(setBooks(books)));
   }, [dispatch]);
@@ -23,6 +49,7 @@ const Home = () => {
     <div className="home">
       {!accessToken && (
         <div className="main-page">
+          <div className="scroll-down">Scroll Down</div>
           <section className="left">
             <h1>You're welcome</h1>
             <h2>
@@ -37,6 +64,11 @@ const Home = () => {
               <Fab color="secondary" aria-label="signup">
                 <ArrowForwardRoundedIcon />
               </Fab>
+            </div>
+          </section>
+          <section className="right">
+            <div className="images-container">
+              <RandomCovers />
             </div>
           </section>
         </div>

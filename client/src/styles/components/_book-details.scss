@@ -52,6 +52,7 @@
                 }
             }
             .detail {
+                flex-grow: 1;
                 font-size: 0.8rem;
                 display: flex;
                 flex-direction: column;
@@ -65,10 +66,11 @@
                     color: $content-color;
                 }
                 .nbrs {
+                    font-weight: 500;
                     display: flex;
-                    gap: 10px;
+                    align-items: center;
                     font-size: 0.7rem;
-                    font-weight: bold;
+                    justify-content: space-between;
                     color: $content-color;
                 }
             }

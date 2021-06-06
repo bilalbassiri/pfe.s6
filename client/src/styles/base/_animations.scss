@@ -33,3 +33,9 @@
         transform: scale(1.2);
     }
 }
+@keyframes fd {
+    to {
+        gap: 20px;
+        opacity: 1;
+    }
+}

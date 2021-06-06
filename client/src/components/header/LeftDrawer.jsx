@@ -25,6 +25,8 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import CardTravelOutlinedIcon from "@material-ui/icons/CardTravelOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
+import MailOutlineRoundedIcon from '@material-ui/icons/MailOutlineRounded';
+
 const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
@@ -86,7 +88,7 @@ const LeftDrawer = () => {
         </ListItem>
         <ListItem button onClick={() => history.push("/contact-us")}>
           <ListItemIcon>
-            <SearchOutlinedIcon />
+            <MailOutlineRoundedIcon />
           </ListItemIcon>
           <ListItemText primary="Contact Us" />
         </ListItem>

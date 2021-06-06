@@ -92,6 +92,14 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
               <MenuItem
                 onClick={() => {
                   handleClose();
+                  if (
+                    !window.confirm(
+                      "Hi " +
+                        credentials.name.split(" ")[0] +
+                        "👋, Are you sure you wanna delete this review ?"
+                    )
+                  )
+                    return;
                   deleteBookReview(_id, accessToken);
                   reduxDispatch(removeReview({ _id }));
                 }}
