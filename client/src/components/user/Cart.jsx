@@ -4,6 +4,7 @@ import { CartItem, CustomizedButton } from "..";
 import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
 import { useDispatch } from "react-redux";
 import { makeOrder, updateCart } from "../../helpers/axios.helpers";
+import { useHistory } from "react-router-dom";
 import {
   cartAddRemoveItem,
   newPayedAmount,
@@ -34,8 +35,19 @@ const styles = {
     border: "1px solid #2a9d8f",
     color: "#2a9d8f",
   },
+  explore: {
+    margin: `10px 0px`,
+    backgroundColor: "#2a9d8f",
+    padding: "8px",
+    borderRadius: 20,
+    width: "130px",
+    "&:hover": {
+      backgroundColor: "#1f776d",
+    },
+  },
 };
 const Cart = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { credentials, cart, accessToken } = useSelector((state) => state.user);
   const [orderState, setOrderState] = useState({
@@ -112,7 +124,27 @@ const Cart = () => {
         </div>
       </div>
     ) : (
-      <h1>empty</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: 30,
+          height: "calc(100vh - 84px)",
+        }}
+      >
+        <h2 style={{ color: "#1a535c" }}>
+          Hi {credentials.name.split(" ")[0]} 👋, your cart is empty.
+        </h2>
+        <CustomizedButton
+          disableElevation
+          style={styles.explore}
+          onClick={() => history.push("/search")}
+        >
+          Explore
+        </CustomizedButton>
+      </div>
     )
   ) : (
     <RecievedOrder order={orderState.content} />

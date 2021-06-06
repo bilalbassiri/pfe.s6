@@ -1,0 +1,142 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2021-06-06 20:26:11
+count workspace : f:\pfe.s6
+total files : 118
+total code lines : 28078
+total comment lines : 65
+total blank lines : 227
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |            .js|           1759|             13|             53|    6.3|
+   |          .json|          19102|              0|              3|     68|
+   |          .scss|           1982|              1|             21|    7.1|
+   |               |             22|              0|              3|  0.078|
+   |           .jsx|           5149|             38|            112|     18|
+   |            .md|             38|             12|             32|   0.14|
+   |          .html|             23|              0|              3|  0.082|
+   |           .txt|              3|              1|              0|  0.011|
+   -------------------------------------------------------------------------
+.gitignore, code is 15, comment is 0, blank is 3.
+client\package-lock.json, code is 17805, comment is 0, blank is 0.
+client\package.json, code is 51, comment is 0, blank is 3.
+client\public\favicon.ico, it is a binary file.
+client\public\index.html, code is 23, comment is 0, blank is 3.
+client\public\logo192.png, it is a binary file.
+client\public\logo512.png, it is a binary file.
+client\public\manifest.json, code is 25, comment is 0, blank is 0.
+client\public\robots.txt, code is 3, comment is 1, blank is 0.
+client\README.md, code is 38, comment is 12, blank is 32.
+client\src\App.js, code is 85, comment is 0, blank is 2.
+client\src\components\admin\AddNewBook.jsx, code is 269, comment is 3, blank is 4.
+client\src\components\admin\Admin.jsx, code is 41, comment is 0, blank is 1.
+client\src\components\admin\Books.jsx, code is 229, comment is 1, blank is 3.
+client\src\components\admin\Dashboard.jsx, code is 23, comment is 0, blank is 0.
+client\src\components\admin\EditBook.jsx, code is 288, comment is 3, blank is 3.
+client\src\components\admin\GlobalSection.jsx, code is 63, comment is 1, blank is 1.
+client\src\components\admin\Messages.jsx, code is 95, comment is 0, blank is 0.
+client\src\components\admin\Orders.jsx, code is 267, comment is 0, blank is 1.
+client\src\components\admin\Reviews.jsx, code is 97, comment is 0, blank is 1.
+client\src\components\admin\Users.jsx, code is 185, comment is 0, blank is 3.
+client\src\components\book\AddReview.jsx, code is 126, comment is 0, blank is 1.
+client\src\components\book\AllReviews.jsx, code is 47, comment is 0, blank is 1.
+client\src\components\book\Book.jsx, code is 205, comment is 4, blank is 5.
+client\src\components\book\Description.jsx, code is 27, comment is 0, blank is 4.
+client\src\components\book\MiniBookCard.jsx, code is 73, comment is 0, blank is 1.
+client\src\components\book\ReadingList.jsx, code is 148, comment is 1, blank is 1.
+client\src\components\book\Review.jsx, code is 174, comment is 0, blank is 5.
+client\src\components\book\Similar.jsx, code is 23, comment is 0, blank is 1.
+client\src\components\book\Tabs.jsx, code is 98, comment is 3, blank is 8.
+client\src\components\collection\BookCard.jsx, code is 26, comment is 0, blank is 2.
+client\src\components\collection\Category.jsx, code is 27, comment is 0, blank is 2.
+client\src\components\collection\Collection.jsx, code is 26, comment is 0, blank is 4.
+client\src\components\contact\ContactUs.jsx, code is 159, comment is 0, blank is 1.
+client\src\components\contact\Thanks.jsx, code is 12, comment is 0, blank is 0.
+client\src\components\header\Header.jsx, code is 394, comment is 5, blank is 6.
+client\src\components\header\LeftDrawer.jsx, code is 176, comment is 2, blank is 6.
+client\src\components\home\Home.jsx, code is 53, comment is 0, blank is 1.
+client\src\components\index.js, code is 26, comment is 9, blank is 0.
+client\src\components\search\Genre.jsx, code is 29, comment is 0, blank is 1.
+client\src\components\search\Search.jsx, code is 88, comment is 0, blank is 2.
+client\src\components\signing\LogIn.jsx, code is 153, comment is 8, blank is 3.
+client\src\components\signing\SignUp.jsx, code is 199, comment is 4, blank is 1.
+client\src\components\ui\CircularProgress.jsx, code is 23, comment is 0, blank is 3.
+client\src\components\ui\CustomAlert.jsx, code is 34, comment is 0, blank is 5.
+client\src\components\ui\CustomizedButton.jsx, code is 17, comment is 0, blank is 4.
+client\src\components\ui\CustomizedInput.jsx, code is 28, comment is 0, blank is 4.
+client\src\components\ui\CustomLoadingOverlay.jsx, code is 13, comment is 0, blank is 0.
+client\src\components\ui\CustomPagination.jsx, code is 15, comment is 0, blank is 1.
+client\src\components\ui\FormError.jsx, code is 13, comment is 0, blank is 1.
+client\src\components\ui\Rating.jsx, code is 79, comment is 0, blank is 2.
+client\src\components\ui\Scroller.jsx, code is 22, comment is 0, blank is 1.
+client\src\components\user\Account.jsx, code is 251, comment is 3, blank is 4.
+client\src\components\user\Cart.jsx, code is 120, comment is 0, blank is 1.
+client\src\components\user\CartItem.jsx, code is 62, comment is 0, blank is 2.
+client\src\components\user\Favoris.jsx, code is 19, comment is 0, blank is 1.
+client\src\components\user\Profile.jsx, code is 522, comment is 0, blank is 4.
+client\src\components\user\Reading.jsx, code is 33, comment is 0, blank is 1.
+client\src\components\user\Reads.jsx, code is 67, comment is 0, blank is 4.
+client\src\components\user\RecievedOrder.jsx, code is 11, comment is 0, blank is 1.
+client\src\helpers\account.helpers.js, code is 8, comment is 0, blank is 1.
+client\src\helpers\axios.helpers.js, code is 435, comment is 0, blank is 1.
+client\src\helpers\global.helpers.js, code is 18, comment is 0, blank is 1.
+client\src\helpers\login.helpers.js, code is 15, comment is 0, blank is 1.
+client\src\helpers\signup.helpers.js, code is 12, comment is 0, blank is 1.
+client\src\index.js, code is 15, comment is 0, blank is 1.
+client\src\redux\actions\adminActions.js, code is 35, comment is 0, blank is 2.
+client\src\redux\actions\bookActions.js, code is 10, comment is 0, blank is 1.
+client\src\redux\actions\reviewActions.js, code is 6, comment is 0, blank is 2.
+client\src\redux\actions\userActions.js, code is 43, comment is 0, blank is 2.
+client\src\redux\constants\action.types.js, code is 30, comment is 1, blank is 0.
+client\src\redux\reducers\adminReducer.js, code is 82, comment is 0, blank is 1.
+client\src\redux\reducers\bookReducer.js, code is 37, comment is 0, blank is 3.
+client\src\redux\reducers\index.js, code is 12, comment is 0, blank is 1.
+client\src\redux\reducers\reviewReducer.js, code is 28, comment is 0, blank is 2.
+client\src\redux\reducers\userReducer.js, code is 154, comment is 0, blank is 2.
+client\src\redux\store.js, code is 7, comment is 0, blank is 2.
+client\src\styles\base\_animations.scss, code is 41, comment is 0, blank is 0.
+client\src\styles\base\_global.scss, code is 49, comment is 0, blank is 0.
+client\src\styles\base\_mixins.scss, code is 59, comment is 0, blank is 1.
+client\src\styles\base\_reset.scss, code is 73, comment is 1, blank is 3.
+client\src\styles\base\_variables.scss, code is 7, comment is 0, blank is 0.
+client\src\styles\components\_admin.scss, code is 396, comment is 0, blank is 2.
+client\src\styles\components\_book-details.scss, code is 352, comment is 0, blank is 2.
+client\src\styles\components\_book_card.scss, code is 75, comment is 0, blank is 1.
+client\src\styles\components\_cart.scss, code is 132, comment is 0, blank is 1.
+client\src\styles\components\_collection.scss, code is 31, comment is 0, blank is 1.
+client\src\styles\components\_contact.scss, code is 49, comment is 0, blank is 0.
+client\src\styles\components\_favoris.scss, code is 12, comment is 0, blank is 0.
+client\src\styles\components\_header.scss, code is 107, comment is 0, blank is 2.
+client\src\styles\components\_home.scss, code is 129, comment is 0, blank is 0.
+client\src\styles\components\_profile.scss, code is 340, comment is 0, blank is 5.
+client\src\styles\components\_scroller.scss, code is 22, comment is 0, blank is 0.
+client\src\styles\components\_search.scss, code is 33, comment is 0, blank is 0.
+client\src\styles\components\_signing-page.scss, code is 57, comment is 0, blank is 3.
+client\src\styles\index.scss, code is 18, comment is 0, blank is 0.
+package-lock.json, code is 1187, comment is 0, blank is 0.
+package.json, code is 34, comment is 0, blank is 0.
+server\.env, code is 7, comment is 0, blank is 0.
+server\app.js, code is 17, comment is 2, blank is 4.
+server\config\db.js, code is 14, comment is 0, blank is 2.
+server\controllers\admin.js, code is 93, comment is 0, blank is 1.
+server\controllers\book.js, code is 89, comment is 0, blank is 0.
+server\controllers\review.js, code is 62, comment is 0, blank is 1.
+server\controllers\upload.js, code is 23, comment is 0, blank is 4.
+server\controllers\user.js, code is 41, comment is 1, blank is 1.
+server\middleware\auth.js, code is 17, comment is 0, blank is 1.
+server\middleware\authAdmin.js, code is 12, comment is 0, blank is 0.
+server\models\Book.js, code is 71, comment is 0, blank is 2.
+server\models\Mail.js, code is 36, comment is 0, blank is 0.
+server\models\Order.js, code is 32, comment is 0, blank is 2.
+server\models\Review.js, code is 27, comment is 0, blank is 0.
+server\models\User.js, code is 99, comment is 0, blank is 1.
+server\routes\adminRouter.js, code is 21, comment is 0, blank is 1.
+server\routes\bookRouter.js, code is 11, comment is 0, blank is 1.
+server\routes\reviewRouter.js, code is 11, comment is 0, blank is 2.
+server\routes\uploadRouter.js, code is 5, comment is 0, blank is 2.
+server\routes\userRouter.js, code is 20, comment is 0, blank is 2.
+===============================================================================

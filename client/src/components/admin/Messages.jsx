@@ -66,9 +66,12 @@ const Messages = () => {
                 >
                   {(message.loggedIn ? message.user.name : message.fullName)[0]}
                 </Avatar>
-                <h3>
-                  {message.loggedIn ? message.user.name : message.fullName}
-                </h3>
+                <div>
+                  <h3>
+                    {message.loggedIn ? message.user.name : message.fullName}
+                  </h3>
+                  {message.loggedIn && <h6>ID: {message.user._id} </h6>}
+                </div>
               </div>
               <h6>{new Date(message.createdAt).toDateString()}</h6>
             </div>
@@ -77,7 +80,10 @@ const Messages = () => {
                 <MailIcon style={{ fontSize: "1.1rem", color: "#3f51b5" }} />
                 {message.loggedIn ? message.user.email : message.email}
               </h5>
-              <h3><span>Subject: </span>{message.subject}</h3>
+              <h3>
+                <span>Subject: </span>
+                {message.subject}
+              </h3>
               <p>{message.message}</p>
             </div>
           </div>
