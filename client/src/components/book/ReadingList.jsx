@@ -10,8 +10,10 @@ import { switchReadingList } from "../../redux/actions/userActions";
 import { updateReadingList } from "../../helpers/axios.helpers";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import DoneAllRoundedIcon from "@material-ui/icons/DoneAllRounded";
+import { useHistory } from "react-router-dom";
 export default function ReadingList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const {
     user: { accessToken, read, currently_reading, to_read },
     books: { currentBook },
@@ -19,6 +21,7 @@ export default function ReadingList() {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const handleToggle = () => {
+    if (!accessToken) history.push("/login");
     setOpen((prevOpen) => !prevOpen);
   };
   const handleClose = (event) => {
@@ -78,7 +81,7 @@ export default function ReadingList() {
   return (
     <div className="reading-list">
       <button
-      className="reading-button"
+        className="reading-button"
         ref={anchorRef}
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"

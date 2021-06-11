@@ -1,6 +1,7 @@
 .books,
 .favoris {
     .genre-head {
+        padding: 20px;
         @include flexRowCenter;
         align-items: center;
         justify-content: space-between;

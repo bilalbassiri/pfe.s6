@@ -1,104 +1,191 @@
 .home {
     .main-page {
-        background-size: 100% 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
-        .scroll-down {
-            position: fixed;
-            bottom: 150px;
-            left: -100px;
-            transform: rotate(-90deg);
+        position: relative;
+        .ads {
+            width: 0%;
+            opacity: 0;
+            animation: qut 1.5s ease-in-out forwards;
+            color: white;
+            height: 60px;
+            border-radius: 5px;
+            background-color: $boss-color;
             display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 10px;
+            padding-left: 0;
+            p {
+                opacity: 0;
+                animation: det 200ms 1.5s ease-in-out forwards;
+            }
+            .portrait {
+                height: 60px;
+                width: 60px;
+                box-shadow: 0px 0px 0px 15px white;
+            }
+        }
+        .scroll-down {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
             color: $boss-color;
-            &::after,
-            &::before {
-                content: "";
-                display: block;
-                height: 2px;
-                width: 100px;
+            bottom: 30px;
+            right: 0;
+            transform: rotate(-90deg);
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            & > div {
+                @include boxSize(30px, 80px, 15px);
+                border: 1px solid $boss-color;
                 background-color: $boss-color;
-            }
-        }
-        .left {
-            flex: 0.6;
-            h1 {
-                font-size: 4rem;
-                color: $headings-color;
-            }
-            h2 {
-                color: #1a535c9e;
-                font-weight: 400;
-            }
-            .sign-upbtn {
-                margin-top: 40px;
-                @include flexRowCenter;
-                gap: 0px;
-                .hash {
-                    border: 1px solid $boss-color;
-                    margin-right: -7px;
-                    padding: 5px 12px;
-                    border-radius: 20px 0px 0px 20px;
-                    font-size: 0.9rem;
-                    font-weight: 600;
-                    color: $boss-color;
-                }
-                .MuiFab-secondary {
-                    background-color: $boss-color;
-                    &:hover {
-                        background-color: $hover-boss-color;
-                    }
-                }
-                .MuiFab-root {
-                    height: 45px;
-                    width: 45px;
-                    box-shadow: none;
-                    .MuiSvgIcon-root {
-                        font-size: 1.4rem;
-                    }
-                }
-            }
-        }
-        .right {
-            flex: 0.4;
-            display: grid;
-            place-content: center;
-            .images-container {
                 display: flex;
-                gap: 20px;
-                div {
-                    cursor: pointer;
+                padding: 5%;
+                & > span {
+                    display: block;
+                    width: 30px;
+                    background-color: white;
+                    border-radius: 15px;
                 }
-                .big-cover {
-                    height: 340px;
-                    width: 240px;
-                    cursor: pointer;
-                }
-                .big-cover,
-                .small-covers-cont div {
-                    opacity: 0.9;
-                    transition-duration: 250ms;
-                    &:hover {
-                        opacity: 1;
-                        transform: scale(1.05);
+            }
+        }
+        .lr-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            .left {
+                flex: 0.6;
+                h1 {
+                    font-size: 3rem;
+                    color: $headings-color;
+                    span {
+                        border: 2px solid $boss-color;
+                        padding: 3px;
+                        border-radius: 100%;
                     }
                 }
-                .small-covers-cont {
-                    display: grid;
-                    grid-template-columns: 120px 120px;
-                    grid-template-rows: 160px 160px;
+
+                h2,
+                h3 {
+                    color: #1a535c9e;
+                }
+                h2 {
+                    margin-top: 30px;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                }
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .explore-btn {
+                    margin-top: 20px;
+                    @include flexRowCenter;
                     gap: 0px;
-                    place-content: center;
-                    opacity: 0;
-                    animation: fd 1s ease-in-out forwards;
+                    cursor: pointer;
+                    .hash {
+                        padding: 5px 12px;
+                        font-size: 0.9rem;
+                        font-weight: bold;
+                        color: $boss-color;
+                    }
+                    .MuiFab-secondary {
+                        background-color: $boss-color;
+                        &:hover {
+                            background-color: $hover-boss-color;
+                        }
+                    }
+                    .MuiFab-root {
+                        height: 45px;
+                        width: 45px;
+                        box-shadow: none;
+                        .MuiSvgIcon-root {
+                            font-size: 1.4rem;
+                        }
+                    }
+                }
+                .contact {
+                    position: absolute;
+                    padding: 15px;
+                    bottom: 20px;
+                    border-radius: 5px;
+                    font-size: 0.9rem;
+                    color: grey;
+                    span {
+                        color: $headings-color;
+                        transition-duration: 200ms;
+                        font-weight: bold;
+                        cursor: pointer;
+                        &:hover {
+                            color: $boss-color;
+                        }
+                    }
+                }
+            }
+            .right {
+                flex: 0.4;
+                display: grid;
+                place-content: center;
+                .images-container {
+                    display: flex;
+                    gap: 20px;
                     div {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 10px;
-                        background-size: 100% 100%;
-                        background-position: center;
+                        cursor: pointer;
+                    }
+                    .big-cover {
+                        height: 340px;
+                        width: 240px;
+                        cursor: pointer;
+                        display: none;
+                        border-radius: 20px;
+                        box-shadow: 30px -30px 0px 10px white, 30px -30px 0px 12px #c3dad6;
+                        transition-duration: 200ms;
+                        &:hover {
+                            box-shadow: 20px -20px 0px 10px white, 20px -20px 0px 12px #90c0b7;
+                            img {
+                                transform: scale(1.05);
+                            }
+                        }
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            transition-duration: 250ms;
+                        }
+                    }
+                    .small-covers-cont div {
+                        transition-duration: 250ms;
+                        &:hover {
+                            transform: scale(1.05);
+                        }
+                    }
+                    .small-covers-cont {
+                        border-radius: 20px;
+                        box-shadow: -30px 30px 0px 10px white, -30px 30px 0px 12px #c3dad6;
+                        background-color: white;
+                        display: grid;
+                        grid-template-columns: 120px 120px;
+                        grid-template-rows: 160px 160px;
+                        gap: 0px;
+                        place-content: center;
+                        opacity: 0;
+                        animation: fd 1s ease-in-out forwards;
+                        transition-duration: 1s;
+                        &:hover {
+                            box-shadow: -20px 20px 0px 10px white, -20px 20px 0px 13px #90c0b7;
+                        }
+                        div {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 10px;
+                            background-size: 100% 100%;
+                            background-position: center;
+                        }
                     }
                 }
             }
@@ -119,10 +206,19 @@
     .home {
         .main-page {
             height: calc(100vh - 80px);
-            flex-direction: row;
-            .left,
-            .right {
-                flex: 0.5;
+            .lr-container {
+                flex-direction: row;
+                .left,
+                .right {
+                    flex: 0.5;
+                }
+                .right {
+                    .images-container {
+                        .big-cover {
+                            display: initial;
+                        }
+                    }
+                }
             }
         }
     }

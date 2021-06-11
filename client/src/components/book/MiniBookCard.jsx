@@ -27,8 +27,13 @@ const MiniBookCard = ({ title, books }) => {
                 <h1>{item.name}</h1>
                 <h4>{item.author}</h4>
                 <div className="nbrs">
-                  <Rating name="read-only" value={item.rating} readOnly style={{fontSize: ".8rem", color: "#616161"}} />
-                  <div>{item.price}$</div>
+                  <Rating
+                    name="read-only"
+                    value={item.rating}
+                    readOnly
+                    style={{ fontSize: ".8rem", color: "#616161" }}
+                  />
+                  <div>{item.price.toFixed(2)}$</div>
                   <div>{item.quantity} in stock</div>
                 </div>
               </div>

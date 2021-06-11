@@ -12,7 +12,7 @@ import {
   Genre,
   Admin,
   ContactUs,
-  Search
+  Search,
 } from "./components";
 import { Route, Switch, useHistory } from "react-router-dom";
 import {
@@ -39,9 +39,6 @@ function App() {
         if (data.active) {
           dispatch(userSetAccessToken(_ACCESS_TOKEN));
           dispatch(userLogin(data));
-          if (!(window.location.pathname === "/")) {
-            getBooksFromDB().then((books) => dispatch(setBooks(books)));
-          }
           if (data.role === 1) {
             getDashboardData(_ACCESS_TOKEN).then((data) =>
               dispatch(setAdminDashboard(data))
@@ -58,6 +55,9 @@ function App() {
         dispatch(userLogin({}));
       }
     });
+    if (!(window.location.pathname === "/")) {
+      getBooksFromDB().then((books) => dispatch(setBooks(books)));
+    }
   }, [dispatch, history]);
   return (
     <div className="App">

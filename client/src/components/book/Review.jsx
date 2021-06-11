@@ -171,7 +171,8 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
         </div>
       </div>
       <article onClick={() => setReadReview(!readReview)}>
-        {content.substring(0, readReview ? 500 : 300)}
+        {content.substring(0, readReview ? 500 : 300) +
+          (readReview ? "" : "...")}
       </article>
     </div>
   );

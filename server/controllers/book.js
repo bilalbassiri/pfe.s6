@@ -78,11 +78,10 @@ const controllers = {
   getBooksCategory: async (req, res) => {
     try {
       const { name } = req.params;
-      console.log(name);
       const books = await Books.find({ genres: { $in: name } }).limit(25);
       return res.json({ books });
-    } catch (error) {
-      console.log(error.message);
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
   },
 };
