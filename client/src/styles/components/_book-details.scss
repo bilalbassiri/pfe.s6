@@ -220,6 +220,12 @@
                     text-align: center;
                 }
                 .add-review-section {
+                    .MuiLinearProgress-barColorPrimary {
+                        background-color: $boss-color;
+                    }
+                    .MuiLinearProgress-colorPrimary {
+                        background-color: #aad8d2;
+                    }
                     .studio {
                         flex-grow: 1;
                         .rate {
@@ -287,7 +293,7 @@
                             }
                             .cheer-sec {
                                 @include flexRowCenter;
-                                font-size: 0.8rem;
+                                font-size: 0.7rem;
                                 font-weight: bold;
                                 gap: 7px;
                                 button {
@@ -318,6 +324,10 @@
                             display: block;
                             cursor: pointer;
                             word-wrap: break-word;
+                        }
+                        h6 {
+                            margin-top: 7px;
+                            color: $content-color;
                         }
                     }
                 }

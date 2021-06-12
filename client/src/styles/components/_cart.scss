@@ -116,9 +116,93 @@
                     font-size: 0.9rem;
                 }
             }
-            .btn-cont{
+            .btn-cont {
                 gap: 15px;
             }
+        }
+    }
+}
+.recieved-order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    .rc-header {
+        text-align: center;
+        h1 {
+            color: $headings-color;
+        }
+        h5 {
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        h6 {
+            font-size: 0.9rem;
+        }
+    }
+    .order-item {
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+        width: 100%;
+        .content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .book {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .quantity {
+                    @include boxSize(40px, 40px, 50%);
+                    color: white;
+                    position: absolute;
+                    background-color: #2a9d8f;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    top: -15px;
+                    left: -15px;
+                    .icon {
+                        font-size: 1rem;
+                    }
+                }
+                .booky {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    .detail {
+                        @include flexColumn;
+                        gap: 5px;
+                    }
+                }
+                .price {
+                    display: flex;
+                    align-items: center;
+                    color: rgb(163, 163, 163);
+                    span {
+                        padding-left: 10px;
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        color: $color-main-text;
+                    }
+                }
+
+                img {
+                    width: 60px;
+                    height: 80px;
+                }
+            }
+        }
+        .total {
+            padding: 30px;
+            text-align: right;
         }
     }
 }
@@ -128,6 +212,11 @@
             .cart-item {
                 width: 60%;
             }
+        }
+    }
+    .recieved-order {
+        .order-item {
+            width: 50%;
         }
     }
 }

@@ -84,7 +84,7 @@ const Home = () => {
                 we are believing that one book can <span>change</span> your life
               </h1>
               <h2>
-                Here you can share the knowledge what you learned from books,
+                Here you can share the knowledge that you learned from books,
                 make your own library, buy books that you've found interesting,
                 highlight other readers and more.
               </h2>

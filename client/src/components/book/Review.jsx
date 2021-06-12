@@ -16,8 +16,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { removeReview } from "../../redux/actions/reviewActions";
 import { useParams } from "react-router-dom";
+import { getPassedTime } from "../../helpers/global.helpers";
 
-const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
+const Review = ({
+  info: { _id, content, upvotes, owner, rating, createdAt },
+}) => {
   const {
     user: { credentials, accessToken },
     books: {
@@ -171,9 +174,10 @@ const Review = ({ info: { _id, content, upvotes, owner, rating } }) => {
         </div>
       </div>
       <article onClick={() => setReadReview(!readReview)}>
-        {content.substring(0, readReview ? 500 : 300) +
-          (readReview ? "" : "...")}
+        {content.substring(0, readReview ? 1000 : 300) +
+          (readReview || content.length <= 300 ? "" : "...")}
       </article>
+      <h6>{getPassedTime(createdAt)}</h6>
     </div>
   );
 };

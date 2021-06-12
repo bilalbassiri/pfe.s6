@@ -7,6 +7,7 @@ import { setReview } from "../../redux/actions/reviewActions";
 import { updateCurrentBook } from "../../redux/actions/bookActions";
 import { addBookReview } from "../../helpers/axios.helpers";
 import { Alert, AlertTitle } from "@material-ui/lab";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const styles = {
   post: {
@@ -30,7 +31,7 @@ const AddReview = () => {
   const [newReview, setNewReview] = useState({
     content: "",
     rating: 0,
-    submit: false,
+    posting: false,
   });
   const addReview = async (d) => {
     try {
@@ -38,6 +39,8 @@ const AddReview = () => {
         populatedReview,
         updatedBook: { rating, rating_count },
       } = await addBookReview(d, accessToken);
+      if (populatedReview)
+        setNewReview({ ...newReview, content: "", posting: false });
       dispatch(setReview(populatedReview));
       dispatch(updateCurrentBook({ rating, rating_count }));
     } catch (err) {
@@ -90,7 +93,7 @@ const AddReview = () => {
               global_rating: currentBook.rating,
               rating_count: currentBook.rating_count,
             };
-            setNewReview({ ...newReview, content: "" });
+            setNewReview({ ...newReview, content: "", posting: true });
             addReview(data);
           }}
         >
@@ -105,6 +108,7 @@ const AddReview = () => {
           Cancel
         </CustomizedButton>
       </div>
+      {newReview.posting && <LinearProgress style={{ marginTop: 10 }} />}
     </div>
   ) : (
     <Alert severity="info">

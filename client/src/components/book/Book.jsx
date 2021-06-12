@@ -195,6 +195,7 @@ const Book = () => {
             rating={book.rating}
           />
           <h5 style={{color: "grey"}}>{book.quantity} in stock</h5>
+          <h5 style={{color: "grey"}}>{book.sales} sales</h5>
         </div>
         <div>
           <Description book={book} />

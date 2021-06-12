@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { CartItem, CustomizedButton } from "..";
+import { CartItem, CircularProgress, CustomizedButton } from "..";
 import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
 import { useDispatch } from "react-redux";
 import { makeOrder, updateCart } from "../../helpers/axios.helpers";
@@ -49,7 +49,9 @@ const styles = {
 const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { credentials, cart, accessToken } = useSelector((state) => state.user);
+  const { credentials, cart, accessToken, isLoading } = useSelector(
+    (state) => state.user
+  );
   const [orderState, setOrderState] = useState({
     sending: false,
     recieved: false,
@@ -62,92 +64,96 @@ const Cart = () => {
     }
     return total.toFixed(2);
   };
-  return !orderState.recieved ? (
-    cart.length ? (
-      <div className="cart-container">
-        <div className="items">
-          <h1>Cart</h1>
-          {cart.map((item) => (
-            <CartItem key={item._id} item={item} />
-          ))}
-          <div className="check-out-btn cart-item">
-            <h3>
-              <span>Total </span>${getTotal()}
-            </h3>
-            <div className="btn-cont">
-              <Fab
-                style={styles.clearAll}
-                type="button"
-                color="secondary"
-                disabled={orderState.sending}
-                onClick={() => {
-                  dispatch(cartAddRemoveItem([]));
-                  updateCart([], accessToken);
-                }}
-              >
-                <ClearAllIcon className="arrow" />
-              </Fab>
-              <CustomizedButton
-                style={styles.checkOut}
-                type="button"
-                color="primary"
-                disabled={orderState.sending}
-                onClick={() => {
-                  setOrderState({ ...orderState, sending: true });
-                  makeOrder(
-                    {
-                      _id: credentials._id,
-                      payed: credentials.payed,
-                      orders: credentials.orders,
-                      total: credentials.total,
-                    },
-                    cart,
-                    parseInt(getTotal()),
-                    accessToken
-                  ).then(({ cart, payed, orders, result }) => {
-                    if (result) {
-                      dispatch(newPayedAmount({ cart, payed, orders }));
-                      setOrderState({
-                        sending: false,
-                        recieved: true,
-                        content: result,
-                      });
-                    }
-                  });
-                }}
-              >
-                Check out
-                <NearMeOutlinedIcon className="arrow" />
-              </CustomizedButton>
+  return !isLoading ? (
+    !orderState.recieved ? (
+      cart.length ? (
+        <div className="cart-container">
+          <div className="items">
+            <h1>Cart</h1>
+            {cart.map((item) => (
+              <CartItem key={item._id} item={item} />
+            ))}
+            <div className="check-out-btn cart-item">
+              <h3>
+                <span>Total </span>${getTotal()}
+              </h3>
+              <div className="btn-cont">
+                <Fab
+                  style={styles.clearAll}
+                  type="button"
+                  color="secondary"
+                  disabled={orderState.sending}
+                  onClick={() => {
+                    dispatch(cartAddRemoveItem([]));
+                    updateCart([], accessToken);
+                  }}
+                >
+                  <ClearAllIcon className="arrow" />
+                </Fab>
+                <CustomizedButton
+                  style={styles.checkOut}
+                  type="button"
+                  color="primary"
+                  disabled={orderState.sending}
+                  onClick={() => {
+                    setOrderState({ ...orderState, sending: true });
+                    makeOrder(
+                      {
+                        _id: credentials._id,
+                        payed: credentials.payed,
+                        orders: credentials.orders,
+                        total: credentials.total,
+                      },
+                      cart,
+                      parseInt(getTotal()),
+                      accessToken
+                    ).then(({ cart, payed, orders, result }) => {
+                      if (result) {
+                        dispatch(newPayedAmount({ cart, payed, orders }));
+                        setOrderState({
+                          sending: false,
+                          recieved: true,
+                          content: result,
+                        });
+                      }
+                    });
+                  }}
+                >
+                  Check out
+                  <NearMeOutlinedIcon className="arrow" />
+                </CustomizedButton>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ) : (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 30,
-          height: "calc(100vh - 84px)",
-        }}
-      >
-        <h2 style={{ color: "#1a535c" }}>
-          Hi {credentials.name.split(" ")[0]} 👋, your cart is empty.
-        </h2>
-        <CustomizedButton
-          disableElevation
-          style={styles.explore}
-          onClick={() => history.push("/search")}
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 30,
+            height: "calc(100vh - 84px)",
+          }}
         >
-          Explore
-        </CustomizedButton>
-      </div>
+          <h2 style={{ color: "#1a535c" }}>
+            Hi {credentials.name.split(" ")[0]} 👋, your cart is empty.
+          </h2>
+          <CustomizedButton
+            disableElevation
+            style={styles.explore}
+            onClick={() => history.push("/search")}
+          >
+            Explore
+          </CustomizedButton>
+        </div>
+      )
+    ) : (
+      <RecievedOrder order={orderState.content} />
     )
   ) : (
-    <RecievedOrder order={orderState.content} />
+    <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />
   );
 };
 export default Cart;

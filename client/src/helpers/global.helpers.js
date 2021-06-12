@@ -5,7 +5,7 @@ const getFormattedDate = (date) => {
 let getPassedTime = (played_at) => {
   let p = new Date() - new Date(played_at);
   if (p / 1000 < 60) {
-    return Math.floor(p / 1000) + ` secondes ago`;
+    return `Just now`;
   } else if (p / 60000 < 60) {
     let s = Math.floor(p / 60000) === 1 ? "" : "s";
     return Math.floor(p / 60000) + ` minute${s} ago`;

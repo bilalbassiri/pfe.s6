@@ -64,6 +64,18 @@ const bookSchema = new Schema(
       type: Number,
       default: 1,
     },
+    language: {
+      type: String,
+      default: "English",
+    },
+    pages: {
+      type: Number,
+      default: 200,
+    },
+    sales: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
