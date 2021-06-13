@@ -7,7 +7,10 @@ import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import { useHistory } from "react-router-dom";
 import { CircularProgress } from "..";
 import { getBooksFromDB } from "../../helpers/axios.helpers";
-import { setBooks } from "../../redux/actions/bookActions";
+import {
+  setBooks,
+  setBooksStartLoading,
+} from "../../redux/actions/bookActions";
 import Avatar from "@material-ui/core/Avatar";
 import { Chip } from "@material-ui/core";
 import { getKafkaRandomQuote } from "../../helpers/global.helpers";
@@ -15,7 +18,7 @@ import { getKafkaRandomQuote } from "../../helpers/global.helpers";
 const Home = () => {
   const dispatch = useDispatch();
   const {
-    books: { all, popular, most_rated },
+    books: { all, popular, most_rated, loading: booksLoading },
     user: { genres, accessToken, isloading },
   } = useSelector((state) => state);
   const history = useHistory();
@@ -48,9 +51,10 @@ const Home = () => {
   };
 
   useEffect(() => {
+    dispatch(setBooksStartLoading());
     getBooksFromDB().then((books) => dispatch(setBooks(books)));
   }, [dispatch]);
-  return all.length && !isloading ? (
+  return !isloading && !booksLoading ? (
     <div className="home">
       {!accessToken && (
         <div className="main-page">
