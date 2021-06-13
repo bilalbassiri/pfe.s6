@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Review from "./Review";
 import { getReviewsFromDB } from "../../helpers/axios.helpers";
-import { getReviews } from "../../redux/actions/reviewActions";
+import { getReviews, setReviewsLoading } from "../../redux/actions/reviewActions";
 import { CircularProgress } from "..";
 
 export const AllReviews = () => {
@@ -13,6 +13,7 @@ export const AllReviews = () => {
     books: { currentBook },
   } = useSelector((state) => state);
   useEffect(() => {
+    dispatch(setReviewsLoading());
     getReviewsFromDB(currentBook._id).then((reviews) => {
       dispatch(getReviews(reviews));
     });

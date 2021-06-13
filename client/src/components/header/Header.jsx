@@ -106,6 +106,7 @@ const Header = () => {
       new_notifications,
       credentials,
       accessToken,
+      isLoading,
     },
   } = useSelector((state) => state);
   const history = useHistory();
@@ -299,88 +300,91 @@ const Header = () => {
             kafka
           </Typography>
           <div className={classes.grow} />
-          {accessToken ? (
-            <div className={classes.sectionDesktop}>
-              <Tooltip
-                title="Shopping card"
-                arrow
-                onClick={() => history.push("/me/cart")}
-              >
-                <IconButton aria-label={`Show ${count.cart} books in the cart`}>
-                  <StyledBadge badgeContent={count.cart} color="secondary">
-                    <ShoppingCartOutlinedIcon />
-                  </StyledBadge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title="Favoris"
-                arrow
-                onClick={() => history.push("/me/favoris")}
-              >
-                <IconButton
-                  aria-label={`Show ${count.favoris} books in the favoris`}
+          {!isLoading &&
+            (accessToken ? (
+              <div className={classes.sectionDesktop}>
+                <Tooltip
+                  title="Shopping card"
+                  arrow
+                  onClick={() => history.push("/me/cart")}
                 >
-                  <StyledBadge badgeContent={count.favoris} color="secondary">
-                    <FavoriteBorderOutlinedIcon />
-                  </StyledBadge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title="Notifications"
-                arrow
-                onClick={() => {
-                  setNotificationsRead(true);
-                  setOpenNot(!openNot);
-                }}
-              >
-                <IconButton
-                  aria-label={`Show ${count.new_notifications} new notifications`}
-                >
-                  <StyledBadge
-                    badgeContent={count.new_notifications}
-                    color="secondary"
+                  <IconButton
+                    aria-label={`Show ${count.cart} books in the cart`}
                   >
-                    <NotificationsOutlinedIcon />
-                  </StyledBadge>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Profile" arrow>
-                <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
+                    <StyledBadge badgeContent={count.cart} color="secondary">
+                      <ShoppingCartOutlinedIcon />
+                    </StyledBadge>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title="Favoris"
+                  arrow
+                  onClick={() => history.push("/me/favoris")}
                 >
-                  <Avatar
-                    src={credentials?.picture}
-                    style={{ height: 25, width: 25 }}
-                  />
-                </IconButton>
-              </Tooltip>
-            </div>
-          ) : (
-            <>
-              <Link to="/login">
-                <CustomizedButton
-                  type="button"
-                  disableElevation
-                  style={styles.login}
+                  <IconButton
+                    aria-label={`Show ${count.favoris} books in the favoris`}
+                  >
+                    <StyledBadge badgeContent={count.favoris} color="secondary">
+                      <FavoriteBorderOutlinedIcon />
+                    </StyledBadge>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title="Notifications"
+                  arrow
+                  onClick={() => {
+                    setNotificationsRead(true);
+                    setOpenNot(!openNot);
+                  }}
                 >
-                  Log in
-                </CustomizedButton>
-              </Link>
-              <Link to="/sign-up">
-                <CustomizedButton
-                  type="button"
-                  disableElevation
-                  style={styles.signup}
-                >
-                  Sign up
-                </CustomizedButton>
-              </Link>
-            </>
-          )}
+                  <IconButton
+                    aria-label={`Show ${count.new_notifications} new notifications`}
+                  >
+                    <StyledBadge
+                      badgeContent={count.new_notifications}
+                      color="secondary"
+                    >
+                      <NotificationsOutlinedIcon />
+                    </StyledBadge>
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Profile" arrow>
+                  <IconButton
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                  >
+                    <Avatar
+                      src={credentials?.picture}
+                      style={{ height: 25, width: 25 }}
+                    />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            ) : (
+              <>
+                <Link to="/login">
+                  <CustomizedButton
+                    type="button"
+                    disableElevation
+                    style={styles.login}
+                  >
+                    Log in
+                  </CustomizedButton>
+                </Link>
+                <Link to="/sign-up">
+                  <CustomizedButton
+                    type="button"
+                    disableElevation
+                    style={styles.signup}
+                  >
+                    Sign up
+                  </CustomizedButton>
+                </Link>
+              </>
+            ))}
           {accessToken && (
             <div className={classes.sectionMobile}>
               <IconButton

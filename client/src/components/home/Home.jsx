@@ -19,7 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const {
     books: { all, popular, most_rated, loading: booksLoading },
-    user: { genres, accessToken, isloading },
+    user: { genres, accessToken, isLoading },
   } = useSelector((state) => state);
   const history = useHistory();
   const RandomCovers = () => {
@@ -54,7 +54,7 @@ const Home = () => {
     dispatch(setBooksStartLoading());
     getBooksFromDB().then((books) => dispatch(setBooks(books)));
   }, [dispatch]);
-  return !isloading && !booksLoading ? (
+  return !isLoading && !booksLoading ? (
     <div className="home">
       {!accessToken && (
         <div className="main-page">
