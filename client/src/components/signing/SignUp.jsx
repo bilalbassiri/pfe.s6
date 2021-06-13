@@ -55,14 +55,17 @@ const SignUp = () => {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(({ user }) => user);
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+    setDisabled(false);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    setDisabled(true);
     setFormErrors(values, setErrorMessages);
   };
   useEffect(() => {
@@ -78,7 +81,10 @@ const SignUp = () => {
         if (user.signed) {
           dispatch(userLogin(user.credentials));
           dispatch(userSetAccessToken(user.ACCESS_TOKEN));
-        } else setErrorMessages({ ...errorMessages, emailErr: user.msg });
+        } else {
+          setDisabled(false);
+          setErrorMessages({ ...errorMessages, emailErr: user.msg });
+        }
       });
     }
     return () => {
@@ -86,7 +92,7 @@ const SignUp = () => {
     };
   }, [user, errorMessages, isSignedUp, history, dispatch, values]);
   return isLoading ? (
-    <CircularProgress plan={{ h: "100vh", w: "100%" }} />
+    <CircularProgress plan={{ h: "100vh", w: "100%" }} color="#7a87f2" />
   ) : (
     <form onSubmit={handleSubmit} className="sign-up-page">
       <Grid className="signing-side">
@@ -206,6 +212,7 @@ const SignUp = () => {
             <CustomizedButton
               className={clsx(classes.margin)}
               type="submit"
+              disabled={disabled}
               style={styles.signup}
             >
               Sign up

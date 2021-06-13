@@ -8,7 +8,7 @@ const getLoginError = values => {
         noErrors: !str
     }
 }
-const startLoading = (setterCallback, time = 1000) => setTimeout(() => { setterCallback(false) }, time)
+const startLoading = (setterCallback, time = 2000) => setTimeout(() => { setterCallback(false) }, time)
 
 export {
     getLoginError,

@@ -9,13 +9,11 @@
     }
 
     .signing-side {
-        display: none;
         padding: 40px;
         background-color: #ffffff;
-        @include flexColumn;
         color: #276360;
         overflow: hidden;
-        justify-content: space-between;
+        display: none;
         h2 {
             font-size: 2rem;
             &.sgnup {
@@ -76,8 +74,8 @@
     .sign-up-page,
     .sign-in-page {
         .signing-side {
-            display: flex;
-            flex-direction: column;
+            @include flexColumn;
+            justify-content: space-between;
             flex: 0.4;
         }
         &-form {

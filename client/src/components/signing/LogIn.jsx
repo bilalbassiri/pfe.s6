@@ -44,6 +44,7 @@ const LogIn = () => {
   });
   const [formErrors, setformErrors] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const handleChange = (prop) => (event) => {
     setFormValues({ ...formValues, [prop]: event.target.value });
   };
@@ -66,16 +67,23 @@ const LogIn = () => {
         dispatch(userLogin(data));
         dispatch(userSetAccessToken(user.ACCESS_TOKEN));
         history.push("/");
-      } else setformErrors(user.msg);
+      } else {
+        setDisabled(false);
+        setformErrors(user.msg);
+      }
     } catch (err) {
       console.log(err.message);
     }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDisabled(true);
     if (getLoginError(formValues).noErrors) {
       logInUser();
-    } else setformErrors(getLoginError(formValues).message);
+    } else {
+      setformErrors(getLoginError(formValues).message);
+      setDisabled(false);
+    }
   };
 
   const handleClickShowPassword = () => {
@@ -94,7 +102,7 @@ const LogIn = () => {
     };
   }, [user, history]);
   return isLoading ? (
-    <CircularProgress plan={{ h: "100vh", w: "100%" }} />
+    <CircularProgress plan={{ h: "100vh", w: "100%" }} color="#ed9486" />
   ) : (
     <form onSubmit={handleSubmit} className="sign-in-page">
       <Grid className="signing-side">
@@ -176,7 +184,11 @@ const LogIn = () => {
           </FormControl>
         </Grid>
         <Grid style={{ width: "30ch" }}>
-          <CustomizedButton type="submit" style={styles.login}>
+          <CustomizedButton
+            disabled={disabled}
+            type="submit"
+            style={styles.login}
+          >
             Log in
           </CustomizedButton>
         </Grid>
