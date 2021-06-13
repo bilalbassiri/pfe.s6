@@ -85,8 +85,7 @@ const userSchema = new Schema(
     ],
     bio: {
       type: String,
-      default:
-        "Consequat deserunt velit consectetur adipisicing aute nisi ea dolore ipsum mollit culpa. Ut laborum pariatur Lorem id ad nisi deserunt proident amet. Id excepteur occaecat esse nostrud. Ad incididunt eiusmod reprehenderit mollit elit cillum in aute commodo sunt magna ad officia. Pariatur deserunt et incididunt duis ut laborum dolore do velit enim anim amet sint consectetur. Dolore consequat cupidatat consectetur culpa.",
+      default: "Empty bio..",
     },
     role: {
       type: Number,

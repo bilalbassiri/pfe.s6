@@ -8,8 +8,14 @@ export const Description = ({ book: { description, genres } }) => {
 
   return (
     <div className="desc">
-      {description?.substring(0, readMore ? 3000 : 1000)}
-      {description?.length > 500 && (
+      <span
+        dangerouslySetInnerHTML={{
+          __html: description
+            ?.substring(0, readMore ? 3000 : 600)
+            .replaceAll("\n", "<br/>"),
+        }}
+      ></span>
+      {description?.length > 600 && (
         <button
           type="button"
           className="more-btn"
@@ -32,4 +38,3 @@ export const Description = ({ book: { description, genres } }) => {
     </div>
   );
 };
-

@@ -16,7 +16,6 @@ const CircularIndeterminate = ({ plan, size }) => {
     },
   }));
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <CircularProgress color="secondary" style={size ?? { width: 30, height: 30 }} />

@@ -173,10 +173,16 @@ const Review = ({
           </button>
         </div>
       </div>
-      <article onClick={() => setReadReview(!readReview)}>
-        {content.substring(0, readReview ? 1000 : 300) +
-          (readReview || content.length <= 300 ? "" : "...")}
-      </article>
+      <article
+        onClick={() => setReadReview(!readReview)}
+        dangerouslySetInnerHTML={{
+          __html:
+            content
+              .substring(0, readReview ? 1000 : 300)
+              .replaceAll("\n", "<br/>") +
+            (readReview || content.length <= 300 ? "" : "..."),
+        }}
+      ></article>
       <h6>{getPassedTime(createdAt)}</h6>
     </div>
   );

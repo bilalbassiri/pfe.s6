@@ -189,6 +189,7 @@ const EditBook = ({ setEditMode, setActionState, book }) => {
               <CustomizedInput
                 label="Description"
                 required
+                multiline
                 variant="outlined"
                 value={values.description}
                 type="text"

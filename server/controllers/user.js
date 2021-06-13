@@ -201,11 +201,18 @@ const controllers = {
             },
             { new: true }
           );
-          Array.from(order.books).forEach(
-            async ({ _id, quantity, inCart }) =>
-              await Books.findByIdAndUpdate(_id, {
-                quantity: quantity - inCart,
-              })
+          await Books.bulkWrite(
+            order.books.map((book) => ({
+              updateOne: {
+                filter: { _id: book._id },
+                update: {
+                  $inc: {
+                    sales: book.inCart,
+                    quantity: -book.inCart,
+                  },
+                },
+              },
+            }))
           );
           return res.json({ cart, payed, orders, result });
         }

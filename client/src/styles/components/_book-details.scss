@@ -274,8 +274,8 @@
                                 align-items: center;
                                 gap: 10px;
                                 &-pic {
-                                    height: 30px;
-                                    width: 30px;
+                                    height: 35px;
+                                    width: 35px;
                                     &.MuiAvatar-colorDefault {
                                         background-color: #6b5852 !important;
                                     }
@@ -327,7 +327,7 @@
                         }
                         h6 {
                             margin-top: 7px;
-                            color: $content-color;
+                            color:rgb(133, 133, 133);
                         }
                     }
                 }

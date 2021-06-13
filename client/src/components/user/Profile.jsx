@@ -340,7 +340,11 @@ const Profile = () => {
                   }}
                 />
               ) : (
-                <p>{bioState.content}</p>
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: bioState.content.replaceAll("\n", "<br/>"),
+                  }}
+                ></p>
               )}
             </div>
             <div className="_reviews">
