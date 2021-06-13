@@ -9,6 +9,8 @@ import { CircularProgress } from "..";
 import { getBooksFromDB } from "../../helpers/axios.helpers";
 import { setBooks } from "../../redux/actions/bookActions";
 import Avatar from "@material-ui/core/Avatar";
+import { Chip } from "@material-ui/core";
+import { getKafkaRandomQuote } from "../../helpers/global.helpers";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -55,13 +57,10 @@ const Home = () => {
           <div className="ads">
             <Avatar
               className="portrait"
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1.bp.blogspot.com%2F_bwAHfdJLOJg%2FTI3fyOVljCI%2FAAAAAAAABoI%2Fu7psd8E2YoY%2Fs400%2Fkafka.jpg&f=1&nofb=1"
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7d%2FKafka_portrait.jpg&f=1&nofb=1"
               alt="franz kafka"
             />
-            <p>
-              “Many a book is like a key to unknown chambers within the castle
-              of one’s own self.” ― Franz Kafka
-            </p>
+            <p>{getKafkaRandomQuote()}</p>
           </div>
           <div className="scroll-down">
             <p>Scroll Down</p>
@@ -92,10 +91,33 @@ const Home = () => {
                 className="explore-btn"
                 onClick={() => history.push("/sign-up")}
               >
-                <span className="hash">Sign Up Now</span>
+                <span className="hash">Sign Up</span>
                 <Fab color="secondary" aria-label="signup">
                   <ArrowForwardRoundedIcon />
                 </Fab>
+              </div>
+              <div className="genres">
+                {[
+                  "Philosophy",
+                  "Science",
+                  "History",
+                  "Computer",
+                  "Technology",
+                  "Sociology",
+                  "Romance",
+                  "Culture",
+                  "Religion",
+                  "Literature",
+                  "Science Fiction",
+                ].map((genre, index) => (
+                  <Chip
+                    key={index}
+                    label={genre}
+                    onClick={() => {
+                      history.push("/genres/" + genre);
+                    }}
+                  />
+                ))}{" "}
               </div>
               <div className="contact">
                 Do you have a business and want to collaborate? don't hesitate{" "}

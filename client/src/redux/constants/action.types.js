@@ -27,5 +27,6 @@ const types = {
   DELETE_ORDER: "DELETE_ORDER",
   DELETE_ALL_REVIEWS: "DELETE_ALL_REVIEWS",
   READ_MAIL: "READ_MAIL",
+  DELETE_USERS: "DELETE_USERS"
 };
 export default types;

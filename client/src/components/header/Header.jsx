@@ -355,9 +355,7 @@ const Header = () => {
                   <Avatar
                     src={credentials?.picture}
                     style={{ height: 25, width: 25 }}
-                  >
-                    {credentials?.name[0]}
-                  </Avatar>
+                  />
                 </IconButton>
               </Tooltip>
             </div>

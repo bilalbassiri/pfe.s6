@@ -4,19 +4,42 @@
     display: flex;
     .signing-heading {
         margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #839896;
     }
 
     .signing-side {
         display: none;
-        padding: 50px;
-        background-color: #4ecdc4;
-        position: relative;
+        padding: 40px;
+        background-color: #ffffff;
+        @include flexColumn;
         color: #276360;
+        overflow: hidden;
+        justify-content: space-between;
         h2 {
             font-size: 2rem;
+            &.sgnup {
+                font-size: 2.5rem;
+            }
         }
         h4 {
-            font-weight: 300;
+            font-weight: 400;
+        }
+        img {
+            border-radius: 0;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        p {
+            font-size: 0.8rem;
+            color: $content-color;
+            a {
+                color: $headings-color;
+                font-weight: bold;
+                &:hover {
+                    text-decoration: underline !important;
+                }
+            }
         }
     }
     .sign-guide {
@@ -24,7 +47,12 @@
         font-size: 0.85rem;
         text-align: center;
         a {
-            color: $boss-color;
+            color: $headings-color;
+            font-weight: 600;
+            opacity: 0.9;
+            &:hover {
+                opacity: 1;
+            }
         }
     }
 }
@@ -44,17 +72,16 @@
     }
 }
 
-
 @media screen and (min-width: 600px) {
     .sign-up-page,
     .sign-in-page {
         .signing-side {
             display: flex;
             flex-direction: column;
-            flex: .3;
+            flex: 0.4;
         }
         &-form {
-            flex: 0.7;
+            flex: 0.6;
         }
     }
 }

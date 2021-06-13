@@ -10,25 +10,29 @@ import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { useHistory } from "react-router-dom";
 import CustomizedButton from "../ui/CustomizedButton";
 import { CustomAlert, CustomLoadingOverlay, CustomPagination } from "..";
-import { setActiveUsers } from "../../redux/actions/adminActions";
-import { adminSetUsersActive } from "../../helpers/axios.helpers";
+import { deleteUsers, setActiveUsers } from "../../redux/actions/adminActions";
+import {
+  adminDeleteUsers,
+  adminSetUsersActive,
+} from "../../helpers/axios.helpers";
 
 const styles = {
   activate: {
     backgroundColor: "#65b56d",
-    padding: "8.5px 16px",
-    width: "100%",
+    fontSize: ".7rem",
     "&:hover": {
       backgroundColor: "#4f8e56",
     },
   },
   deactivate: {
     backgroundColor: "#e64d59",
-    padding: "8.5px 16px",
-    width: "100%",
+    fontSize: ".7rem",
     "&:hover": {
       backgroundColor: "#c53f4a",
     },
+  },
+  delete: {
+    fontSize: ".7rem",
   },
 };
 const columns = [
@@ -146,6 +150,53 @@ const Users = () => {
               onClick={() => handleUserActivation(false)}
             >
               Deactivate
+            </CustomizedButton>
+            <CustomizedButton
+              disableElevation
+              style={styles.delete}
+              onClick={() => {
+                if (
+                  !window.confirm(
+                    `Hi there 👋, are you sure you want to delete ${
+                      selectionModel.length
+                    } user${selectionModel.length > 1 ? "s" : ""}?`
+                  )
+                )
+                  return;
+                else {
+                  setActionState({
+                    ...actionState,
+                    loading: true,
+                    actionDone: false,
+                    openAlert: false,
+                  });
+                  adminDeleteUsers(selectionModel, accessToken).then((res) => {
+                    if (res.ok && res.deletedCount === selectionModel.length) {
+                      console.log(res);
+                      dispatch(deleteUsers(selectionModel));
+                      setActionState({
+                        ...actionState,
+                        loading: false,
+                        actionDone: true,
+                        openAlert: true,
+                        message: `${res.deletedCount} user${
+                          res.deletedCount > 1 ? "s" : ""
+                        } has been deleted successfully`,
+                      });
+                    } else {
+                      setActionState({
+                        ...actionState,
+                        loading: false,
+                        actionDone: false,
+                        openAlert: true,
+                        message: `Sorry, something went wrong, try later.`,
+                      });
+                    }
+                  });
+                }
+              }}
+            >
+              Delete
             </CustomizedButton>
           </div>
         ) : (

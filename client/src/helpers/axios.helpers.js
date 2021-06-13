@@ -404,6 +404,21 @@ const adminReadMessage = async (mail_id, token) => {
     console.log(error.message);
   }
 };
+const adminDeleteUsers = async (selectionModel, token) => {
+  try {
+    const { data } = await axios({
+      method: "delete",
+      url: "/admin/users",
+      data: { selectionModel },
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -433,4 +448,5 @@ export {
   adminDeleteOrder,
   adminDeleteAllReviews,
   adminReadMessage,
+  adminDeleteUsers
 };

@@ -9,6 +9,7 @@ const {
   DELETE_ORDER,
   DELETE_ALL_REVIEWS,
   READ_MAIL,
+  DELETE_USERS,
 } = types;
 const initialState = {
   users: [],
@@ -69,12 +70,16 @@ const adminReducer = (state = initialState, { type, payload }) => {
         reviews: [],
       };
     case READ_MAIL:
-      console.log(1);
       return {
         ...state,
         mails: state.mails.map((mail) =>
           mail._id === payload._id ? { ...mail, read: true } : mail
         ),
+      };
+    case DELETE_USERS:
+      return {
+        ...state,
+        users: state.users.filter((user) => !payload.includes(user._id)),
       };
     default:
       return state;

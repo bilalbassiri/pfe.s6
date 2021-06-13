@@ -29,7 +29,8 @@
             opacity: 0;
             animation: det 250ms ease-in-out forwards;
             &::before {
-                display: none;
+                opacity: 0;
+                transition-duration: 150ms;
                 content: "";
                 @include boxSize(7px, 7px, 50%);
                 background-color: $headings-color;
@@ -41,7 +42,7 @@
                     color: $headings-color;
                 }
                 &::before {
-                    display: block;
+                    opacity: 1;
                 }
             }
             .cvr {
@@ -327,7 +328,7 @@
                         }
                         h6 {
                             margin-top: 7px;
-                            color:rgb(133, 133, 133);
+                            color: rgb(133, 133, 133);
                         }
                     }
                 }

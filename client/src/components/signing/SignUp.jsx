@@ -33,12 +33,12 @@ const useStyles = makeStyles(() => ({
 const styles = {
   signup: {
     margin: `10px 0px`,
-    backgroundColor: "#2a9d8f",
+    backgroundColor: "#7a87f2",
     padding: "8px",
     borderRadius: 20,
     width: "130px",
     "&:hover": {
-      backgroundColor: "#1f776d",
+      backgroundColor: "#616cce",
     },
   },
 };
@@ -90,11 +90,29 @@ const SignUp = () => {
   ) : (
     <form onSubmit={handleSubmit} className="sign-up-page">
       <Grid className="signing-side">
-        <h2>Welcome!</h2>
-        <h4>
-          Dolore voluptate do aute dolor aliqua sit sunt irure do tempor ad
-          voluptate.
-        </h4>
+        <h6 className="logo" onClick={() => history.push("/")}>
+          kafka
+        </h6>
+        <div>
+          <h2 className="sgnup">So many books.. little time</h2>
+          <h4>Let's find your favorite book to improve your knowledge</h4>
+        </div>
+        <div>
+          <img
+            src="https://cdn.dribbble.com/users/2417352/screenshots/14643918/media/faa887ce3580b522cc5a3324206e405b.png?compress=1&resize=1200x900"
+            alt="reader"
+          />
+          <p>
+            Art by{" "}
+            <a
+              href="https://dribbble.com/leila_divine"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Leila Divine
+            </a>
+          </p>
+        </div>
       </Grid>
       <Grid
         container
@@ -104,7 +122,7 @@ const SignUp = () => {
         className="sign-up-page-form"
       >
         <Grid style={{ marginBottom: "20px" }}>
-          <h1 className="signing-heading">Sign Up</h1>
+          <h1 className="signing-heading">Sign up</h1>
         </Grid>
         <Grid>
           <div style={{ display: "flex", gap: "2ch" }}>

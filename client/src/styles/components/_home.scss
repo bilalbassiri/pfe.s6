@@ -4,12 +4,14 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        height: auto;
+        margin-bottom: 40px;
         .ads {
             width: 0%;
             opacity: 0;
-            animation: qut 1.5s ease-in-out forwards;
+            animation: qut 2s 200ms ease-in-out forwards;
             color: white;
-            height: 60px;
+            height: auto;
             border-radius: 5px;
             background-color: $boss-color;
             display: flex;
@@ -17,14 +19,16 @@
             gap: 30px;
             padding: 10px;
             padding-left: 0;
+            margin-bottom: 30px;
             p {
+                font-weight: bold;
                 opacity: 0;
-                animation: det 200ms 1.5s ease-in-out forwards;
+                animation: det 500ms 2.2s ease-in-out forwards;
             }
             .portrait {
                 height: 60px;
                 width: 60px;
-                box-shadow: 0px 0px 0px 15px white;
+                box-shadow: 0px 0px 0px 12px white;
             }
         }
         .scroll-down {
@@ -59,6 +63,8 @@
             flex-direction: column;
             justify-content: space-between;
             flex-grow: 1;
+            gap: 40px;
+
             .left {
                 flex: 0.6;
                 h1 {
@@ -110,13 +116,24 @@
                         }
                     }
                 }
+                .genres {
+                    margin-top: 30px;
+                    display: flex;
+                    gap: 5px;
+                    flex-wrap: wrap;
+                    .MuiChip-root {
+                        font-size: 0.7rem;
+                        font-weight: 600;
+                    }
+                }
                 .contact {
                     position: absolute;
                     padding: 15px;
                     bottom: 20px;
                     border-radius: 5px;
-                    font-size: 0.9rem;
+                    font-size: 0.75rem;
                     color: grey;
+                    display: none;
                     span {
                         color: $headings-color;
                         transition-duration: 200ms;
@@ -192,20 +209,16 @@
         }
     }
 }
-@media screen and (min-width: 600px) {
-    .home {
-        .main-page {
-            height: calc(100vh - 64px);
-        }
-        &-body {
-            padding: 40px;
-        }
-    }
-}
+
 @media screen and (min-width: 600px) {
     .home {
         .main-page {
             height: calc(100vh - 80px);
+            margin-bottom: 0px;
+            .ads {
+                margin-bottom: 0px;
+                height: 60px;
+            }
             .lr-container {
                 flex-direction: row;
                 .left,
@@ -219,7 +232,15 @@
                         }
                     }
                 }
+                .left {
+                    .contact {
+                        display: block;
+                    }
+                }
             }
+        }
+        &-body {
+            padding: 40px;
         }
     }
 }

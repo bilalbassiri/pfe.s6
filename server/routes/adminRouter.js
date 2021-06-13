@@ -19,4 +19,6 @@ router
   .route("/reviews")
   .delete(auth, authAdmin, adminControllers.deleteAllReviews);
 router.route("/mails").post(auth, authAdmin, adminControllers.readMessage);
+router.route("/users").delete(auth, authAdmin, adminControllers.deleteUser);
+
 module.exports = router;

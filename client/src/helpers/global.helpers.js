@@ -16,4 +16,21 @@ let getPassedTime = (played_at) => {
     return "One day ago";
   } else return new Date(played_at).toDateString();
 };
-export { getFormattedDate, getPassedTime };
+let getKafkaRandomQuote = () => {
+  // Thanks to https://www.goodreads.com/
+  const quotes = [
+    "I am a cage, in search of a bird.",
+    "A book must be the axe for the frozen sea within us.",
+    "Many a book is like a key to unknown chambers within the castle of one’s own self.",
+    "Youth is happy because it has the capacity to see beauty. Anyone who keeps the ability to see beauty never grows old.",
+    "Books are a narcotic.",
+    "I think we ought to read only the kind of books that wound and stab us.",
+    "Paths are made by walking",
+    "I usually solve problems by letting them devour me.",
+    "They say ignorance is bliss.... they're wrong",
+    "Beyond a certain point there is no return. This point has to be reached.",
+  ];
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  return `“${quotes[randomIndex]}”  ― Franz Kafka`;
+};
+export { getFormattedDate, getPassedTime, getKafkaRandomQuote };

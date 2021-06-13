@@ -17,6 +17,8 @@
     font-family: "Satisfy", cursive !important;
     cursor: pointer;
     font-weight: bold !important;
+    color: $color-main-text;
+    font-size: 1.25em;
     &:hover {
         opacity: 0.95;
     }

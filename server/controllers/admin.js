@@ -90,5 +90,14 @@ const controllers = {
       return res.json({ msg: error.message });
     }
   },
+  deleteUser: async (req, res) => {
+    try {
+      const { selectionModel } = req.body;
+      const state = await Users.deleteMany({ _id: { $in: selectionModel } });
+      return res.status(200).json(state);
+    } catch (error) {
+      return res.json({ msg: error.message });
+    }
+  },
 };
 module.exports = controllers;

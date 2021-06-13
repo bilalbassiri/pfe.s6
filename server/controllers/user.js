@@ -5,8 +5,8 @@ const Reviews = require("../models/Review");
 const Mails = require("../models/Mail");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const saltRounds = 10;
 const _ = require("lodash");
+const saltRounds = 10;
 
 const getUserInterests = (list) => {
   let g = "";
@@ -26,7 +26,10 @@ const controllers = {
     try {
       const { first_name, last_name, email, password } = req.body;
       const user = await Users.findOne({ email });
-      if (user) return res.json({ msg: "Email already exist", signed: false });
+      if (user)
+        return res
+          .status(200)
+          .json({ msg: "Email already exist", signed: false });
       const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
       const newUser = new Users({
         name: first_name + " " + last_name,
