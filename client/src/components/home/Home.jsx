@@ -14,7 +14,7 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import { Chip } from "@material-ui/core";
 import { getKafkaRandomQuote } from "../../helpers/global.helpers";
-
+import { Footer } from "..";
 const Home = () => {
   const dispatch = useDispatch();
   const {
@@ -145,6 +145,7 @@ const Home = () => {
         {accessToken &&
           genres?.map((genre) => <Category key={genre} genre={genre} />)}
       </div>
+      <Footer />
     </div>
   ) : (
     <CircularProgress plan={{ w: "100%", h: "calc(100vh - 84px)" }} />

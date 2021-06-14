@@ -1,5 +1,7 @@
 // ./header/
 export { default as Header } from "./header/Header";
+// ./footer/
+export { default as Footer } from "./footer/Footer";
 // ./signing/
 export { default as LogIn } from "./signing/LogIn";
 export { default as SignUp } from "./signing/SignUp";

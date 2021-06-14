@@ -77,7 +77,10 @@ const userReducer = (state = initialState, { type, payload }) => {
         isLoading: false,
       };
     case LOG_OUT:
-      return initialState;
+      return {
+        ...initialState,
+        isLoading: false,
+      };
     case CART_ADD_REMOVE:
       return {
         ...state,

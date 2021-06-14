@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 // Components
 import SimpleTabs from "./Tabs";
 import ReadingList from "./ReadingList";
-import { Rating, CircularProgress, CustomizedButton } from "..";
+import { Rating, CircularProgress, CustomizedButton, Footer } from "..";
 //Material UI Icons
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import RemoveShoppingCartOutlinedIcon from "@material-ui/icons/RemoveShoppingCartOutlined";
@@ -115,98 +115,101 @@ const Book = () => {
     };
   }, [dispatch, bookId]);
   return !isLoading ? (
-    <div className="book-details">
-      <div className="left">
-        <div className="left-top">
-          <div className="cover-container">
-            <img src={book.cover} alt={book.name} className="cover" />
-          </div>
-          <div className="add-to-cart-or-favoris">
-            <CustomizedButton
-              type="button"
-              style={styles.cart}
-              disableElevation
-              disabled={disabled.cart}
-              onClick={() => handleAddAndRemove("cart")}
-            >
-              {alreadyExist("cart") ? (
-                <>
-                  <RemoveShoppingCartOutlinedIcon style={styles.icons} />
-                  <span className="spn">Remove from cart</span>
-                </>
-              ) : (
-                <>
-                  <AddShoppingCartIcon style={styles.icons} />
-                  <span className="spn">Add to cart</span>
-                </>
-              )}
-            </CustomizedButton>
-            <button
-              className="like-button"
-              type="button"
-              style={styles.favoris}
-              disabled={disabled.favoris}
-              onClick={() => handleAddAndRemove("favoris")}
-            >
-              {!disabled.favoris ? (
-                alreadyExist("favoris") ? (
+    <>
+      <div className="book-details">
+        <div className="left">
+          <div className="left-top">
+            <div className="cover-container">
+              <img src={book.cover} alt={book.name} className="cover" />
+            </div>
+            <div className="add-to-cart-or-favoris">
+              <CustomizedButton
+                type="button"
+                style={styles.cart}
+                disableElevation
+                disabled={disabled.cart}
+                onClick={() => handleAddAndRemove("cart")}
+              >
+                {alreadyExist("cart") ? (
                   <>
-                    <FavoriteRoundedIcon
-                      style={styles.icons}
-                      className="heart"
-                    />
+                    <RemoveShoppingCartOutlinedIcon style={styles.icons} />
+                    <span className="spn">Remove from cart</span>
                   </>
                 ) : (
                   <>
-                    <FavoriteBorderRoundedIcon
-                      style={styles.icons}
-                      className="heart"
-                    />
+                    <AddShoppingCartIcon style={styles.icons} />
+                    <span className="spn">Add to cart</span>
                   </>
-                )
-              ) : (
-                <CircularProgress
-                  plan={{ h: 15, w: 15 }}
-                  size={{ width: 15, height: 15 }}
-                />
-              )}
-            </button>
+                )}
+              </CustomizedButton>
+              <button
+                className="like-button"
+                type="button"
+                style={styles.favoris}
+                disabled={disabled.favoris}
+                onClick={() => handleAddAndRemove("favoris")}
+              >
+                {!disabled.favoris ? (
+                  alreadyExist("favoris") ? (
+                    <>
+                      <FavoriteRoundedIcon
+                        style={styles.icons}
+                        className="heart"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <FavoriteBorderRoundedIcon
+                        style={styles.icons}
+                        className="heart"
+                      />
+                    </>
+                  )
+                ) : (
+                  <CircularProgress
+                    plan={{ h: 15, w: 15 }}
+                    size={{ width: 15, height: 15 }}
+                  />
+                )}
+              </button>
+            </div>
+          </div>
+          <Similar />
+        </div>
+        <div className="right">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <h1>{book.name}</h1>
+            <ReadingList />
+          </div>
+          <h3 className="author">by {book.author}</h3>
+          <div className="other">
+            <h3 className="price">{book.price.toFixed(2) ?? "00.00"}</h3>
+            <Rating
+              porpose="global_read"
+              count={book.rating_count}
+              rating={book.rating}
+            />
+            <h5 style={{ color: "grey" }}>{book.quantity} in stock</h5>
+            <h5 style={{ color: "grey" }}>{book.sales} sales</h5>
+          </div>
+          <div>
+            <Description book={book} />
+            <SimpleTabs book={book} />
           </div>
         </div>
-        <Similar />
-      </div>
-      <div className="right">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <h1>{book.name}</h1>
-          <ReadingList />
-        </div>
-        <h3 className="author">by {book.author}</h3>
-        <div className="other">
-          <h3 className="price">{book.price.toFixed(2) ?? "00.00"}</h3>
-          <Rating
-            porpose="global_read"
-            count={book.rating_count}
-            rating={book.rating}
-          />
-          <h5 style={{color: "grey"}}>{book.quantity} in stock</h5>
-          <h5 style={{color: "grey"}}>{book.sales} sales</h5>
-        </div>
-        <div>
-          <Description book={book} />
-          <SimpleTabs book={book} />
+        <div className="right-side-books">
+          <MiniBookCard title="Popular" books={popular} />
+          <MiniBookCard title="Most rated" books={most_rated} />
         </div>
       </div>
-      <div className="right-side-books">
-        <MiniBookCard title="Popular" books={popular} />
-        <MiniBookCard title="Most rated" books={most_rated} />
-      </div>
-    </div>
+      <Footer />
+    </>
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />
   );
