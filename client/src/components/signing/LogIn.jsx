@@ -21,6 +21,8 @@ import { CircularProgress, CustomizedButton, FormError } from "..";
 import { getLoginError, startLoading } from "../../helpers/login.helpers";
 // Redux actions
 import { userLogin, userSetAccessToken } from "../../redux/actions/userActions";
+import { getDashboardData } from "../../helpers/axios.helpers";
+import { setAdminDashboard } from "../../redux/actions/adminActions";
 
 const styles = {
   login: {
@@ -66,6 +68,11 @@ const LogIn = () => {
         });
         dispatch(userLogin(data));
         dispatch(userSetAccessToken(user.ACCESS_TOKEN));
+        if (data.role === 1) {
+          getDashboardData(user.ACCESS_TOKEN).then((appData) =>
+            dispatch(setAdminDashboard(appData))
+          );
+        }
         history.push("/");
       } else {
         setDisabled(false);
@@ -142,6 +149,7 @@ const LogIn = () => {
           <FormControl className="fieldset" variant="outlined">
             <TextField
               autoFocus
+              autoComplete
               label="Email"
               variant="outlined"
               type="email"
