@@ -147,7 +147,7 @@ const LogIn = () => {
         >
           <Grid style={{ marginBottom: "20px" }}>
             <h1 className="signing-heading">Log in</h1>
-          </Grid>
+        </Grid>
           <Grid>
             <FormControl className="fieldset" variant="outlined">
               <TextField

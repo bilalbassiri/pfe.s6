@@ -50,6 +50,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         orders,
         active,
         highlights,
+        username,
       } = payload;
       return {
         ...state,
@@ -58,6 +59,7 @@ const userReducer = (state = initialState, { type, payload }) => {
           name,
           password,
           email,
+          username,
           picture,
           createdAt,
           payed,

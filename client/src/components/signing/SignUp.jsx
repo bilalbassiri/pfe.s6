@@ -47,6 +47,7 @@ const SignUp = () => {
   const [values, setValues] = useState({
     first_name: "",
     last_name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -157,6 +158,20 @@ const SignUp = () => {
               <FormError message={errorMessages.lastNameErr} />
             </FormControl>
           </div>
+          <Grid>
+            <FormControl
+              className={clsx(classes.margin, classes.width)}
+              variant="outlined"
+            >
+              <CustomizedInput
+                label="Username"
+                variant="outlined"
+                type="text"
+                onChange={handleChange("username")}
+              />
+              <FormError message={errorMessages.usernameErr} />
+            </FormControl>
+          </Grid>
           <Grid>
             <FormControl
               className={clsx(classes.margin, classes.width)}

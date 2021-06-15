@@ -86,6 +86,19 @@
         @include flexColumn;
         justify-content: space-between;
         height: calc(100vh - 84px);
+        position: relative;
+        .settings {
+            position: absolute;
+            top: 0;
+            .icon {
+                color: grey;
+                font-size: 1.2rem;
+                transition-duration: 200ms;
+                &:hover {
+                    color: $color-main-text;
+                }
+            }
+        }
         .personal-info {
             @include flexColumn;
             align-items: center;
@@ -145,6 +158,11 @@
                 .name {
                     font-size: 1.2rem;
                     font-weight: 700;
+                }
+                .username {
+                    font-size: 0.8rem;
+                    color: rgb(158, 158, 158);
+                    font-weight: bold;
                 }
                 .email {
                     font-size: 0.8rem;

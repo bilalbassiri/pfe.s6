@@ -10,13 +10,13 @@ import { Rating } from "..";
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { removeReview } from "../../redux/actions/reviewActions";
 import { useParams } from "react-router-dom";
 import { getPassedTime } from "../../helpers/global.helpers";
+import { useHistory } from "react-router-dom";
 
 const Review = ({
   info: { _id, content, upvotes, owner, rating, createdAt },
@@ -27,6 +27,7 @@ const Review = ({
       currentBook: { name },
     },
   } = useSelector((state) => state);
+  const history = useHistory();
   const { bookId } = useParams();
   const reduxDispatch = useDispatch();
   const [readReview, setReadReview] = useState(false);
@@ -62,7 +63,7 @@ const Review = ({
           : [...currentVotes, credentials._id]
       );
       dispatch({ type: voted ? "DONTVOTE" : "UPVOTE" });
-    } else console.log("Not logged in !!!");
+    } else history.push("/login");
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -75,60 +76,58 @@ const Review = ({
   };
   return (
     <div className="review">
-      {accessToken && (
-        <div className="options">
-          <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <MoreHorizIcon />
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {credentials?._id === owner?._id && (
-              <MenuItem
-                onClick={() => {
-                  handleClose();
-                  if (
-                    !window.confirm(
-                      "Hi " +
-                        credentials.name.split(" ")[0] +
-                        "👋, Are you sure you wanna delete this review ?"
-                    )
+      <div className="options">
+        <button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon className="icon" />
+        </button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {credentials?._id === owner?._id && (
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                if (
+                  !window.confirm(
+                    "Hi " +
+                      credentials.name.split(" ")[0] +
+                      "👋, Are you sure you wanna delete this review ?"
                   )
-                    return;
-                  deleteBookReview(_id, accessToken);
-                  reduxDispatch(removeReview({ _id }));
-                }}
-              >
-                Delete
-              </MenuItem>
-            )}
-            <MenuItem
-              onClick={() => {
+                )
+                  return;
+                deleteBookReview(_id, accessToken);
                 reduxDispatch(removeReview({ _id }));
-                handleClose();
               }}
             >
-              Hide
+              Delete
             </MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleClose();
-                navigator.clipboard.writeText(content);
-              }}
-            >
-              Copy
-            </MenuItem>
-          </Menu>
-        </div>
-      )}
+          )}
+          <MenuItem
+            onClick={() => {
+              reduxDispatch(removeReview({ _id }));
+              handleClose();
+            }}
+          >
+            Hide
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              navigator.clipboard.writeText(content);
+            }}
+          >
+            Copy
+          </MenuItem>
+        </Menu>
+      </div>
       <div className="review-bar">
         <div className="review-writer">
           <Avatar className="review-writer-pic" src={owner.picture ?? ""}>
@@ -137,6 +136,7 @@ const Review = ({
           <Link to={`/readers/${owner?._id}`} className="review-writer-name">
             <h4>{owner.name}</h4>
           </Link>
+          <p className="review-writer-username">@{owner.username}</p>
           <Rating porpose="review_read" rating={rating} notext={true} />
         </div>
         <div className="cheer-sec">

@@ -14,7 +14,6 @@ const uploadImage = async (req, res) => {
         const { id } = req.user;
         const { blobDataURL } = await req.body
         cloudinary.uploader.upload(blobDataURL, { folder: 'Avatars' }, async (err, result) => {
-            if (err) console.log(err.message)
             const user = await Users.findByIdAndUpdate(id, { picture: result.url })
             if (user && !err) return res.status(200).json({ url: result.url })
             else return res.json({ url: user.picture })

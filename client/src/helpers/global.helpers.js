@@ -1,6 +1,19 @@
 const getFormattedDate = (date) => {
   return new Date(date).getFullYear();
 };
+const isCorrectName = (name) => {
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  return (
+    Array.from(name)
+      .map((v) => letters.includes(v))
+      .indexOf(false) === -1
+  );
+};
+const getEmailError = (_email) =>
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+    _email
+  );
+const getUsernameError = (username) => /^[a-z0-9_.]{3,15}$/.test(username);
 
 let getPassedTime = (played_at) => {
   let p = new Date() - new Date(played_at);
@@ -33,4 +46,11 @@ let getKafkaRandomQuote = () => {
   const randomIndex = Math.floor(Math.random() * quotes.length);
   return `“${quotes[randomIndex]}”  ― Franz Kafka`;
 };
-export { getFormattedDate, getPassedTime, getKafkaRandomQuote };
+export {
+  getFormattedDate,
+  isCorrectName,
+  getEmailError,
+  getUsernameError,
+  getPassedTime,
+  getKafkaRandomQuote,
+};

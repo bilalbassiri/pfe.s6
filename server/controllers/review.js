@@ -27,7 +27,7 @@ const controllers = {
       let bookReviews = await Reviews.find({ book_id })
         .populate({
           path: "owner",
-          select: "name picture",
+          select: "name username picture",
           match: { active: { $ne: false } },
         })
         .sort("-createdAt");

@@ -162,10 +162,11 @@
                 }
             }
             &.review_read {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
+                font-weight: bold;
                 .stars {
-                    font-size: 1rem;
                     margin-right: 5px;
+                    font-size: 0.9rem;
                 }
             }
         }
@@ -263,11 +264,15 @@
                         }
                         .options {
                             position: absolute;
-                            left: -60px;
+                            left: -25px;
                             z-index: 999;
                             display: none;
-                            .MuiButton-root {
-                                color: rgb(85, 85, 85) !important;
+                            top: 5px;
+                            .icon {
+                                color: $color-main-text;
+                                &:hover {
+                                    color: $headings-color;
+                                }
                             }
                         }
                         .review-bar {
@@ -277,7 +282,7 @@
                             .review-writer {
                                 display: flex;
                                 align-items: center;
-                                gap: 10px;
+                                gap: 8px;
                                 &-pic {
                                     height: 35px;
                                     width: 35px;
@@ -291,9 +296,11 @@
                                 &-name {
                                     font-size: 0.9rem;
                                     color: rgb(46, 46, 46);
-                                    &:hover {
-                                        color: $headings-color;
-                                    }
+                                }
+                                &-username {
+                                    font-size: 0.7rem;
+                                    font-weight: bolder;
+                                    color: grey;
                                 }
                             }
                             .cheer-sec {

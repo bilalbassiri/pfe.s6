@@ -47,9 +47,12 @@ const getCustomStyles = (permission) => ({
 const Profile = () => {
   const dispatch = useDispatch();
   const { user_id } = useParams();
-  const { credentials, accessToken, highlights } = useSelector(
-    (state) => state.user
-  );
+  const {
+    credentials,
+    accessToken,
+    highlights,
+    isLoading: userLoading,
+  } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState({
     profile: true,
     image: false,
@@ -100,7 +103,6 @@ const Profile = () => {
         : 0
     }ms ease forwards`,
   });
-
   const handleImageUpload = async (e) => {
     try {
       setIsLoading({ ...isLoading, image: true });
@@ -127,7 +129,7 @@ const Profile = () => {
   };
   return (
     <>
-      {isLoading.profile ? (
+      {userLoading || isLoading.profile ? (
         <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />
       ) : (
         <Grid container justify="space-evenly" className="profile">
@@ -149,6 +151,16 @@ const Profile = () => {
             </div>
           )}
           <Grid item sm={2} xs={12} className="general-section">
+            {isMyProfile() && (
+              <button
+                type="button"
+                className="settings"
+                style={{ display: "grid", placeContent: "center" }}
+                onClick={() => history.push("/me/account")}
+              >
+                <SettingsOutlinedIcon className="icon" />
+              </button>
+            )}
             <div className="personal-info">
               <div className="photo">
                 <Avatar
@@ -192,27 +204,8 @@ const Profile = () => {
                   ))}
               </div>
               <div className="inf">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 10,
-                  }}
-                >
-                  <h1 className="name">{info.name}</h1>
-                  {isMyProfile() && (
-                    <button
-                      type="button"
-                      style={{ display: "grid", placeContent: "center" }}
-                      onClick={() => history.push("/me/account")}
-                    >
-                      <SettingsOutlinedIcon
-                        style={{ fontSize: "1.1rem", color: "#88908f" }}
-                      />
-                    </button>
-                  )}
-                </div>
+                <h1 className="name">{info.name}</h1>
+                <p className="username">@{info.username}</p>
                 {isMyProfile() && <p className="email">{credentials.email}</p>}
               </div>
               <div className="highlight">
@@ -489,7 +482,9 @@ const Profile = () => {
                         >
                           {reader.name[0]}
                         </Avatar>
-                        <h3 className="name">{reader.name}</h3>
+                        <h3 className="name">
+                          {reader._id === credentials._id ? "You" : reader.name}
+                        </h3>
                       </div>
                       <div className="right-arrow">
                         <ChevronRightRoundedIcon />

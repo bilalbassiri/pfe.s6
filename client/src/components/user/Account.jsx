@@ -63,6 +63,7 @@ const Account = () => {
     first_name: "",
     last_name: "",
     email: "",
+    username: "",
     old_password: "",
     new_password: "",
     change: true,
@@ -89,6 +90,7 @@ const Account = () => {
         first_name: credentials.name.split(" ")[0],
         last_name: credentials.name.split(" ")[1],
         email: credentials.email,
+        username: credentials.username,
         change: false,
       }));
     }
@@ -150,6 +152,21 @@ const Account = () => {
                 <FormError message={errorMessages.lastNameErr} />
               </FormControl>
             </div>
+            <Grid>
+              <FormControl
+                className={clsx(classes.margin, classes.width)}
+                variant="outlined"
+              >
+                <CustomizedInput
+                  label="Username"
+                  variant="outlined"
+                  value={values.username}
+                  type="text"
+                  onChange={handleChange("username")}
+                />
+                <FormError message={errorMessages.usernameErr} />
+              </FormControl>
+            </Grid>
             <Grid>
               <FormControl
                 className={clsx(classes.margin, classes.width)}

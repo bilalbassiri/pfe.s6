@@ -24,7 +24,7 @@ const getUserInterests = (list) => {
 const controllers = {
   register: async (req, res) => {
     try {
-      const { first_name, last_name, email, password } = req.body;
+      const { first_name, last_name, username, email, password } = req.body;
       const user = await Users.findOne({ email });
       if (user)
         return res
@@ -33,6 +33,7 @@ const controllers = {
       const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
       const newUser = new Users({
         name: first_name + " " + last_name,
+        username,
         email,
         password: passwordHash,
         new_notifications: [
@@ -277,8 +278,15 @@ const controllers = {
   updateUserAccount: async (req, res) => {
     try {
       const { id } = req.user;
-      const { first_name, last_name, email, old_password, new_password } =
-        req.body;
+      const {
+        first_name,
+        last_name,
+        username,
+        email,
+        old_password,
+        new_password,
+      } = req.body;
+      console.log(req.body);
       const _user = await Users.findOne({ _id: id });
       let updatedUser = {},
         newInfo = {};
@@ -291,6 +299,7 @@ const controllers = {
           const newPasswordHash = await bcrypt.hash(new_password, saltRounds);
           newInfo = {
             name: first_name + " " + last_name,
+            username,
             email,
             password: newPasswordHash,
           };
@@ -299,6 +308,7 @@ const controllers = {
       } else {
         newInfo = {
           name: first_name + " " + last_name,
+          username,
           email,
         };
       }
