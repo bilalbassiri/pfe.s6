@@ -82,7 +82,7 @@ const SimpleTabs = ({
       <TabPanel value={value} index={0} className="panel reviews">
         <Rating porpose="average_read" rating={rating} count={rating_count} />
         {showAddReview ? (
-          <AddReview />
+          <AddReview setShowAddReview={setShowAddReview} />
         ) : (
           <div className="show-add-review-cont">
             <CustomizedButton

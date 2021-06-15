@@ -244,6 +244,10 @@
                     .submit-review {
                         display: flex;
                         gap: 10px;
+                        align-items: center;
+                        .icon {
+                            font-size: 1rem;
+                        }
                     }
                 }
                 .reviews-container {

@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Review from "./Review";
+import { useParams } from "react-router-dom";
+// Helper Functions
 import { getReviewsFromDB } from "../../helpers/axios.helpers";
-import { getReviews, setReviewsLoading } from "../../redux/actions/reviewActions";
+// Redux Actions
+import {
+  getReviews,
+  setReviewsLoading,
+} from "../../redux/actions/reviewActions";
+// Components
 import { CircularProgress } from "..";
+import Review from "./Review";
 
 export const AllReviews = () => {
-  const [visibleReviews, setVisibleReviews] = useState(5);
   const dispatch = useDispatch();
+  const { bookId } = useParams();
   const {
     reviews: { all, loading },
-    books: { currentBook },
   } = useSelector((state) => state);
+  const [visibleReviews, setVisibleReviews] = useState(5);
   useEffect(() => {
     dispatch(setReviewsLoading());
-    getReviewsFromDB(currentBook._id).then((reviews) => {
+    getReviewsFromDB(bookId).then((reviews) => {
       dispatch(getReviews(reviews));
     });
-  }, [dispatch, currentBook]);
+  }, [dispatch, bookId]);
   return (
     <>
       <div className="reviews-container">

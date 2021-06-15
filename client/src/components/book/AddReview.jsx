@@ -8,20 +8,21 @@ import { updateCurrentBook } from "../../redux/actions/bookActions";
 import { addBookReview } from "../../helpers/axios.helpers";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import CloseIcon from "@material-ui/icons/Close";
+import RefreshIcon from "@material-ui/icons/Refresh";
 
 const styles = {
   post: {
-    backgroundColor: "#8CBBBD",
-    "&:hover": {
-      backgroundColor: "#83ADAF",
-    },
+    borderRadius: 25,
+  },
+  reset: {
+    borderRadius: 25,
   },
   cancel: {
-    display: "grid",
-    placeContent: "center",
+    borderRadius: 25,
   },
 };
-const AddReview = () => {
+const AddReview = ({ setShowAddReview }) => {
   const { bookId: _id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -100,12 +101,21 @@ const AddReview = () => {
           Post
         </CustomizedButton>
         <CustomizedButton
-          style={styles.cancel}
+          style={styles.reset}
           variant="outlined"
+          color="secondary"
           disabled={!newReview.content}
           onClick={() => setNewReview({ ...newReview, content: "" })}
         >
-          Cancel
+          <RefreshIcon className="icon" />
+        </CustomizedButton>
+        <CustomizedButton
+          style={styles.cancel}
+          variant="outlined"
+          color="secondary"
+          onClick={() => setShowAddReview(false)}
+        >
+          <CloseIcon className="icon" />
         </CustomizedButton>
       </div>
       {newReview.posting && <LinearProgress style={{ marginTop: 10 }} />}
