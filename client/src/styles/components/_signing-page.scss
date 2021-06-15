@@ -1,6 +1,14 @@
+.global-container-signin {
+    .MuiLinearProgress-barColorPrimary {
+        background-color: #ed9486;
+    }
+    .MuiLinearProgress-colorPrimary {
+        background-color: #f1d8d5;
+    }
+}
 .sign-up-page,
 .sign-in-page {
-    height: 100vh;
+    height: calc(100vh - 4px);
     display: flex;
     .signing-heading {
         margin-bottom: 20px;
@@ -67,6 +75,9 @@
     }
     .sign-guide {
         margin-top: 30px;
+    }
+    .MuiOutlinedInput-notchedOutline {
+        border-color: transparent;
     }
 }
 

@@ -12,6 +12,7 @@ import {
   IconButton,
   InputLabel,
 } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 // Material UI icons
 import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
@@ -111,102 +112,105 @@ const LogIn = () => {
   return isLoading ? (
     <CircularProgress plan={{ h: "100vh", w: "100%" }} color="#ed9486" />
   ) : (
-    <form onSubmit={handleSubmit} className="sign-in-page">
-      <Grid className="signing-side">
-        <h6 className="logo" onClick={() => history.push("/")}>
-          kafka
-        </h6>
-        <div>
-          <h2>Welcome Back</h2>
-          <h4>Find your book & Lose yourself</h4>
-        </div>
-        <img
-          src="https://cdn.dribbble.com/users/185738/screenshots/8170999/media/ef66849de15e9b9ae2b30c2840c6a8d6.png?compress=1&resize=1200x900"
-          alt="reading"
-        />
-        <p>
-          Art by{" "}
-          <a
-            href="https://dribbble.com/siegemedia"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Seige Media
-          </a>
-        </p>
-      </Grid>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        direction="column"
-        className="sign-in-page-form"
-      >
-        <Grid style={{ marginBottom: "20px" }}>
-          <h1 className="signing-heading">Log in</h1>
-        </Grid>
-        <Grid>
-          <FormControl className="fieldset" variant="outlined">
-            <TextField
-              autoFocus
-              autoComplete
-              label="Email"
-              variant="outlined"
-              type="email"
-              value={formValues.email}
-              onChange={handleChange("email")}
-            />
-          </FormControl>
-        </Grid>
-        <Grid>
-          <FormControl className="fieldset" variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={formValues.showPassword ? "text" : "password"}
-              value={formValues.password}
-              onChange={handleChange("password")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {formValues.showPassword ? (
-                      <VisibilityOutlinedIcon className="visibility-icon" />
-                    ) : (
-                      <VisibilityOffOutlinedIcon className="visibility-icon" />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-              labelWidth={70}
-            />
-            <div className="login-error">
-              <FormError message={formErrors} />
-            </div>
-          </FormControl>
-        </Grid>
-        <Grid style={{ width: "30ch" }}>
-          <CustomizedButton
-            disabled={disabled}
-            type="submit"
-            style={styles.login}
-          >
-            Log in
-          </CustomizedButton>
-        </Grid>
-        <Grid item className="sign-guide">
+    <div className="global-container-signin">
+      <LinearProgress style={{ visibility: disabled ? "visible" : "hidden" }} />
+      <form onSubmit={handleSubmit} className="sign-in-page">
+        <Grid className="signing-side">
+          <h6 className="logo" onClick={() => history.push("/")}>
+            kafka
+          </h6>
+          <div>
+            <h2>Welcome Back</h2>
+            <h4>Find your book & Lose yourself</h4>
+          </div>
+          <img
+            src="https://cdn.dribbble.com/users/185738/screenshots/8170999/media/ef66849de15e9b9ae2b30c2840c6a8d6.png?compress=1&resize=1200x900"
+            alt="reading"
+          />
           <p>
-            Not a member? <Link to="/sign-up">Sign up</Link>
+            Art by{" "}
+            <a
+              href="https://dribbble.com/siegemedia"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Seige Media
+            </a>
           </p>
         </Grid>
-      </Grid>
-    </form>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          direction="column"
+          className="sign-in-page-form"
+        >
+          <Grid style={{ marginBottom: "20px" }}>
+            <h1 className="signing-heading">Log in</h1>
+          </Grid>
+          <Grid>
+            <FormControl className="fieldset" variant="outlined">
+              <TextField
+                autoFocus
+                autoComplete
+                label="Email"
+                variant="outlined"
+                type="email"
+                value={formValues.email}
+                onChange={handleChange("email")}
+              />
+            </FormControl>
+          </Grid>
+          <Grid>
+            <FormControl className="fieldset" variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={formValues.showPassword ? "text" : "password"}
+                value={formValues.password}
+                onChange={handleChange("password")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {formValues.showPassword ? (
+                        <VisibilityOutlinedIcon className="visibility-icon" />
+                      ) : (
+                        <VisibilityOffOutlinedIcon className="visibility-icon" />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                labelWidth={70}
+              />
+              <div className="login-error">
+                <FormError message={formErrors} />
+              </div>
+            </FormControl>
+          </Grid>
+          <Grid style={{ width: "30ch" }}>
+            <CustomizedButton
+              disabled={disabled}
+              type="submit"
+              style={styles.login}
+            >
+              Log in
+            </CustomizedButton>
+          </Grid>
+          <Grid item className="sign-guide">
+            <p>
+              Not a member? <Link to="/sign-up">Sign up</Link>
+            </p>
+          </Grid>
+        </Grid>
+      </form>
+    </div>
   );
 };
 export default LogIn;
