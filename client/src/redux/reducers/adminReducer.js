@@ -16,7 +16,6 @@ const initialState = {
   books: [],
   reviews: [],
   orders: [],
-  sales: [],
   mails: [],
   isLoading: true,
 };

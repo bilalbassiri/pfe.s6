@@ -2,36 +2,17 @@ import {
   isCorrectName,
   getEmailError,
   getUsernameError,
+  isValidatedForm,
 } from "./global.helpers";
 
-const isValidatedForm = (errors) => {
-  const {
-    firstNameErr,
-    lastNameErr,
-    username,
-    emailErr,
-    passwordErr,
-    confirmPasswordErr,
-  } = errors;
-  return Object.entries(errors).length
-    ? !Boolean(
-        firstNameErr ||
-          lastNameErr ||
-          emailErr ||
-          username ||
-          passwordErr ||
-          confirmPasswordErr
-      )
-    : false;
-};
-
-const setFormErrors = (values, setErrorMessages) => {
+const setFormErrors = (values) => {
   let { first_name, last_name, username, email, password, confirmPassword } =
     values;
   const getSyntaxError = (name) =>
     (name.length > 15 && "Must be less than 15 letters") ||
     (!isCorrectName(name.toLowerCase()) && "Use only letters");
-  setErrorMessages({
+  // Generate Errors
+  const errors = {
     firstNameErr:
       (!first_name && "Enter first name") || getSyntaxError(first_name),
     lastNameErr: (!last_name && "Enter last name") || getSyntaxError(last_name),
@@ -51,6 +32,11 @@ const setFormErrors = (values, setErrorMessages) => {
         password &&
         password !== confirmPassword &&
         "Passwords didn’t match. Try again."),
-  });
+  };
+  const valid = isValidatedForm(errors);
+  return {
+    errors,
+    valid,
+  };
 };
-export { setFormErrors, isValidatedForm };
+export { setFormErrors };

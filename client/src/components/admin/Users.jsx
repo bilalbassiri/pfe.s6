@@ -7,7 +7,6 @@ import {
 } from "@material-ui/data-grid";
 import { Avatar } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import { useHistory } from "react-router-dom";
 import CustomizedButton from "../ui/CustomizedButton";
 import { CustomAlert, CustomLoadingOverlay, CustomPagination } from "..";
 import { deleteUsers, setActiveUsers } from "../../redux/actions/adminActions";
@@ -37,17 +36,20 @@ const styles = {
 };
 const columns = [
   {
-    field: "picture",
-    headerName: "Avatar",
-    width: 130,
+    field: "name",
+    headerName: "Full name",
+    width: 200,
     renderCell: (params) => (
-      <Avatar src={params.row.picture} style={{ fontSize: "1rem" }}>
-        {params.row.name[0].toUpperCase()}
-      </Avatar>
+      <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+        <Avatar src={params.row.picture} style={{ fontSize: "1rem" }}>
+          {params.row.name[0].toUpperCase()}
+        </Avatar>
+        <h4>{params.row.name}</h4>
+      </div>
     ),
   },
-  { field: "id", headerName: "ID", width: 200 },
-  { field: "name", headerName: "Full name", width: 180 },
+  { field: "id", headerName: "ID", width: 150 },
+  { field: "username", headerName: "Username", width: 150 },
   { field: "email", headerName: "Email", width: 200 },
   { field: "highlights", headerName: "Highlights", width: 150 },
   { field: "orders", headerName: "Orders", width: 150 },
@@ -74,7 +76,6 @@ const columns = [
 ];
 
 const Users = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const {
     dashboard: { users },
@@ -91,9 +92,11 @@ const Users = () => {
       highlights,
       payed,
       orders,
+      username,
     }) => ({
       id: _id,
       name,
+      username,
       email,
       picture,
       createdAt: new Date(createdAt).toDateString(),
@@ -216,7 +219,7 @@ const Users = () => {
           pageSize={8}
           checkboxSelection
           loading={actionState.loading}
-          onRowClick={(params) => history.push("/readers/" + params.row.id)}
+          // onRowClick={(params) => history.push("/readers/" + params.row.id)}
           onSelectionModelChange={(param) =>
             setSelectionModel(param.selectionModel)
           }

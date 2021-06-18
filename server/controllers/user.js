@@ -25,11 +25,16 @@ const controllers = {
   register: async (req, res) => {
     try {
       const { first_name, last_name, username, email, password } = req.body;
-      const user = await Users.findOne({ email });
-      if (user)
-        return res
-          .status(200)
-          .json({ msg: "Email already exist", signed: false });
+      const emailExists = await Users.exists({ email });
+      const usernameExists = await Users.exists({ username });
+      if (usernameExists)
+        return res.status(200).json({
+          err: {
+            emailErr: emailExists ? "This email address already exist" : false,
+            usernameErr: usernameExists ? `${username} has been taken` : false,
+          },
+          signed: false,
+        });
       const passwordHash = await bcrypt.hash(password, saltRounds); // Password Encryption
       const newUser = new Users({
         name: first_name + " " + last_name,

@@ -2,6 +2,7 @@ import {
   isCorrectName,
   getEmailError,
   getUsernameError,
+  isValidatedForm,
 } from "./global.helpers";
 
 const setFormErrors = (values, setErrorMessages) => {
@@ -32,27 +33,6 @@ const setFormErrors = (values, setErrorMessages) => {
           "Use 8 characters or more for your password")
       : false,
   });
-};
-
-const isValidatedForm = (errors) => {
-  const {
-    firstNameErr,
-    lastNameErr,
-    usernameErr,
-    emailErr,
-    oldPasswordErr,
-    newPasswordErr,
-  } = errors;
-  return Object.entries(errors).length
-    ? !Boolean(
-        firstNameErr ||
-          lastNameErr ||
-          emailErr ||
-          usernameErr ||
-          oldPasswordErr ||
-          newPasswordErr
-      )
-    : false;
 };
 
 export { setFormErrors, isValidatedForm };

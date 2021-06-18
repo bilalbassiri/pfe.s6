@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, FormControl } from "@material-ui/core";
 // Helper functions
 import { startLoading } from "../../helpers/login.helpers";
-import { setFormErrors, isValidatedForm } from "../../helpers/signup.helpers";
+import { setFormErrors } from "../../helpers/signup.helpers";
 // Components
 import {
   CircularProgress,
@@ -51,10 +51,8 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    isNewUser: true,
   });
   const [errorMessages, setErrorMessages] = useState({});
-  const [isSignedUp, setIsSignedUp] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const dispatch = useDispatch();
@@ -67,13 +65,8 @@ const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setDisabled(true);
-    setFormErrors(values, setErrorMessages);
-  };
-  useEffect(() => {
-    if (user.accessToken) history.push("/");
-    const id = startLoading(setIsLoading);
-    setIsSignedUp(isValidatedForm(errorMessages));
-    if (isSignedUp) {
+    const { errors, valid } = setFormErrors(values);
+    if (valid) {
       axios({
         method: "post",
         url: "/user/register",
@@ -84,14 +77,20 @@ const SignUp = () => {
           dispatch(userSetAccessToken(user.ACCESS_TOKEN));
         } else {
           setDisabled(false);
-          setErrorMessages({ ...errorMessages, emailErr: user.msg });
+          setErrorMessages({ ...errors, ...user.err });
         }
       });
+    } else {
+      setErrorMessages(errors);
     }
+  };
+  useEffect(() => {
+    if (user.accessToken) history.push("/");
+    const id = startLoading(setIsLoading);
     return () => {
       clearTimeout(id);
     };
-  }, [user, errorMessages, isSignedUp, history, dispatch, values]);
+  }, [user, history]);
   return isLoading ? (
     <CircularProgress plan={{ h: "100vh", w: "100%" }} color="#7a87f2" />
   ) : (
