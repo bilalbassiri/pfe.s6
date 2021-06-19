@@ -6,11 +6,10 @@ import PeopleIcon from "@material-ui/icons/People";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import FolderIcon from "@material-ui/icons/Folder";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 
 const GlobalSection = () => {
   const {
-    dashboard: { users, books, reviews, orders, sales },
+    dashboard: { users, books, reviews, orders },
   } = useSelector((state) => state);
   const history = useHistory();
   const all = [
@@ -34,11 +33,6 @@ const GlobalSection = () => {
       icon: <FolderIcon />,
       count: orders.length,
     },
-    {
-      title: "Sales",
-      icon: <AttachMoneyIcon />,
-      count: sales.length,
-    },
   ];
   return (
     <div className="global-section">
@@ -47,9 +41,7 @@ const GlobalSection = () => {
           className="global-section-chip"
           key={i}
           onClick={() =>
-            history.push(
-              "/admin/dashboard/" + item.title.toLocaleLowerCase()
-            )
+            history.push("/admin/dashboard/" + item.title.toLocaleLowerCase())
           }
         >
           <div className="global-section-chip-icon">{item.icon}</div>

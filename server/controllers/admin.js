@@ -7,7 +7,7 @@ const Mails = require("../models/Mail");
 const controllers = {
   getAllData: async (req, res) => {
     try {
-      const users = await Users.find().select("-password");
+      const users = await Users.find().select("-password").sort("-createdAt");
       const reviews = await Reviews.find({ owner: { $ne: null } })
         .populate({
           path: "owner",

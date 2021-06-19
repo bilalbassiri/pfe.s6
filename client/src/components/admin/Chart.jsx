@@ -92,7 +92,7 @@ let Chart = () => {
 
   return (
     <div className="horizontalBar-chart-container">
-      <Line data={data} options={options} height={500} width={200} />
+      <Line data={data} options={options} height={300} width={100} />
     </div>
   );
 };
