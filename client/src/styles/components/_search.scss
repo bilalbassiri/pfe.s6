@@ -5,10 +5,12 @@
     .MuiLinearProgress-colorPrimary {
         background-color: #aad8d2;
     }
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     .search-form {
-        @include flexRowCenter;
+        @include flexColumn;
         margin-top: 40px;
-        justify-content: center;
         gap: 30px;
         flex-wrap: wrap;
         .MuiSlider-root {
@@ -21,13 +23,38 @@
             border-radius: 5px;
             padding: 5px;
             transition: 250ms ease-out;
-            width: 30ch;
             &:hover {
                 border-color: grey;
             }
             &:focus {
                 border-color: $boss-color;
             }
+        }
+    }
+    .search-result {
+        overflow-y: scroll;
+        .search-result-container {
+            @include flexColumn;
+            .book-item-result {
+                display: flex;
+                .cover {
+                    width: 160px;
+                    height: 200px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 600px) {
+    .search-component {
+        flex-direction: row;
+        gap: 60px;
+        .search-form {
+            width: 350px;
         }
     }
 }

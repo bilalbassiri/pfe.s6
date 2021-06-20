@@ -419,6 +419,18 @@ const adminDeleteUsers = async (selectionModel, token) => {
     console.log(error.message);
   }
 };
+const searchABook = async (values) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "/api/book/search",
+      data: values,
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -448,5 +460,6 @@ export {
   adminDeleteOrder,
   adminDeleteAllReviews,
   adminReadMessage,
-  adminDeleteUsers
+  adminDeleteUsers,
+  searchABook,
 };

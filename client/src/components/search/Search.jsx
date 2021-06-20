@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -8,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { CustomizedButton } from "..";
 import { LinearProgress } from "@material-ui/core";
+import { searchABook } from "../../helpers/axios.helpers";
+import SearchResult from "./SearchResult";
 
 const styles = {
   search: {
@@ -19,43 +20,54 @@ const styles = {
     },
   },
 };
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 140,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  root: {
-    width: 300,
-  },
-}));
+
 function valuetext(value) {
   return value;
 }
 const Search = () => {
-  const classes = useStyles();
-  const [genre, setGenre] = useState("");
+  const [values, setValues] = useState({
+    name: "",
+    genre: "",
+    range: [0, 100],
+  });
+  const [searchResult, setSearchResult] = useState({
+    data: null,
+    pending: false,
+  });
   const handleSelectChange = (event) => {
-    setGenre(event.target.value);
+    setValues((prev) => ({ ...prev, genre: event.target.value }));
   };
-  const [value, setValue] = useState([0, 100]);
 
   const handleRangeChange = (event, newValue) => {
-    setValue(newValue);
+    setValues({ ...values, range: newValue });
+  };
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setSearchResult((prev) => ({ ...prev, pending: true }));
+      const result = await searchABook(values);
+      setSearchResult((prev) => ({ data: result, pending: false }));
+    } catch (er) {
+      console.log(er.message);
+    }
   };
   return (
     <div className="search-component">
-      <LinearProgress color="primary" />
-      <form className="search-form">
-        <input type="search" className="search-input" />
-        <FormControl variant="outlined" className={classes.formControl}>
+      {searchResult.pending && <LinearProgress color="primary" />}
+      <form className="search-form" onSubmit={handleSubmit}>
+        <input
+          type="search"
+          className="search-input"
+          placeholder="Search a book"
+          value={values.name}
+          onChange={(e) => setValues({ ...values, name: e.target.value })}
+        />
+        <FormControl variant="outlined">
           <InputLabel id="demo-simple-select-outlined-label">Genre</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            value={genre}
+            value={values.genre}
             onChange={handleSelectChange}
             label="Genre"
           >
@@ -65,25 +77,36 @@ const Search = () => {
             <MenuItem value="Philosophy">Philosophy</MenuItem>
             <MenuItem value="Learning">Learning</MenuItem>
             <MenuItem value="Romance">Romance</MenuItem>
+            <MenuItem value="Romance">Science</MenuItem>
           </Select>
         </FormControl>
-        <div className={classes.root}>
+        <div>
           <Typography id="range-slider" gutterBottom>
             Price range
           </Typography>
           <Slider
-            value={value}
+            value={values.range}
             onChange={handleRangeChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             getAriaValueText={valuetext}
           />
         </div>
-        <CustomizedButton style={styles.search} disableElevation>
+        <CustomizedButton style={styles.search} disableElevation type="submit">
           Search
         </CustomizedButton>
       </form>
-      <div className="search-result"></div>
+      <div className="search-result">
+        {searchResult.data ? (
+          searchResult.data.length === 0 ? (
+            <h1>No result</h1>
+          ) : (
+            <SearchResult books={searchResult.data} />
+          )
+        ) : (
+          <h1>empty</h1>
+        )}
+      </div>
     </div>
   );
 };

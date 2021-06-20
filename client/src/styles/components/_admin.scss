@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 60px;
     .left {
         @include flexColumn;
         gap: 40px;

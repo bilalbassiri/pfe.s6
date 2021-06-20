@@ -38,8 +38,6 @@ const getLastYearMonths = (orders, users) => {
 
 let Chart = () => {
   const { orders, users } = useSelector((state) => state.dashboard);
-  console.log(getLastYearMonths(orders, users));
-
   const { months, salesSet, usersSet } = getLastYearMonths(orders, users);
   const options = {
     responsive: true,

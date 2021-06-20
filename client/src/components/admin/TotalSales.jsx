@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 const TotalSales = () => {
   const { orders } = useSelector((state) => state.dashboard);
@@ -22,7 +21,6 @@ const TotalSales = () => {
       .map((order) => order.total);
     const payed = arr?.reduce((acc, curr) => acc + curr);
     const average = (payed / arr.length).toFixed(1);
-    console.log(1);
     return {
       payed,
       average,

@@ -79,9 +79,27 @@ const controllers = {
     try {
       const { name } = req.params;
       const books = await Books.find({ genres: { $in: name } }).limit(25);
-      return res.json({ books });
+      return res.status(200).json({ books });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+  getSearchBooks: async (req, res) => {
+    try {
+      const { name, genre, range } = req.body;
+      const filter = {
+        price: { $gte: range[0], $lte: range[1] },
+      };
+      if (name) {
+        filter.name = { $regex: name, $options: "i" };
+      }
+      if (genre) {
+        filter.genres = { $in: genre };
+      }
+      const result = await Books.find(filter).limit(30);
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.json({ msg: err.message });
     }
   },
 };
