@@ -32,7 +32,7 @@
         }
     }
     .search-result {
-        overflow-y: scroll;
+        flex-grow: 1;
         .search-result-container {
             @include flexColumn;
             .book-item-result {
