@@ -1,12 +1,18 @@
 import types from "../constants/action.types";
-const { SET_BOOKS, SET_CURRENT_BOOK, UPDATE_CURRENT_BOOK, SET_BOOKS_LOADING } =
-  types;
+const {
+  SET_BOOKS,
+  SET_CURRENT_BOOK,
+  UPDATE_CURRENT_BOOK,
+  SET_BOOKS_LOADING,
+  SET_SEARCH_RESULT,
+} = types;
 
 const initialState = {
   all: [],
   most_rated: [],
   popular: [],
   currentBook: {},
+  searchResult: null,
   loading: true,
 };
 
@@ -38,6 +44,12 @@ const bookReducer = (state = initialState, { type, payload }) => {
           rating: payload.rating,
           rating_count: payload.rating_count,
         },
+      };
+    case SET_SEARCH_RESULT:
+      return {
+        ...state,
+        searchResult: payload,
+        loading: false,
       };
     default:
       return state;

@@ -10,7 +10,6 @@
     gap: 20px;
     .search-form {
         @include flexColumn;
-        margin-top: 40px;
         gap: 30px;
         flex-wrap: wrap;
         .MuiSlider-root {
@@ -32,17 +31,83 @@
         }
     }
     .search-result {
-        flex-grow: 1;
+        @include flexColumn;
         .search-result-container {
             @include flexColumn;
+            margin-top: 20px;
             .book-item-result {
                 display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 20px;
+                padding: 20px;
+                border-radius: 15px;
+                transition-duration: 250ms;
+                &:hover {
+                    box-shadow: 2px 2px 10px -4px #000000a4;
+                    transform: scale(1.01);
+                }
                 .cover {
-                    width: 160px;
-                    height: 200px;
+                    width: 140px;
+                    min-width: 140px;
+                    height: 180px;
                     img {
                         width: 100%;
                         height: 100%;
+                    }
+                }
+                .detail {
+                    @include flexColumn;
+                    justify-content: space-between;
+                    gap: 10px;
+                    flex-grow: 1;
+                    .top {
+                        display: flex;
+                        justify-content: space-between;
+                        .name {
+                            h3 {
+                                cursor: pointer;
+                                transition-duration: 200ms;
+                                &:hover {
+                                    color: $headings-color;
+                                }
+                            }
+                            h5 {
+                                color: $author-color;
+                            }
+                        }
+                        .price {
+                            font-size: 1.3rem;
+                            color: $headings-color;
+                            &::before {
+                                content: "$";
+                                font-size: 0.8rem;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                    .genres {
+                        display: flex;
+                        gap: 7px;
+                        flex-wrap: wrap;
+                        .MuiChip-root {
+                            font-size: 0.75rem;
+                            font-weight: 600;
+                        }
+                    }
+                    .info {
+                        display: flex;
+                        gap: 20px;
+                        color: $content-color;
+                        .rating {
+                            @include flexRowCenter;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                            gap: 5px;
+                            .stars {
+                                font-size: 1rem;
+                            }
+                        }
                     }
                 }
             }
@@ -54,7 +119,25 @@
         flex-direction: row;
         gap: 60px;
         .search-form {
+            min-width: 350px;
             width: 350px;
+        }
+        .search-result {
+            flex-grow: 1;
+            height: calc(100vh - 84px);
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            &::-webkit-scrollbar {
+                width: 7px;
+                border-radius: 20px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgb(94, 94, 94);
+                border-radius: 20px;
+            }
+            .search-result-container {
+                padding: 30px;
+            }
         }
     }
 }

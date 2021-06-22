@@ -27,8 +27,6 @@ export const Description = ({ book: { description, genres } }) => {
       <span className="book-genres">
         {genres?.map((genre, i) => (
           <Chip
-            variant="outlined"
-            size="small"
             label={genre}
             key={i}
             onClick={() => history.push("/genres/" + genre)}

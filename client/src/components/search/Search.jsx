@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useDispatch, useSelector } from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +10,10 @@ import { CustomizedButton } from "..";
 import { LinearProgress } from "@material-ui/core";
 import { searchABook } from "../../helpers/axios.helpers";
 import SearchResult from "./SearchResult";
+import {
+  setBooksStartLoading,
+  setSearchResultBooks,
+} from "../../redux/actions/bookActions";
 
 const styles = {
   search: {
@@ -25,14 +30,12 @@ function valuetext(value) {
   return value;
 }
 const Search = () => {
+  const dispatch = useDispatch();
+  const { loading, searchResult } = useSelector((state) => state.books);
   const [values, setValues] = useState({
     name: "",
     genre: "",
     range: [0, 100],
-  });
-  const [searchResult, setSearchResult] = useState({
-    data: null,
-    pending: false,
   });
   const handleSelectChange = (event) => {
     setValues((prev) => ({ ...prev, genre: event.target.value }));
@@ -44,70 +47,85 @@ const Search = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setSearchResult((prev) => ({ ...prev, pending: true }));
+      dispatch(setBooksStartLoading());
       const result = await searchABook(values);
-      setSearchResult((prev) => ({ data: result, pending: false }));
+      dispatch(setSearchResultBooks(result));
     } catch (er) {
       console.log(er.message);
     }
   };
   return (
-    <div className="search-component">
-      {searchResult.pending && <LinearProgress color="primary" />}
-      <form className="search-form" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          className="search-input"
-          placeholder="Search a book"
-          value={values.name}
-          onChange={(e) => setValues({ ...values, name: e.target.value })}
-        />
-        <FormControl variant="outlined">
-          <InputLabel id="demo-simple-select-outlined-label">Genre</InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={values.genre}
-            onChange={handleSelectChange}
-            label="Genre"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value="Philosophy">Philosophy</MenuItem>
-            <MenuItem value="Learning">Learning</MenuItem>
-            <MenuItem value="Romance">Romance</MenuItem>
-            <MenuItem value="Romance">Science</MenuItem>
-          </Select>
-        </FormControl>
-        <div>
-          <Typography id="range-slider" gutterBottom>
-            Price range
-          </Typography>
-          <Slider
-            value={values.range}
-            onChange={handleRangeChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={valuetext}
-          />
-        </div>
-        <CustomizedButton style={styles.search} disableElevation type="submit">
-          Search
-        </CustomizedButton>
-      </form>
-      <div className="search-result">
-        {searchResult.data ? (
-          searchResult.data.length === 0 ? (
-            <h1>No result</h1>
+    <>
+      <div className="search-component">
+        <form className="search-form" onSubmit={handleSubmit}>
+          {loading ? (
+            <LinearProgress color="primary" />
           ) : (
-            <SearchResult books={searchResult.data} />
-          )
-        ) : (
-          <h1>empty</h1>
-        )}
+            <div style={{ height: "4px" }}></div>
+          )}
+          <input
+            type="search"
+            className="search-input"
+            placeholder="Search a book"
+            value={values.name}
+            onChange={(e) => setValues({ ...values, name: e.target.value })}
+          />
+          <FormControl variant="outlined">
+            <InputLabel id="demo-simple-select-outlined-label">
+              Genre
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={values.genre}
+              onChange={handleSelectChange}
+              label="Genre"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Philosophy">Philosophy</MenuItem>
+              <MenuItem value="Learning">Learning</MenuItem>
+              <MenuItem value="Romance">Romance</MenuItem>
+              <MenuItem value="Science">Science</MenuItem>
+            </Select>
+          </FormControl>
+          <div>
+            <Typography id="range-slider" gutterBottom>
+              Price range
+            </Typography>
+            <Slider
+              value={values.range}
+              onChange={handleRangeChange}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              getAriaValueText={valuetext}
+            />
+          </div>
+          <CustomizedButton
+            style={styles.search}
+            disableElevation
+            type="submit"
+          >
+            Search
+          </CustomizedButton>
+        </form>
+        <div className="search-result">
+          {searchResult ? (
+            searchResult.length === 0 ? (
+              <div style={{ textAlign: "center" }}>
+                <h2>No result found</h2>
+                <p>We can't find any book match your search</p>
+              </div>
+            ) : (
+              <SearchResult books={searchResult} />
+            )
+          ) : (
+            <h1>empty</h1>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Search;

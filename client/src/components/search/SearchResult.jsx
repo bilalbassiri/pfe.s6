@@ -6,7 +6,11 @@ import { Rating } from "..";
 const SearchResult = ({ books }) => {
   const history = useHistory();
   const len = books.length;
-  console.log(books);
+  const getDescription = (desc) => {
+    const Elm = document.createElement("div");
+    Elm.innerHTML = desc;
+    return Elm.innerText.substring(0, 100) + "...";
+  };
   return (
     <>
       {len > 1 ? <h3>{len} results</h3> : null}
@@ -17,11 +21,16 @@ const SearchResult = ({ books }) => {
               <img src={book.cover} alt={book.name} />
             </div>
             <div className="detail">
-              <div className="name">
-                <h3>{book.name}</h3>
-                <h5>{book.author}</h5>
+              <div className="top">
+                <div className="name">
+                  <h3 onClick={() => history.push("/book/" + book._id)}>
+                    {book.name}
+                  </h3>
+                  <h5>{book.author}</h5>
+                </div>
+                <h5 className="price">{book.price.toFixed(2)}</h5>
               </div>
-              <div className="des">{book.description.substring(0, 100)}...</div>
+              <div className="des">{getDescription(book.description)}</div>
               <div className="genres">
                 {book.genres.map((genre, index) => (
                   <Chip
@@ -36,11 +45,13 @@ const SearchResult = ({ books }) => {
               <div className="info">
                 <Rating
                   rating={book.rating}
-                  notext={false}
-                  porpose="review_read"
+                  count={book.rating_count}
+                  porpose="global_read"
+                  className="rating"
                 />
+                <h5>{book.quantity} in stock</h5>
+                <h5>{book.sales} sales</h5>
               </div>
-              <h5>${book.price.toFixed(2)}</h5>
             </div>
           </div>
         ))}

@@ -138,8 +138,7 @@
         }
 
         .rating {
-            display: flex;
-            align-items: center;
+            @include flexRowCenter;
             &.global_read {
                 font-size: 0.8rem;
                 font-weight: 600;
@@ -347,15 +346,11 @@
         }
         .book-genres {
             margin-top: 20px;
-            list-style: none;
             display: flex;
             gap: 5px;
-            li {
-                font-size: 0.7rem;
-                border: 1px solid #6b5852;
-                color: #6b5852;
-                padding: 3px 10px;
-                border-radius: 15px;
+            .MuiChip-root {
+                font-weight: 600;
+                
             }
         }
     }

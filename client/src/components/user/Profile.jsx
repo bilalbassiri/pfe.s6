@@ -279,8 +279,7 @@ const Profile = () => {
               <div>
                 {info.genres?.map((genre, i) => (
                   <Chip
-                    variant="outlined"
-                    size="small"
+                  size="small"
                     label={genre}
                     key={i}
                     onClick={() => history.push("/genres/" + genre)}
@@ -346,13 +345,13 @@ const Profile = () => {
               </h2>
               <div className="reviews-cont">
                 {reviews.map((review, index) =>
-                  index < (showAll.reviews ? reviews.length : 3) ? (
+                  index < (showAll.reviews ? reviews.length : 4) ? (
                     <div
                       className="review"
                       key={review._id}
                       style={{
                         animation: `fly 500ms ${
-                          (!showAll.reviews ? index : index - 3) * 500
+                          (!showAll.reviews ? index : index - 4) * 500
                         }ms ease forwards`,
                       }}
                       onClick={() =>
