@@ -51,6 +51,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    document.title = "Kafka";
     dispatch(setBooksStartLoading());
     getBooksFromDB().then((books) => dispatch(setBooks(books)));
   }, [dispatch]);

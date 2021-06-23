@@ -151,7 +151,7 @@ const Header = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to={`/readers/${credentials?._id}`} style={{ color: "black" }}>
+      <Link to={`/readers/${credentials?.username}`} style={{ color: "black" }}>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       </Link>
       <Link to={`/me/account`}>
@@ -242,7 +242,7 @@ const Header = () => {
         setOpenNot(false);
         dispatch(readNotifications());
         if (str.direction === "/readers/me") {
-          history.push("/readers/" + credentials?._id);
+          history.push("/readers/" + credentials?.username);
           return;
         }
         history.push(str.direction);

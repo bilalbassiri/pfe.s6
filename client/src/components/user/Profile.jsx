@@ -46,7 +46,7 @@ const getCustomStyles = (permission) => ({
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { user_id } = useParams();
+  const { username } = useParams();
   const {
     credentials,
     accessToken,
@@ -75,18 +75,19 @@ const Profile = () => {
   const history = useHistory();
   const isMyProfile = () => {
     if (accessToken) {
-      if (credentials?._id === user_id) return true;
+      if (credentials?.username === username) return true;
       else return false;
     } else return false;
   };
   useEffect(() => {
     setIsLoading((prev) => ({ ...prev, profile: true }));
-    getUserProfile(user_id).then(({ info, reviews }) => {
+    getUserProfile(username).then(({ info, reviews }) => {
+      document.title = info.name + " | Kafka";
       setProfile({ info, reviews });
       setBioState((prev) => ({ ...prev, content: info.bio }));
       setIsLoading((prev) => ({ ...prev, profile: false }));
     });
-  }, [user_id]);
+  }, [username]);
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -239,12 +240,12 @@ const Profile = () => {
                         .then(() => {
                           if (highlighted) return;
                           sendNotifications(
-                            user_id,
+                            info._id,
                             {
                               content: `<span class='name'>${credentials?.name}</span> highlighted you`,
                               picture: credentials?.picture,
                               name: credentials?.name,
-                              direction: "/readers/" + credentials?._id,
+                              direction: "/readers/" + credentials?.username,
                               date: new Date(),
                             },
                             "send",
@@ -263,7 +264,7 @@ const Profile = () => {
                       <>
                         {!isMyProfile() &&
                           accessToken &&
-                          highlights?.includes(user_id) &&
+                          highlights?.includes(info._id) &&
                           " Back"}
                         <BookmarkBorderRoundedIcon className="icon" />
                       </>
@@ -279,7 +280,7 @@ const Profile = () => {
               <div>
                 {info.genres?.map((genre, i) => (
                   <Chip
-                  size="small"
+                    size="small"
                     label={genre}
                     key={i}
                     onClick={() => history.push("/genres/" + genre)}
@@ -471,7 +472,9 @@ const Profile = () => {
                       key={i}
                       className="reader"
                       style={getReaderAnim(reviews, i, "fly")}
-                      onClick={() => history.push(`/readers/${reader._id}`)}
+                      onClick={() =>
+                        history.push(`/readers/${reader.username}`)
+                      }
                     >
                       <div className="face">
                         <Avatar

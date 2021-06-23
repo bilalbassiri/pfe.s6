@@ -133,7 +133,10 @@ const Review = ({
           <Avatar className="review-writer-pic" src={owner.picture ?? ""}>
             {owner.name[0]}
           </Avatar>
-          <Link to={`/readers/${owner?._id}`} className="review-writer-name">
+          <Link
+            to={`/readers/${owner?.username}`}
+            className="review-writer-name"
+          >
             <h4>{owner.name}</h4>
           </Link>
           <p className="review-writer-username">@{owner.username}</p>

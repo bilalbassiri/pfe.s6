@@ -14,6 +14,7 @@ import {
   setBooksStartLoading,
   setSearchResultBooks,
 } from "../../redux/actions/bookActions";
+import MiniBookCard from "../book/MiniBookCard";
 
 const styles = {
   search: {
@@ -31,7 +32,9 @@ function valuetext(value) {
 }
 const Search = () => {
   const dispatch = useDispatch();
-  const { loading, searchResult } = useSelector((state) => state.books);
+  const { loading, searchResult, popular } = useSelector(
+    (state) => state.books
+  );
   const [values, setValues] = useState({
     name: "",
     genre: "",
@@ -57,63 +60,66 @@ const Search = () => {
   return (
     <>
       <div className="search-component">
-        <form className="search-form" onSubmit={handleSubmit}>
-          {loading ? (
-            <LinearProgress color="primary" />
-          ) : (
-            <div style={{ height: "4px" }}></div>
-          )}
-          <input
-            type="search"
-            className="search-input"
-            placeholder="Search a book"
-            value={values.name}
-            onChange={(e) => setValues({ ...values, name: e.target.value })}
-          />
-          <FormControl variant="outlined">
-            <InputLabel id="demo-simple-select-outlined-label">
-              Genre
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={values.genre}
-              onChange={handleSelectChange}
-              label="Genre"
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value="Philosophy">Philosophy</MenuItem>
-              <MenuItem value="Learning">Learning</MenuItem>
-              <MenuItem value="Romance">Romance</MenuItem>
-              <MenuItem value="Science">Science</MenuItem>
-            </Select>
-          </FormControl>
-          <div>
-            <Typography id="range-slider" gutterBottom>
-              Price range
-            </Typography>
-            <Slider
-              value={values.range}
-              onChange={handleRangeChange}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              getAriaValueText={valuetext}
+        <div className="left-side">
+          <form className="search-form" onSubmit={handleSubmit}>
+            {loading ? (
+              <LinearProgress color="primary" />
+            ) : (
+              <div style={{ height: "4px" }}></div>
+            )}
+            <input
+              type="search"
+              className="search-input"
+              placeholder="Search a book"
+              value={values.name}
+              onChange={(e) => setValues({ ...values, name: e.target.value })}
             />
-          </div>
-          <CustomizedButton
-            style={styles.search}
-            disableElevation
-            type="submit"
-          >
-            Search
-          </CustomizedButton>
-        </form>
+            <FormControl variant="outlined">
+              <InputLabel id="demo-simple-select-outlined-label">
+                Genre
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={values.genre}
+                onChange={handleSelectChange}
+                label="Genre"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Philosophy">Philosophy</MenuItem>
+                <MenuItem value="Learning">Learning</MenuItem>
+                <MenuItem value="Romance">Romance</MenuItem>
+                <MenuItem value="Science">Science</MenuItem>
+              </Select>
+            </FormControl>
+            <div>
+              <Typography id="range-slider" gutterBottom>
+                Price range
+              </Typography>
+              <Slider
+                value={values.range}
+                onChange={handleRangeChange}
+                valueLabelDisplay="auto"
+                aria-labelledby="range-slider"
+                getAriaValueText={valuetext}
+              />
+            </div>
+            <CustomizedButton
+              style={styles.search}
+              disableElevation
+              type="submit"
+            >
+              Search
+            </CustomizedButton>
+          </form>
+          <MiniBookCard title="Popular" books={popular} />
+        </div>
         <div className="search-result">
           {searchResult ? (
             searchResult.length === 0 ? (
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: "center", marginTop: "40px" }}>
                 <h2>No result found</h2>
                 <p>We can't find any book match your search</p>
               </div>
@@ -121,7 +127,9 @@ const Search = () => {
               <SearchResult books={searchResult} />
             )
           ) : (
-            <h1>empty</h1>
+            <h2 style={{ textAlign: "center", marginTop: "40px" }}>
+              Your search result will appear here
+            </h2>
           )}
         </div>
       </div>

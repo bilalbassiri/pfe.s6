@@ -4,12 +4,15 @@ const controllers = {
     try {
       const books = await Books.find({ quantity: { $gt: 0 } })
         .sort("-createdAt")
+        .select("-description -language -pages -sales")
         .limit(30);
       const popular = await Books.find({ quantity: { $gt: 0 } })
         .sort("-rating_count")
+        .select("-description -language -pages -sales")
         .limit(15);
       const most_rated = await Books.find({ quantity: { $gt: 0 } })
         .sort("-rating")
+        .select("-description -language -pages -sales")
         .limit(15);
       res.status(200).json({ all: books, popular, most_rated });
     } catch (err) {

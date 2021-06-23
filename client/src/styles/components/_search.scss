@@ -45,7 +45,6 @@
                 transition-duration: 250ms;
                 &:hover {
                     box-shadow: 2px 2px 10px -4px #000000a4;
-                    transform: scale(1.01);
                 }
                 .cover {
                     width: 140px;
@@ -124,20 +123,6 @@
         }
         .search-result {
             flex-grow: 1;
-            height: calc(100vh - 84px);
-            overflow-y: scroll;
-            scroll-behavior: smooth;
-            &::-webkit-scrollbar {
-                width: 7px;
-                border-radius: 20px;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: rgb(94, 94, 94);
-                border-radius: 20px;
-            }
-            .search-result-container {
-                padding: 30px;
-            }
         }
     }
 }

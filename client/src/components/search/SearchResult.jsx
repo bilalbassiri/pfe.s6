@@ -34,6 +34,7 @@ const SearchResult = ({ books }) => {
               <div className="genres">
                 {book.genres.map((genre, index) => (
                   <Chip
+                  size="small"
                     key={index}
                     label={genre}
                     onClick={() => {
@@ -51,6 +52,7 @@ const SearchResult = ({ books }) => {
                 />
                 <h5>{book.quantity} in stock</h5>
                 <h5>{book.sales} sales</h5>
+                <h5>{book.language}</h5>
               </div>
             </div>
           </div>

@@ -101,7 +101,7 @@ const Book = () => {
       } else return;
     } else history.push("/login");
   };
-
+  document.title = (book.name ?? "") + " | Kafka";
   useEffect(() => {
     let isMounted = true;
     (async () => {

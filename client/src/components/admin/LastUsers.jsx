@@ -23,7 +23,7 @@ const LastUsers = () => {
         {users.slice(0, 3).map((user) => (
           <div
             className="last-users-item"
-            onClick={() => history.push("/readers/" + user._id)}
+            onClick={() => history.push("/readers/" + user.username)}
           >
             <div key={user._id} className="user">
               <Avatar src={user.picture} alt={user.name}>

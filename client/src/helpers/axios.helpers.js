@@ -44,13 +44,13 @@ const getAccessTokenAndUser = async () => {
     console.log(err.message);
   }
 };
-const getUserProfile = async (_id) => {
+const getUserProfile = async (username) => {
   try {
     const { data } = await axios({
       method: "post",
       url: "/user/profile",
       data: {
-        _id,
+        username,
       },
     });
     return data;

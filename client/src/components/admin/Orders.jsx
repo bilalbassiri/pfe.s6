@@ -201,7 +201,9 @@ const Orders = () => {
                     <div>
                       <h3
                         className="name"
-                        onClick={() => history.push("/readers/" + user._id)}
+                        onClick={() =>
+                          history.push("/readers/" + user.username)
+                        }
                       >
                         {user.name}
                       </h3>

@@ -69,7 +69,7 @@ function App() {
           <div className="index">
             <Route path="/" exact component={Home} />
             <Route path="/book/:bookId" exact component={Book} />
-            <Route path="/readers/:user_id" exact component={Profile} />
+            <Route path="/readers/:username" exact component={Profile} />
             <Route path="/me/account" exact component={Account} />
             <Route path="/me/cart" exact component={Cart} />
             <Route path="/me/favoris" exact component={Favoris} />

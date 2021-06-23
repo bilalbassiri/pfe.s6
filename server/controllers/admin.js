@@ -15,9 +15,11 @@ const controllers = {
         })
         .sort("-createdAt");
       const orders = await Orders.find()
-        .populate({ path: "user", select: "_id name email picture active" })
+        .populate({
+          path: "user",
+          select: "_id name username email picture active",
+        })
         .sort("-createdAt");
-      const sales = await Sales.find().sort("-createdAt");
       const books = await Books.find().sort("-createdAt");
       const mails = await Mails.find()
         .populate({
@@ -30,7 +32,6 @@ const controllers = {
         reviews,
         books,
         orders,
-        sales,
         mails,
         isLoading: false,
       });

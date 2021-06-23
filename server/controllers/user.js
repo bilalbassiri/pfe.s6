@@ -121,7 +121,7 @@ const controllers = {
         { new: true }
       )
         .select("highlights")
-        .populate({ path: "highlights", select: "name picture" });
+        .populate({ path: "highlights", select: "name username picture" });
       return res.status(200).json({ highlights });
     } catch (error) {
       console.log(error.message);
@@ -249,24 +249,23 @@ const controllers = {
   },
   getPublicInfo: async (req, res) => {
     try {
-      const { _id } = await req.body;
-      const { read, currently_reading, to_read } = await Users.findById(
-        _id
-      ).populate({
+      const { username } = await req.body;
+      const { _id, read, currently_reading, to_read } = await Users.findOne({
+        username,
+      }).populate({
         path: "read currently_reading to_read",
         select: "genres",
       });
       const genres = getUserInterests({ read, currently_reading, to_read });
       const info = await Users.findByIdAndUpdate(_id, { genres }, { new: true })
         .select("-password -cart -favoris -notifications -payed -orders")
-        .populate({
-          path: "read currently_reading to_read",
-          select: "name rating price genres",
-        })
-        .populate({
-          path: "highlights",
-          select: "name picture",
-        });
+        .populate([
+          {
+            path: "read currently_reading to_read",
+            select: "name rating price genres",
+          },
+          { path: "highlights", select: "name picture username" },
+        ]);
       const reviews = await Reviews.find({ owner: _id })
         .populate({ path: "book_id", select: "name cover" })
         .sort("-createdAt")

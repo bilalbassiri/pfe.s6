@@ -5,78 +5,13 @@
     flex-direction: column;
     gap: 30px;
     .right,
-    .left-top,
-    .other-books {
+    .left-top {
         @extend %cardStyles;
     }
     .right-side-books {
         flex: 0.2;
     }
-    .other-books {
-        @include flexColumn;
-        gap: 10px;
-        .title {
-            font-size: 1rem;
-            color: rgb(182, 182, 182);
-            margin-bottom: 10px;
-        }
-        &-item {
-            display: flex;
-            gap: 10px;
-            cursor: pointer;
-            position: relative;
-            align-items: center;
-            opacity: 0;
-            animation: det 250ms ease-in-out forwards;
-            &::before {
-                opacity: 0;
-                transition-duration: 150ms;
-                content: "";
-                @include boxSize(7px, 7px, 50%);
-                background-color: $headings-color;
-                position: absolute;
-                left: -14px;
-            }
-            &:hover {
-                .detail h1 {
-                    color: $headings-color;
-                }
-                &::before {
-                    opacity: 1;
-                }
-            }
-            .cvr {
-                img {
-                    border-radius: 5px;
-                    width: 60px;
-                    height: 80px;
-                }
-            }
-            .detail {
-                flex-grow: 1;
-                font-size: 0.8rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 3px;
-                h1 {
-                    font-size: 0.8rem;
-                }
-                h4 {
-                    font-weight: 400;
-                    color: $content-color;
-                }
-                .nbrs {
-                    font-weight: 500;
-                    display: flex;
-                    align-items: center;
-                    font-size: 0.7rem;
-                    justify-content: space-between;
-                    color: $content-color;
-                }
-            }
-        }
-    }
+
     .left {
         flex: 0.2;
         display: flex;
@@ -350,12 +285,76 @@
             gap: 5px;
             .MuiChip-root {
                 font-weight: 600;
-                
             }
         }
     }
 }
-
+.other-books {
+    @include flexColumn;
+    @extend %cardStyles;
+    gap: 10px;
+    .title {
+        font-size: 1rem;
+        color: rgb(182, 182, 182);
+        margin-bottom: 10px;
+    }
+    &-item {
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+        position: relative;
+        align-items: center;
+        opacity: 0;
+        animation: det 250ms ease-in-out forwards;
+        &::before {
+            opacity: 0;
+            transition-duration: 150ms;
+            content: "";
+            @include boxSize(7px, 7px, 50%);
+            background-color: $headings-color;
+            position: absolute;
+            left: -14px;
+        }
+        &:hover {
+            .detail h1 {
+                color: $headings-color;
+            }
+            &::before {
+                opacity: 1;
+            }
+        }
+        .cvr {
+            img {
+                border-radius: 5px;
+                width: 60px;
+                height: 80px;
+            }
+        }
+        .detail {
+            flex-grow: 1;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 3px;
+            h1 {
+                font-size: 0.8rem;
+            }
+            h4 {
+                font-weight: 400;
+                color: $content-color;
+            }
+            .nbrs {
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                font-size: 0.7rem;
+                justify-content: space-between;
+                color: $content-color;
+            }
+        }
+    }
+}
 @media screen and (min-width: 600px) {
     .book-details {
         padding: 20px 0px;
@@ -363,9 +362,11 @@
         align-items: flex-start;
         justify-content: space-between;
         .right,
-        .left-top,
-        .other-books {
+        .left-top {
             padding: 20px;
         }
+    }
+    .other-books {
+        padding: 20px;
     }
 }
