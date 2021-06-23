@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { adminReadMessage } from "../../helpers/axios.helpers";
@@ -12,7 +12,9 @@ const Messages = () => {
     user: { accessToken },
   } = useSelector((state) => state);
   const [message, setMessage] = useState(null);
-  console.log(message);
+  useEffect(() => {
+    document.title = "Messages | Admin | Kafka";
+  }, []);
   return (
     <div className="mails">
       <div className="mails-container">

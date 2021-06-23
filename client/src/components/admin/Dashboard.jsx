@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 // Components
 import CustomizedButton from "../ui/CustomizedButton";
@@ -20,6 +20,9 @@ const styles = {
 };
 const Dashboard = () => {
   const history = useHistory();
+  useEffect(() => {
+    document.title = "Dashboard | Admin | Kafka";
+  }, []);
   return (
     <div className="dashboard">
       <div className="left">

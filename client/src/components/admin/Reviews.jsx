@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Avatar, Divider } from "@material-ui/core";
@@ -14,6 +14,9 @@ const Reviews = () => {
     dashboard: { reviews },
     user: { accessToken },
   } = useSelector((state) => state);
+  useEffect(() => {
+    document.title = "Reviews | Admin | Kafka";
+  }, []);
   return (
     <div className="admin-reviews">
       <div>

@@ -85,6 +85,7 @@ const Account = () => {
   };
   useEffect(() => {
     if (credentials && values.change) {
+      document.title = credentials.name + " | Kafka";
       setValues((prev) => ({
         ...prev,
         first_name: credentials.name.split(" ")[0],

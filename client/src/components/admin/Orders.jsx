@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { CustomAlert, CustomizedButton } from "..";
@@ -121,6 +121,9 @@ const Orders = () => {
     borderBottomColor: sectionState.index === index ? "#2a9d8f" : "#cad1d0",
     color: sectionState.index === index ? "#262626" : "#cad1d0",
   });
+  useEffect(() => {
+    document.title = "Orders | Admin | Kafka";
+  }, []);
   return (
     <div className="orders">
       <div className="sections">

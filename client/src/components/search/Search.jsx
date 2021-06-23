@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,6 +57,9 @@ const Search = () => {
       console.log(er.message);
     }
   };
+  useEffect(() => {
+    document.title = "Search | Kafka";
+  }, []);
   return (
     <>
       <div className="search-component">

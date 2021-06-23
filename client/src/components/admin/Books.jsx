@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 // Material UI components
@@ -189,6 +189,9 @@ const Books = () => {
       </GridToolbarContainer>
     );
   };
+  useEffect(() => {
+    document.title = "Books | Admin | Kafka";
+  }, []);
   return (
     <div className="books">
       <div style={{ height: 600, width: "100%" }}>

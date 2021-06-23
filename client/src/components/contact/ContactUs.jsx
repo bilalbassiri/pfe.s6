@@ -50,6 +50,7 @@ const ContactUs = () => {
   };
   useEffect(() => {
     if (!isLoading) {
+      document.title = "Contact us | Kafka";
       if (accessToken) {
         setValues({
           loggedIn: true,

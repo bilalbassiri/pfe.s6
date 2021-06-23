@@ -103,6 +103,7 @@ const LogIn = () => {
     event.preventDefault();
   };
   useEffect(() => {
+    document.title = "Log in | Kafka";
     if (user.accessToken) history.push("/"); // Redirect to the home page f the user is already logged in
     const id = startLoading(setIsLoading /**timer */); // Execute setIsLoading(false) after 2s delay
     return () => {
@@ -147,7 +148,7 @@ const LogIn = () => {
         >
           <Grid style={{ marginBottom: "20px" }}>
             <h1 className="signing-heading">Log in</h1>
-        </Grid>
+          </Grid>
           <Grid>
             <FormControl className="fieldset" variant="outlined">
               <TextField

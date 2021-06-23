@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { CartItem, CircularProgress, CustomizedButton } from "..";
 import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
@@ -64,6 +64,9 @@ const Cart = () => {
     }
     return total.toFixed(2);
   };
+  useEffect(() => {
+    document.title = "Cart | Kafka";
+  }, []);
   return !isLoading ? (
     !orderState.recieved ? (
       cart.length ? (

@@ -85,6 +85,7 @@ const SignUp = () => {
     }
   };
   useEffect(() => {
+    document.title = "Sign up | Kafka";
     if (user.accessToken) history.push("/");
     const id = startLoading(setIsLoading);
     return () => {
