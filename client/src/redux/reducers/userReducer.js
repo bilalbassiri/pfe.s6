@@ -25,6 +25,7 @@ const initialState = {
   currently_reading: [],
   read: [],
   genres: [],
+  readers: [],
   isLoading: true,
 };
 const userReducer = (state = initialState, { type, payload }) => {
@@ -51,6 +52,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         active,
         highlights,
         username,
+        readers,
       } = payload;
       return {
         ...state,
@@ -76,6 +78,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         read,
         genres,
         highlights,
+        readers,
         isLoading: false,
       };
     case LOG_OUT:

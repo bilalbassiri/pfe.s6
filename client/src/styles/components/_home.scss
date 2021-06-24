@@ -206,6 +206,44 @@
             }
         }
     }
+    &-body {
+        .interesting-readers {
+            padding: 20px;
+            border-radius: 5px;
+            h1 {
+                margin-bottom: 20px;
+                font-size: 1rem;
+                color: #a5a5a5;
+            }
+            .readers-box {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0px;
+                .reader {
+                    @include flexRowCenter;
+                    gap: 10px;
+                    width: 100%;
+                    padding: 7px;
+                    border-radius: 7px;
+                    cursor: pointer;
+                    h6 {
+                        color: $content-color;
+                    }
+                    border: 1px solid transparent;
+                    &,
+                    & > .avatar {
+                        transition-duration: 400ms;
+                    }
+                    &:hover {
+                        border-color: $boss-color;
+                        .avatar {
+                            transform: scale(1.1);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 600px) {
@@ -245,6 +283,14 @@
         }
         &-body {
             padding: 40px;
+            .interesting-readers {
+                .readers-box {
+                    gap: 20px;
+                    .reader {
+                        width: 210px;
+                    }
+                }
+            }
         }
     }
 }

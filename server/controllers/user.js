@@ -97,16 +97,27 @@ const controllers = {
   getUser: async (req, res) => {
     try {
       const { id } = await req.user;
-      const { read, currently_reading, to_read } = await Users.findOne({
-        _id: id,
-      }).populate({ path: "read currently_reading to_read", select: "genres" });
+      const { read, currently_reading, to_read, highlights } =
+        await Users.findById(id)
+          .populate({
+            path: "read currently_reading to_read",
+            select: "genres",
+          })
+          .select("read currently_reading to_read highlights");
       const genres = getUserInterests({ read, currently_reading, to_read });
       const user = await Users.findByIdAndUpdate(
         id,
         { genres },
         { new: true }
       ).populate("cart favoris orders");
+      const readers = await Users.find({
+        highlights: { $nin: id },
+        _id: { $ne: id },
+      })
+        .select("name username picture")
+        .limit(10);
       if (!user) return res.json(null);
+      user.readers = readers;
       return res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: err.message });

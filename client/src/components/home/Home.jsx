@@ -19,7 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const {
     books: { all, popular, most_rated, loading: booksLoading },
-    user: { genres, accessToken, isLoading },
+    user: { genres, readers, accessToken, isLoading },
   } = useSelector((state) => state);
   const history = useHistory();
   const RandomCovers = () => {
@@ -140,6 +140,32 @@ const Home = () => {
         </div>
       )}
       <div className="home-body" id="content">
+        {accessToken && (
+          <div className="interesting-readers">
+            <h1>Interesting Readers</h1>
+            <div className="readers-box">
+              {readers.map((reader) => (
+                <div
+                  key={reader._id}
+                  className="reader"
+                  onClick={() => history.push("/readers/" + reader.username)}
+                >
+                  <Avatar
+                    className="avatar"
+                    src={reader.picture}
+                    alt={reader.name}
+                  >
+                    {reader.name[0]}
+                  </Avatar>
+                  <div>
+                    <h4>{reader.name}</h4>
+                    <h6>@{reader.username}</h6>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <Collection title="Added Recently" books={all} />
         <Collection title="Popular" books={popular} />
         <Collection title="Most Rated" books={most_rated} />

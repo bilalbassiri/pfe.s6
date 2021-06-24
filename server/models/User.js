@@ -39,6 +39,10 @@ const userSchema = new Schema(
         ref: "users",
       },
     ],
+    readers: {
+      type: Array,
+      default: [],
+    },
     active: {
       type: Boolean,
       default: true,
