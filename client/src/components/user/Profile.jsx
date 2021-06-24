@@ -81,7 +81,9 @@ const Profile = () => {
   };
   useEffect(() => {
     setIsLoading((prev) => ({ ...prev, profile: true }));
-    getUserProfile(username).then(({ info, reviews }) => {
+    getUserProfile(username).then((data) => {
+      if (!data) return;
+      const { info, reviews } = data;
       document.title = info.name + " | Kafka";
       setProfile({ info, reviews });
       setBioState((prev) => ({ ...prev, content: info.bio }));

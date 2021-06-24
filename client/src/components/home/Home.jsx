@@ -140,7 +140,7 @@ const Home = () => {
         </div>
       )}
       <div className="home-body" id="content">
-        {accessToken && (
+        {accessToken && readers.length > 0 && (
           <div className="interesting-readers">
             <h1>Interesting Readers</h1>
             <div className="readers-box">

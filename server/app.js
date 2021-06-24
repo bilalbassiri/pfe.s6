@@ -1,4 +1,4 @@
-require("dotenv").config();
+const res = require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(fileupload());
 
 connectDB();
-
+if (res.error) throw res.error;
 app.use("/user", require("./routes/userRouter"));
 app.use("/admin", require("./routes/adminRouter"));
 app.use("/api", require("./routes/bookRouter"));
