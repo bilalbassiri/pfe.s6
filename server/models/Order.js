@@ -28,7 +28,4 @@ const orderSchema = new Schema(
   }
 );
 
-module.exports = {
-  Orders: new model("orders", orderSchema),
-  Sales: new model("sales", orderSchema),
-};
+module.exports = model("orders", orderSchema);

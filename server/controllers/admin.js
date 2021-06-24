@@ -1,6 +1,6 @@
 const Users = require("../models/User");
 const Reviews = require("../models/Review");
-const { Orders, Sales } = require("../models/Order");
+const Orders = require("../models/Order");
 const Books = require("../models/Book");
 const Mails = require("../models/Mail");
 

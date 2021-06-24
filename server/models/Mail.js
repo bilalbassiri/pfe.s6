@@ -33,4 +33,4 @@ const mailSchema = new Schema(
     timestamps: true,
   }
 );
-module.exports = new model("mails", mailSchema);
+module.exports = model("mails", mailSchema);

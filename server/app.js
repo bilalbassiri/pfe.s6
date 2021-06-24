@@ -10,10 +10,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 app.use(fileupload());
 
-// connect to mongoDB
 connectDB();
 
-//Routes
 app.use("/user", require("./routes/userRouter"));
 app.use("/admin", require("./routes/adminRouter"));
 app.use("/api", require("./routes/bookRouter"));
