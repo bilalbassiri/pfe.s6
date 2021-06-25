@@ -32,19 +32,7 @@
         }
         .notifications {
             padding: 0px 15px;
-            overflow-y: scroll;
-            &::-webkit-scrollbar {
-                width: 6px;
-                border-radius: 20px;
-            }
-            &::-webkit-scrollbar-track {
-                background-color: #ffffff;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: rgb(124, 124, 124);
-                border-radius: 20px;
-            }
-
+            @extend %scrollBar;
             .container {
                 gap: 15px;
                 display: flex;

@@ -164,17 +164,19 @@
     top: 0;
     left: 0;
     z-index: 999999;
-    width: 100%;
-    height: 100vh;
     background-color: #717171c4;
     opacity: 0;
     transform: translateX(-100%);
     animation: scp 500ms ease-in-out forwards;
+    width: 100%;
     @include DisplayGridCenter;
     form {
-        border-radius: 15px;
+        margin: 70px 0px;
         background-color: white;
         padding: 25px;
+        border-radius: 15px;
+        border: 8px solid white;
+        @extend %scrollBar;
     }
     .cls-scp {
         position: absolute;
@@ -515,5 +517,14 @@
         .right {
             flex: 0.3;
         }
+    }
+    .edit-book {
+        @include boxSize(100vh, 100%, 0);
+        form {
+            overflow-y: scroll;
+        }
+    }
+    .fly {
+        @include boxSize(100vh, 100%, 0);
     }
 }

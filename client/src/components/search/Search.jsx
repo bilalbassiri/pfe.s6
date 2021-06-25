@@ -50,6 +50,7 @@ const Search = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      if (!values.name) return;
       dispatch(setBooksStartLoading());
       const result = await searchABook(values);
       dispatch(setSearchResultBooks(result));
