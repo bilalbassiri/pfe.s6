@@ -54,7 +54,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SimpleTabs = ({
-  book: { author, rating, rating_count, release, createdAt, language, pages },
+  book: {
+    author,
+    rating,
+    rating_count,
+    release,
+    createdAt,
+    language,
+    pages,
+    genres,
+    sales,
+    quantity,
+    price,
+  },
 }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
@@ -101,11 +113,33 @@ const SimpleTabs = ({
       </TabPanel>
       <TabPanel value={value} index={1} className="panel detail">
         <ul>
-          <li>Added: {createdAt}</li>
-          <li>Published: {release}</li>
-          <li>Language: {language}</li>
-          <li>Pages: {pages}</li>
-          <li>Author: {author}</li>
+          <li>
+            <b>Price:</b> {price.toFixed(2)} USD
+          </li>
+          <li>
+            <b>Published:</b> {release}
+          </li>
+          <li>
+            <b>Added:</b> {createdAt}
+          </li>
+          <li>
+            <b>Language:</b> {language}
+          </li>
+          <li>
+            <b>Pages:</b> {pages}
+          </li>
+          <li>
+            <b>Author:</b> {author}
+          </li>
+          <li>
+            <b>Genres:</b> {genres.join(", ")}
+          </li>
+          <li>
+            <b>Sales:</b> {sales}
+          </li>
+          <li>
+            <b>Quantity:</b> {quantity}
+          </li>
         </ul>
       </TabPanel>
     </div>

@@ -39,18 +39,6 @@ const bookSchema = new Schema(
       type: Number,
       default: 0,
     },
-    have_read: {
-      type: Number,
-      default: 0,
-    },
-    currently_reading: {
-      type: Number,
-      default: 0,
-    },
-    to_read: {
-      type: Number,
-      default: 0,
-    },
     quantity: {
       type: Number,
       default: 0,
