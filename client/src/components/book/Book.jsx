@@ -28,10 +28,10 @@ import MiniBookCard from "./MiniBookCard";
 
 const styles = {
   cart: {
-    backgroundColor: "#2a9d8f",
     padding: "8.5px 16px",
     borderRadius: 20,
     width: "100%",
+    backgroundColor: "#2a9d8f",
     "&:hover": {
       backgroundColor: "#1f776d",
     },

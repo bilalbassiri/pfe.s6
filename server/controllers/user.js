@@ -6,8 +6,9 @@ const Mails = require("../models/Mail");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
+const Stripe = require("stripe");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const saltRounds = 10;
-
 const getUserInterests = (list) => {
   let g = "";
   for (let i in list.read) {
@@ -234,11 +235,26 @@ const controllers = {
               },
             }))
           );
-          return res.json({ cart, payed, orders, result });
+          return res.json({ newCart: cart, payed, orders, result });
         }
       });
     } catch (err) {
       return res.json({ msg: err.message });
+    }
+  },
+  makePayment: async (req, res) => {
+    try {
+      const { id, amount } = req.body;
+      await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: "Kafka",
+        payment_method: id,
+        confirm: true,
+      });
+      return res.json({ success: true, msg: "Payment Successful" });
+    } catch (err) {
+      return res.json({ success: false, msg: err.message });
     }
   },
   refreshToken: async (req, res) => {

@@ -29,7 +29,7 @@ const updateUserCredentials = (payload) => ({
 const switchReadingList = (payload) => ({ type: UPDATE_READING_LIST, payload });
 const newPayedAmount = (payload) => ({ type: HANDLE_ORDER_DONE, payload });
 const readNotifications = (payload) => ({ type: OPEN_NOTIFICATIONS });
-
+  
 export {
   userLogin,
   userLogout,

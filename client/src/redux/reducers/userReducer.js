@@ -99,7 +99,7 @@ const userReducer = (state = initialState, { type, payload }) => {
     case HANDLE_ORDER_DONE:
       return {
         ...state,
-        cart: payload.cart,
+        cart: payload.newCart,
         credentials: {
           ...state.credentials,
           payed: payload.payed,

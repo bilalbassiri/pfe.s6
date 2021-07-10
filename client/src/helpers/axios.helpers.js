@@ -431,6 +431,21 @@ const searchABook = async (values) => {
     console.log(error.message);
   }
 };
+const userMakePayment = async (values, token) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "/user/payment",
+      data: values,
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -462,4 +477,5 @@ export {
   adminReadMessage,
   adminDeleteUsers,
   searchABook,
+  userMakePayment,
 };

@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { CartItem, CircularProgress, CustomizedButton } from "..";
+import { CartItem, CircularProgress, CustomizedButton, Stripe } from "..";
 import NearMeOutlinedIcon from "@material-ui/icons/NearMeOutlined";
 import { useDispatch } from "react-redux";
-import { makeOrder, updateCart } from "../../helpers/axios.helpers";
+import { updateCart } from "../../helpers/axios.helpers";
 import { useHistory } from "react-router-dom";
-import {
-  cartAddRemoveItem,
-  newPayedAmount,
-} from "../../redux/actions/userActions";
-import RecievedOrder from "./RecievedOrder";
+import { cartAddRemoveItem } from "../../redux/actions/userActions";
 import ClearAllIcon from "@material-ui/icons/ClearAll";
 import Fab from "@material-ui/core/Fab";
 
@@ -52,11 +48,8 @@ const Cart = () => {
   const { credentials, cart, accessToken, isLoading } = useSelector(
     (state) => state.user
   );
-  const [orderState, setOrderState] = useState({
-    sending: false,
-    recieved: false,
-    content: "",
-  });
+
+  const [payMode, setPayMode] = useState(false);
   const getTotal = () => {
     let total = 0;
     for (let item of cart) {
@@ -68,7 +61,7 @@ const Cart = () => {
     document.title = "Cart | Kafka";
   }, []);
   return !isLoading ? (
-    !orderState.recieved ? (
+    !payMode ? (
       cart.length ? (
         <div className="cart-container">
           <div className="items">
@@ -85,7 +78,6 @@ const Cart = () => {
                   style={styles.clearAll}
                   type="button"
                   color="secondary"
-                  disabled={orderState.sending}
                   onClick={() => {
                     dispatch(cartAddRemoveItem([]));
                     updateCart([], accessToken);
@@ -97,30 +89,7 @@ const Cart = () => {
                   style={styles.checkOut}
                   type="button"
                   color="primary"
-                  disabled={orderState.sending}
-                  onClick={() => {
-                    setOrderState({ ...orderState, sending: true });
-                    makeOrder(
-                      {
-                        _id: credentials._id,
-                        payed: credentials.payed,
-                        orders: credentials.orders,
-                        total: credentials.total,
-                      },
-                      cart,
-                      parseInt(getTotal()),
-                      accessToken
-                    ).then(({ cart, payed, orders, result }) => {
-                      if (result) {
-                        dispatch(newPayedAmount({ cart, payed, orders }));
-                        setOrderState({
-                          sending: false,
-                          recieved: true,
-                          content: result,
-                        });
-                      }
-                    });
-                  }}
+                  onClick={() => setPayMode(true)}
                 >
                   Check out
                   <NearMeOutlinedIcon className="arrow" />
@@ -153,7 +122,7 @@ const Cart = () => {
         </div>
       )
     ) : (
-      <RecievedOrder order={orderState.content} />
+      <Stripe />
     )
   ) : (
     <CircularProgress plan={{ h: "calc(100vh - 84px)", w: "100%" }} />

@@ -18,6 +18,7 @@ export { default as CartItem } from "./user/CartItem";
 export { default as Cart } from "./user/Cart";
 export { default as Account } from "./user/Account";
 export { default as Profile } from "./user/Profile";
+export { default as Stripe } from "./user/Stripe";
 // ./admin/
 export { default as Admin } from "./admin/Admin";
 // ./search/

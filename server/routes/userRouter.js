@@ -10,6 +10,7 @@ router.get("/refresh_token", controllers.refreshToken);
 router.post("/cart", auth, controllers.updateCart);
 router.post("/favoris", auth, controllers.updateFavoris);
 router.post("/order", auth, controllers.addAnOrder);
+router.post("/payment", controllers.makePayment);
 router.post("/profile", controllers.getPublicInfo);
 router.post("/update", auth, controllers.updateUserInfo);
 router.post("/highlight", auth, controllers.highlightReader);
