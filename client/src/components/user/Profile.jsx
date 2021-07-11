@@ -395,7 +395,7 @@ const Profile = () => {
                   ) : null
                 )}
                 <div className="show-more-reviews pro">
-                  {reviews.length > 3 ? (
+                  {reviews.length > 4 ? (
                     <button
                       type="button"
                       onClick={() => {
@@ -403,7 +403,7 @@ const Profile = () => {
                       }}
                     >
                       Show{" "}
-                      {showAll.reviews ? "Less" : `${reviews.length - 3} more`}
+                      {showAll.reviews ? "Less" : `${reviews.length - 4} more`}
                     </button>
                   ) : reviews.length === 0 ? (
                     <h5 className="empty">
