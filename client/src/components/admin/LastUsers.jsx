@@ -31,6 +31,7 @@ const LastUsers = () => {
               </Avatar>
               <h5 className="name">{user.name}</h5>
             </div>
+            <p className="username">@{user.username}</p>
             <p className="email">{user.email}</p>
             <p className="joined">{getSignupDate(user.createdAt)}</p>
           </div>

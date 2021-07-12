@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import CustomizedButton from "../ui/CustomizedButton";
 import Chart from "./Chart";
 import GlobalSection from "./GlobalSection";
+import LastOrders from "./LastOrders";
 import LastUsers from "./LastUsers";
 import TotalSales from "./TotalSales";
 
@@ -40,6 +41,7 @@ const Dashboard = () => {
           Add New Book
         </CustomizedButton>
         <TotalSales />
+        <LastOrders />
       </div>
     </div>
   );
