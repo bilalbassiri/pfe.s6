@@ -92,10 +92,14 @@ const Search = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="Philosophy">Philosophy</MenuItem>
-                <MenuItem value="Learning">Learning</MenuItem>
-                <MenuItem value="Romance">Romance</MenuItem>
                 <MenuItem value="Science">Science</MenuItem>
+                <MenuItem value="History">History</MenuItem>
+                <MenuItem value="Religion">Religion</MenuItem>
+                <MenuItem value="Philosophy">Philosophy</MenuItem>
+                <MenuItem value="Education">Education</MenuItem>
+                <MenuItem value="Romance">Romance</MenuItem>
+                <MenuItem value="Science Fiction">Science Fiction</MenuItem>
+                <MenuItem value="Nonfiction">Nonfiction</MenuItem>
               </Select>
             </FormControl>
             <div>

@@ -469,7 +469,7 @@ const Profile = () => {
               </h2>
               <div className="container">
                 {info.highlights.map((reader, i) =>
-                  i < (showAll.highlighted ? info.highlights.length : 3) ? (
+                  i < (showAll.highlighted ? info.highlights.length : 5) ? (
                     <div
                       key={i}
                       className="reader"
@@ -497,7 +497,7 @@ const Profile = () => {
                   ) : null
                 )}
                 <div className="show-more-reviews pro">
-                  {info.highlights.length > 3 ? (
+                  {info.highlights.length > 5 ? (
                     <button
                       type="button"
                       onClick={() => {
