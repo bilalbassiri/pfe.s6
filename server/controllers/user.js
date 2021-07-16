@@ -408,16 +408,19 @@ const controllers = {
           msg: "There is no user registred with this email.",
         });
       }
+
       const token = jwt.sign({ userId: user._id }, user.password, {
         expiresIn: 3600,
       });
+      const link = `http://${process.env.CLIENT_HOST}/change-password/${user._id}/${token}`;
       const msg = {
         from: "Kafka <bassiri.bilal@gmail.com>",
         to: email,
         subject: "Reset your password",
-        html: `You are receiving this because you (or someone else) have requested the reset of the password for your account.<br/>
-         Please click on the following link, or paste this into your browser to complete the process: <a href="http://${process.env.CLIENT_HOST}/change-password/${user._id}/${token}">Change Password</a><br/>
-         <br/>If you did not request this, please ignore this email and your password will remain unchanged.`,
+        html: `<h3>You are receiving this because you (or someone else) have requested the reset of the password for your account.</h3>
+         Please click on the following link to complete the process:<br/> <a href=${link}>
+         ${link}</a><br/>
+         <br/><em>NB: If you did not request this, please ignore this email and your password will remain unchanged.</em>`,
       };
       await sgMail.send(msg);
       return res.status(200).json({ valid: true });
@@ -437,8 +440,9 @@ const controllers = {
         const upd = await Users.findByIdAndUpdate(userId, {
           password: passwordHash,
         });
-        if (!upd) return res.status(500).json({ msg: error.message });
-        else return res.status(200).json({ valid: true });
+        if (!upd) {
+          return res.status(500).json({ msg: error.message });
+        } else return res.status(200).json({ valid: true });
       } else return res.status(500).json({ msg: error.message });
     } catch (error) {
       return res.status(500).json({ msg: error.message });

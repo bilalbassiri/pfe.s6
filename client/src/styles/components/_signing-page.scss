@@ -80,7 +80,90 @@
         border-color: transparent;
     }
 }
-
+.reset-password {
+    display: flex;
+    height: 100vh;
+    .left {
+        padding: 40px;
+        flex: 0.4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        .logo {
+            position: absolute;
+            top: 20px;
+        }
+        img {
+            width: 100%;
+        }
+    }
+    .right {
+        flex: 0.6;
+        @include flexRowCenter;
+        justify-content: center;
+        .des {
+            color: rgb(153, 153, 153);
+            font-weight: 600;
+        }
+        h2 {
+            color: $headings-color;
+        }
+        .email-sent {
+            @include flexColumn;
+            align-items: center;
+            gap: 20px;
+            .icon {
+                font-size: 3rem;
+                color: $boss-color;
+            }
+            color: $content-color;
+            .resend {
+                color: $boss-color;
+                font-weight: bold;
+                transition-duration: 200ms;
+                &:hover {
+                    color: $headings-color;
+                }
+            }
+        }
+        .container {
+            width: 60%;
+            form {
+                margin-top: 50px;
+                .buttons {
+                    margin-top: 20px;
+                    @include flexRowCenter;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}
+.new-password {
+    height: 100vh;
+    @include DisplayGridCenter;
+    .changed {
+        text-align: center;
+        @include flexColumn;
+        gap: 30px;
+        align-items: center;
+        .done-icon {
+            font-size: 3rem;
+        }
+    }
+    .container {
+        width: 330px;
+        .info {
+            margin-bottom: 50px;
+            @extend %resetPasswordInfo;
+        }
+        form {
+            @include flexColumn;
+            gap: 20px;
+        }
+    }
+}
 @media screen and (min-width: 600px) {
     .sign-up-page,
     .sign-in-page {

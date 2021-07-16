@@ -97,13 +97,13 @@ const AddNewBook = () => {
     setValues((prev) => ({ ...prev, disabled: true }));
     setActionState(defaultActionState);
     adminAddNewBook(values, accessToken).then(({ msg, added, result }) => {
-      handleActionEnd(msg, added);
       if (added) {
         setValues(defaultValues);
         dispatch(setNewBook(result));
       } else {
         setValues((prev) => ({ ...prev, disabled: false }));
       }
+      handleActionEnd(msg, added);
     });
   };
   return (

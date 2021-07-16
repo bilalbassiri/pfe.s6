@@ -10,7 +10,7 @@ const controllers = {
       await newReview.save();
       const populatedReview = await Reviews.findOne({
         _id: newReview._id,
-      }).populate({ path: "owner", select: "name picture" });
+      }).populate({ path: "owner", select: "name picture username" });
       const updatedBook = await Books.findByIdAndUpdate(
         book_id,
         { rating: global_rating, rating_count },

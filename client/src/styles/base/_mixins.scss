@@ -28,7 +28,15 @@
     display: grid;
     place-content: center;
 }
-
+%resetPasswordInfo {
+    h2 {
+        color: $headings-color;
+    }
+    .des {
+        color: rgb(153, 153, 153);
+        font-weight: 600;
+    }
+}
 %profileItems {
     @include flexRowCenter;
     justify-content: space-between;

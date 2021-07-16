@@ -460,6 +460,20 @@ const sendResetPasswordMail = async (email) => {
     console.log(error.message);
   }
 };
+const changeOldPassword = async (userId, token, password) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: `/user/change-password/${userId}/${token}`,
+      data: {
+        password,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -493,4 +507,5 @@ export {
   searchABook,
   userMakePayment,
   sendResetPasswordMail,
+  changeOldPassword,
 };

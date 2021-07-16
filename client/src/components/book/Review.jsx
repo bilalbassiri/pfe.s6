@@ -49,7 +49,6 @@ const Review = ({
         return state;
     }
   };
-
   const [{ currentVotes, voted }, dispatch] = useReducer(reducer, {
     currentVotes: upvotes ?? [],
     voted: upvotes?.includes(credentials?._id) ?? false,

@@ -94,7 +94,6 @@ const Search = () => {
                 </MenuItem>
                 <MenuItem value="Science">Science</MenuItem>
                 <MenuItem value="History">History</MenuItem>
-                <MenuItem value="Religion">Religion</MenuItem>
                 <MenuItem value="Philosophy">Philosophy</MenuItem>
                 <MenuItem value="Education">Education</MenuItem>
                 <MenuItem value="Romance">Romance</MenuItem>

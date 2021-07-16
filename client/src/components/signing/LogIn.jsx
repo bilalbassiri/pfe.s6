@@ -31,6 +31,7 @@ const styles = {
     padding: "8px",
     borderRadius: 25,
     width: "100%",
+    fontWeight: "600",
     "&:hover": {
       backgroundColor: "#ee9a8d",
     },

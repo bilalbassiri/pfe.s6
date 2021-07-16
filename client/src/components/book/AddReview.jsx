@@ -40,10 +40,11 @@ const AddReview = ({ setShowAddReview }) => {
         populatedReview,
         updatedBook: { rating, rating_count },
       } = await addBookReview(d, accessToken);
-      if (populatedReview)
+      if (populatedReview) {
         setNewReview({ ...newReview, content: "", posting: false });
-      dispatch(setReview(populatedReview));
-      dispatch(updateCurrentBook({ rating, rating_count }));
+        dispatch(setReview(populatedReview));
+        dispatch(updateCurrentBook({ rating, rating_count }));
+      }
     } catch (err) {
       console.log(err.message);
     }
@@ -55,6 +56,7 @@ const AddReview = ({ setShowAddReview }) => {
           id="outlined-multiline-static"
           label="Your review"
           multiline
+          autoFocus
           value={newReview.content}
           variant="outlined"
           placeholder="Write your review here"
