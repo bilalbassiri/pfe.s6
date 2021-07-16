@@ -13,7 +13,7 @@ const MiniBookCard = ({ title, books }) => {
       {books.length ? (
         books
           .filter((book) => book._id !== currentBook._id)
-          .slice(0, 5)
+          .slice(0, title === "Similar" ? 7 : 5)
           .map((item) => (
             <div
               key={item._id}

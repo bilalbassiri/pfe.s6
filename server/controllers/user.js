@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const sgMail = require("@sendgrid/mail");
 const saltRounds = 10;
 const getUserInterests = (list) => {
   let g = "";
@@ -393,6 +394,52 @@ const controllers = {
       return res.status(200).json(mail);
     } catch (error) {
       return res.status(200).json({ msg: error.message });
+    }
+  },
+  sentResetPasswordLink: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const user = await Users.findOne({ email });
+      if (!user) {
+        return res.status(200).json({
+          valid: false,
+        });
+      }
+      const token = jwt.sign({ userId: user._id }, user.password, {
+        expiresIn: 3600,
+      });
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        from: "Kafka <bassiri.bilal@gmail.com>",
+        to: "b.bassiri@outlook.com",
+        subject: "Reset your password",
+        html: `You are receiving this because you (or someone else) have requested the reset of the password for your account.<br/>
+         Please click on the following link, or paste this into your browser to complete the process: <a href="http://${process.env.CLIENT_HOST}/change-password/${user._id}/${token}">Change Password</a><br/>
+         <br/>If you did not request this, please ignore this email and your password will remain unchanged.`,
+      };
+      await sgMail.send(msg);
+      return res.status(200).json({ valid: true });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+  receiveNewPassword: async (req, res) => {
+    try {
+      const { userId, token } = req.params;
+      const { password } = req.body;
+      const user = await Users.findById(userId);
+      if (!user) return res.status(200).json({ valid: false });
+      const payload = jwt.decode(token, user.password);
+      if (payload.userId == user._id) {
+        const passwordHash = await bcrypt.hash(password, saltRounds);
+        const upd = await Users.findByIdAndUpdate(userId, {
+          password: passwordHash,
+        });
+        if (!upd) return res.status(500).json({ msg: error.message });
+        else return res.status(200).json({ valid: true });
+      } else return res.status(500).json({ msg: error.message });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
     }
   },
 };

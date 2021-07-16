@@ -206,6 +206,11 @@ const LogIn = () => {
           </Grid>
           <Grid item className="sign-guide">
             <p>
+              <Link to="/reset-password">Forgot password?</Link>
+            </p>
+          </Grid>
+          <Grid item className="sign-guide">
+            <p>
               Not a member? <Link to="/sign-up">Sign up</Link>
             </p>
           </Grid>

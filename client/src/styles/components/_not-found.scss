@@ -1,0 +1,16 @@
+.not-found {
+    height: calc(100vh - 84px);
+    @include DisplayGridCenter;
+    text-align: center;
+    h1 {
+        font-size: 5rem;
+        color: $boss-color;
+    }
+    h3 {
+        color: $headings-color;
+        font-size:1.5rem;
+    }
+    h5 {
+        color: $secondary-color;
+    }
+}

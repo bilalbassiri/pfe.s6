@@ -446,6 +446,20 @@ const userMakePayment = async (values, token) => {
     console.log(error.message);
   }
 };
+const sendResetPasswordMail = async (email) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: "/user/reset-password",
+      data: {
+        email,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export {
   sendNotifications,
   getReviewsFromDB,
@@ -478,4 +492,5 @@ export {
   adminDeleteUsers,
   searchABook,
   userMakePayment,
+  sendResetPasswordMail,
 };

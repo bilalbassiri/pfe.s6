@@ -19,5 +19,7 @@ router.delete("/delete", auth, controllers.deleteAccount);
 router.post("/reading", auth, controllers.updateReadingList);
 router.post("/notifications", auth, controllers.updateNotifications);
 router.post("/contact", controllers.userSendMail);
+router.post("/reset-password", controllers.sentResetPasswordLink);
+router.post("/change-password/:userId/:token", controllers.receiveNewPassword);
 
 module.exports = router;

@@ -4,6 +4,7 @@ export { default as Header } from "./header/Header";
 export { default as Footer } from "./footer/Footer";
 // ./signing/
 export { default as LogIn } from "./signing/LogIn";
+export { default as ResetPassword } from "./signing/ResetPassword";
 export { default as SignUp } from "./signing/SignUp";
 // ./home/
 export { default as Home } from "./home/Home";
@@ -28,6 +29,7 @@ export { default as Search } from "./search/Search";
 export { default as ContactUs } from "./contact/ContactUs";
 // ./ui/
 export { default as FormError } from "./ui/FormError";
+export { default as NotFound } from "./ui/NotFound";
 export { default as CustomizedInput } from "./ui/CustomizedInput";
 export { default as Rating } from "./ui/Rating";
 export { default as CustomizedButton } from "./ui/CustomizedButton";
