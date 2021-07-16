@@ -9,7 +9,9 @@ const _ = require("lodash");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const saltRounds = 10;
+
 const getUserInterests = (list) => {
   let g = "";
   for (let i in list.read) {
@@ -403,15 +405,15 @@ const controllers = {
       if (!user) {
         return res.status(200).json({
           valid: false,
+          msg: "There is no user registred with this email.",
         });
       }
       const token = jwt.sign({ userId: user._id }, user.password, {
         expiresIn: 3600,
       });
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       const msg = {
         from: "Kafka <bassiri.bilal@gmail.com>",
-        to: "b.bassiri@outlook.com",
+        to: email,
         subject: "Reset your password",
         html: `You are receiving this because you (or someone else) have requested the reset of the password for your account.<br/>
          Please click on the following link, or paste this into your browser to complete the process: <a href="http://${process.env.CLIENT_HOST}/change-password/${user._id}/${token}">Change Password</a><br/>

@@ -4,14 +4,22 @@ import { CustomizedButton, CustomizedInput } from "..";
 import EmailSent from "./EmailSent";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { sendResetPasswordMail } from "../../helpers/axios.helpers";
+import { FormError } from "..";
 
 const ResetPassword = () => {
   const history = useHistory();
   const [email, setEmail] = useState("");
+  const [responseState, setResponseState] = useState({
+    resolved: false,
+    state: false,
+    message: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email) return;
-    sendResetPasswordMail(email).then(console.log);
+    sendResetPasswordMail(email).then((res) =>
+      setResponseState({ resolved: true, state: res.valid, message: res.msg })
+    );
   };
   return (
     <div className="reset-password">
@@ -25,11 +33,11 @@ const ResetPassword = () => {
         />
       </div>
       <div className="right">
-        {!false ? (
+        {!(responseState.resolved && responseState.state) ? (
           <div className="container">
             <div>
               <h2>Forgot your password</h2>
-              <p>
+              <p className="des">
                 We are here to help you to recover your password.
                 <br />
                 Enter the email address you used when you joined and we'll send
@@ -44,6 +52,9 @@ const ResetPassword = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 style={{ width: "100%" }}
               />
+              {responseState.message && (
+                <FormError message={responseState.message} />
+              )}
               <div className="buttons">
                 <CustomizedButton
                   type="button"

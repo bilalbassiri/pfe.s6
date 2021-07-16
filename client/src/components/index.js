@@ -5,6 +5,7 @@ export { default as Footer } from "./footer/Footer";
 // ./signing/
 export { default as LogIn } from "./signing/LogIn";
 export { default as ResetPassword } from "./signing/ResetPassword";
+export { default as NewPassword } from "./signing/NewPassword";
 export { default as SignUp } from "./signing/SignUp";
 // ./home/
 export { default as Home } from "./home/Home";

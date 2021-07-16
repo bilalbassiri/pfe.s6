@@ -15,6 +15,7 @@ import {
   Search,
   NotFound,
   ResetPassword,
+  NewPassword,
 } from "./components";
 import { Route, Switch, useHistory } from "react-router-dom";
 import {
@@ -66,6 +67,11 @@ function App() {
       <Switch>
         <Route path="/login" exact component={LogIn} />
         <Route path="/reset-password" exact component={ResetPassword} />
+        <Route
+          path="/change-password/:userId/:token"
+          exact
+          component={NewPassword}
+        />
         <Route path="/sign-up" exact component={SignUp} />
         <Route>
           <Header />
