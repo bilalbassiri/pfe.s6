@@ -10,7 +10,7 @@ const Genre = () => {
     books?.all?.filter((item) => item.genres.includes(genre) === true);
   return (
     <div>
-      <h2>In {genre}</h2>
+      <h2  style={{ marginBottom: 20 }}>In {genre}</h2>
       <div
         className="result"
         style={{

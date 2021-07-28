@@ -320,7 +320,6 @@ const controllers = {
         old_password,
         new_password,
       } = req.body;
-      console.log(req.body);
       const _user = await Users.findOne({ _id: id });
       let updatedUser = {},
         newInfo = {};

@@ -97,7 +97,7 @@ const Profile = () => {
   };
   const [preview, setPreview] = useState("");
   let highlighted = info.highlights
-    ?.map((reader) => reader._id)
+    ?.map((reader) => reader?._id)
     .includes(credentials?._id);
   const getReaderAnim = (arr, i, animation) => ({
     animation: `${animation} 500ms ${
