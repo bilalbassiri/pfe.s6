@@ -23,9 +23,9 @@ const Home = () => {
   } = useSelector((state) => state);
   const history = useHistory();
   const RandomCovers = () => {
-    let i = Math.floor(Math.random() * all.length) - 5;
+    let i = Math.floor(Math.random() * all?.length) - 5;
     i = i < 0 ? 0 : i;
-    const books = all.slice(i, i + 5);
+    const books = all?.slice(i, i + 5);
     if (!books) return;
     return (
       <>
@@ -41,7 +41,7 @@ const Home = () => {
         <div className="big-cover">
           <img
             key={books[4]._id}
-            src={books[4].cover}
+            src={books[4].cover}d
             alt={books[4].name}
             onClick={() => history.push("/book/" + books[4]._id)}
           />

@@ -4,6 +4,8 @@
 /client/.env
 /.env
 /.pnp
+/client
+/out
 .pnp.js
 
 /coverage

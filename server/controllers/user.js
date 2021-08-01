@@ -15,15 +15,15 @@ const saltRounds = 10;
 const getUserInterests = (list) => {
   let g = "";
   for (let i in list.read) {
-    g += list.read[i].genres.join(" ") + " ";
+    g += list.read[i].genres.join(",") + ",";
   }
   for (let i in list.currently_reading) {
-    g += list.currently_reading[i].genres.join(" ") + " ";
+    g += list.currently_reading[i].genres.join(",") + ",";
   }
   for (let i in list.to_read) {
-    g += list.to_read[i].genres.join(" ") + " ";
+    g += list.to_read[i].genres.join(",") + ",";
   }
-  return g.length ? _.union(g.trim().split(" ")) : [];
+  return g.length ? _.union(g.substring(0, g.length - 1).split(",")) : [];
 };
 const controllers = {
   register: async (req, res) => {
