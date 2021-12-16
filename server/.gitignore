@@ -1,7 +1,4 @@
 /node_modules
-/client/node_modules
-/client/build
-/client/.env
 /.env
 /.pnp
 .pnp.js
