@@ -119,13 +119,13 @@ const Books = () => {
   const CustomToolbar = () => {
     return (
       <GridToolbarContainer>
-        {selectionModel.length ? (
+        {selectionModel?.length ? (
           <CustomizedButton
             disableElevation
             color="secondary"
             onClick={() => {
               const isOK = window.confirm(
-                `Hi ${credentials.name} 👋, you are in process to delete ${selectionModel.length} number of books permanently!, if you are sure just press OK otherwise press Cancel.`
+                `Hi ${credentials.name} 👋, you are in process to delete ${selectionModel?.length} number of books permanently!, if you are sure just press OK otherwise press Cancel.`
               );
               if (!isOK) return;
               setActionState((prev) => ({
@@ -166,7 +166,7 @@ const Books = () => {
               });
             }}
           >
-            Delete {selectionModel.length || ""}
+            Delete {selectionModel?.length || ""}
           </CustomizedButton>
         ) : (
           <h1 className="g-title">Books </h1>

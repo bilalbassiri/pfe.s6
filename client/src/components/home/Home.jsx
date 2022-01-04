@@ -26,24 +26,25 @@ const Home = () => {
     let i = Math.floor(Math.random() * all?.length) - 5;
     i = i < 0 ? 0 : i;
     const books = all?.slice(i, i + 5);
-    if (!books) return;
+    if (!books) return <></>;
     return (
       <>
         <div className="small-covers-cont">
           {books.slice(0, 4).map((book) => (
             <div
-              key={book._id}
-              style={{ backgroundImage: "url(" + book.cover + ")" }}
-              onClick={() => history.push("/book/" + book._id)}
+              key={book?._id}
+              style={{ backgroundImage: "url(" + book?.cover + ")" }}
+              onClick={() => history.push("/book/" + book?._id)}
             ></div>
           ))}
         </div>
         <div className="big-cover">
           <img
-            key={books[4]._id}
-            src={books[4].cover}d
-            alt={books[4].name}
-            onClick={() => history.push("/book/" + books[4]._id)}
+            key={books[4]?._id}
+            src={books[4]?.cover}
+            d
+            alt={books[4]?.name}
+            onClick={() => history.push("/book/" + books[4]?._id)}
           />
         </div>
       </>
@@ -53,9 +54,11 @@ const Home = () => {
   useEffect(() => {
     document.title = "Kafka";
     dispatch(setBooksStartLoading());
-    getBooksFromDB().then((books) => dispatch(setBooks(books)));
+    getBooksFromDB().then((books) => {
+      dispatch(setBooks(books));
+    });
   }, [dispatch]);
-  return !isLoading && !booksLoading ? (
+  return !(isLoading && booksLoading) ? (
     <div className="home">
       {!accessToken && (
         <div className="main-page">
@@ -140,7 +143,7 @@ const Home = () => {
         </div>
       )}
       <div className="home-body" id="content">
-        {accessToken && readers.length > 0 && (
+        {accessToken && readers?.length > 0 && (
           <div className="interesting-readers">
             <h1>Interesting Readers</h1>
             <div className="readers-box">

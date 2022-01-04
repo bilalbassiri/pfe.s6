@@ -125,7 +125,7 @@ const Search = () => {
         </div>
         <div className="search-result">
           {searchResult ? (
-            searchResult.length === 0 ? (
+            searchResult?.length === 0 ? (
               <div style={{ textAlign: "center", marginTop: "40px" }}>
                 <h2>No result found</h2>
                 <p>We can't find any book match your search</p>

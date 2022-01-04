@@ -89,7 +89,7 @@ const Reviews = () => {
               <Divider />
               <div className="review-footer">
                 <div>BOOK ID: {review.book_id}</div>
-                <div className="upvotes">Upvotes: {review.upvotes.length}</div>
+                <div className="upvotes">Upvotes: {review.upvotes?.length}</div>
               </div>
             </div>
           ) : null

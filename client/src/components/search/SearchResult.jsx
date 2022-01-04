@@ -5,7 +5,7 @@ import { Rating } from "..";
 
 const SearchResult = ({ books }) => {
   const history = useHistory();
-  const len = books.length;
+  const len = books?.length;
   const getDescription = (desc) => {
     const Elm = document.createElement("div");
     Elm.innerHTML = desc;

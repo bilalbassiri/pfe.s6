@@ -17,8 +17,10 @@ const Similar = () => {
       }
       return isSimilar;
     });
-  return (
-    getSimilaBooks().length > 0 && <MiniBookCard title='Similar' books={getSimilaBooks()} />
+  return getSimilaBooks()?.length > 0 ? (
+    <MiniBookCard title="Similar" books={getSimilaBooks()} />
+  ) : (
+    <div></div>
   );
 };
 export default Similar;

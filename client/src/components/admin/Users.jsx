@@ -138,7 +138,7 @@ const Users = () => {
   const CustomToolbar = () => {
     return (
       <GridToolbarContainer>
-        {selectionModel.length ? (
+        {selectionModel?.length ? (
           <div style={{ display: "flex", gap: 5 }}>
             <CustomizedButton
               disableElevation
@@ -219,7 +219,6 @@ const Users = () => {
           pageSize={8}
           checkboxSelection
           loading={actionState.loading}
-          // onRowClick={(params) => history.push("/readers/" + params.row.id)}
           onSelectionModelChange={(param) =>
             setSelectionModel(param.selectionModel)
           }

@@ -62,7 +62,7 @@ const Cart = () => {
   }, []);
   return !isLoading ? (
     !payMode ? (
-      cart.length ? (
+      cart?.length ? (
         <div className="cart-container">
           <div className="items">
             <h1>Cart</h1>

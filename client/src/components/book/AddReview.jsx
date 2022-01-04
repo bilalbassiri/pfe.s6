@@ -65,7 +65,7 @@ const AddReview = ({ setShowAddReview }) => {
             setNewReview((prev) => ({
               ...prev,
               content:
-                prev.content.length > 500
+                prev.content?.length > 500
                   ? e.target.value.substring(0, 500)
                   : e.target.value,
             }))
@@ -78,7 +78,7 @@ const AddReview = ({ setShowAddReview }) => {
               setNewReview((prev) => ({ ...prev, rating: newValue ?? 0 }));
             }}
           />
-          <span>{500 - newReview.content.length}</span>
+          <span>{500 - newReview.content?.length}</span>
         </div>
       </div>
       <div className="submit-review">

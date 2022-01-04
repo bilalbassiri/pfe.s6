@@ -182,7 +182,7 @@ const Review = ({
             content
               .substring(0, readReview ? 1000 : 300)
               .replaceAll("\n", "<br/>") +
-            (readReview || content.length <= 300 ? "" : "..."),
+            (readReview || content?.length <= 300 ? "" : "..."),
         }}
       ></article>
       <h6>{getPassedTime(createdAt)}</h6>

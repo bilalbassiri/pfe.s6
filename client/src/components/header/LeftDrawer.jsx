@@ -25,7 +25,7 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import CardTravelOutlinedIcon from "@material-ui/icons/CardTravelOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import MailOutlineRoundedIcon from '@material-ui/icons/MailOutlineRounded';
+import MailOutlineRoundedIcon from "@material-ui/icons/MailOutlineRounded";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -45,7 +45,7 @@ const LeftDrawer = () => {
     dashboard: { orders, mails },
   } = useSelector((state) => state);
   const getNewOrders = () =>
-    orders.filter((order) => !order.delivered && !order.delivering).length;
+    orders.filter((order) => !order.delivered && !order.delivering)?.length;
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -149,7 +149,7 @@ const LeftDrawer = () => {
               <ListItemIcon>
                 <Badge
                   badgeContent={
-                    mails.filter((mail) => mail.read === false).length
+                    mails.filter((mail) => mail.read === false)?.length
                   }
                   color="primary"
                 >

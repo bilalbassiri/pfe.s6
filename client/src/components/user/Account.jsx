@@ -3,18 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import clsx from "clsx";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-
-// Material UI components
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, FormControl } from "@material-ui/core";
-// Components
 import {
   CircularProgress,
   CustomizedButton,
   FormError,
   CustomizedInput,
 } from "..";
-// Helper functions
 import { setFormErrors, isValidatedForm } from "../../helpers/account.helpers";
 import { updateUserAccount, deleteAccount } from "../../helpers/axios.helpers";
 import { userLogout } from "../../redux/actions/userActions";

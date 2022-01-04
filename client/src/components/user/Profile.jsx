@@ -102,7 +102,7 @@ const Profile = () => {
   const getReaderAnim = (arr, i, animation) => ({
     animation: `${animation} 500ms ${
       !showAll.highlighted
-        ? i * 500 + (arr.length < 3 ? arr.length : 3) * 500
+        ? i * 500 + (arr?.length < 3 ? arr?.length : 3) * 500
         : 0
     }ms ease forwards`,
   });
@@ -276,7 +276,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="intersted-in">
-              {info.genres.length > 0 && (
+              {info.genres?.length > 0 && (
                 <h2 className="headings">Interested in</h2>
               )}
               <div>
@@ -344,11 +344,11 @@ const Profile = () => {
             </div>
             <div className="_reviews">
               <h2 className="headings">
-                Reviews <span>({reviews.length})</span>
+                Reviews <span>({reviews?.length})</span>
               </h2>
               <div className="reviews-cont">
                 {reviews.map((review, index) =>
-                  index < (showAll.reviews ? reviews.length : 4) ? (
+                  index < (showAll.reviews ? reviews?.length : 4) ? (
                     <div
                       className="review"
                       key={review._id}
@@ -377,7 +377,7 @@ const Profile = () => {
                               className="rating"
                             />
                             <p>
-                              {review.content.length > 100
+                              {review.content?.length > 100
                                 ? review.content.substring(0, 50) + ".."
                                 : review.content}
                             </p>
@@ -395,7 +395,7 @@ const Profile = () => {
                   ) : null
                 )}
                 <div className="show-more-reviews pro">
-                  {reviews.length > 4 ? (
+                  {reviews?.length > 4 ? (
                     <button
                       type="button"
                       onClick={() => {
@@ -403,9 +403,9 @@ const Profile = () => {
                       }}
                     >
                       Show{" "}
-                      {showAll.reviews ? "Less" : `${reviews.length - 4} more`}
+                      {showAll.reviews ? "Less" : `${reviews?.length - 4} more`}
                     </button>
-                  ) : reviews.length === 0 ? (
+                  ) : reviews?.length === 0 ? (
                     <h5 className="empty">
                       {isMyProfile() ? "You" : info.name} have no reviews yet.
                     </h5>
@@ -426,7 +426,7 @@ const Profile = () => {
                   id="panel1bh-header"
                 >
                   <Typography className="accordion-headings">
-                    Read <span>({info.read.length})</span>
+                    Read <span>({info.read?.length})</span>
                   </Typography>
                 </AccordionSummary>
                 <Reading books={info.read} />
@@ -442,7 +442,7 @@ const Profile = () => {
                 >
                   <Typography className="accordion-headings">
                     Currently reading{" "}
-                    <span>({info.currently_reading.length})</span>
+                    <span>({info.currently_reading?.length})</span>
                   </Typography>
                 </AccordionSummary>
                 <Reading books={info.currently_reading} />
@@ -457,7 +457,7 @@ const Profile = () => {
                   id="panel3bh-header"
                 >
                   <Typography className="accordion-headings">
-                    To read <span>({info.to_read.length})</span>
+                    To read <span>({info.to_read?.length})</span>
                   </Typography>
                 </AccordionSummary>
                 <Reading books={info.to_read} />
@@ -465,11 +465,11 @@ const Profile = () => {
             </div>
             <div className="highlighted-readers">
               <h2 className="headings">
-                Highlighted by <span>({info.highlights.length})</span>
+                Highlighted by <span>({info.highlights?.length})</span>
               </h2>
               <div className="container">
                 {info.highlights.map((reader, i) =>
-                  i < (showAll.highlighted ? info.highlights.length : 5) ? (
+                  i < (showAll.highlighted ? info.highlights?.length : 5) ? (
                     <div
                       key={i}
                       className="reader"
@@ -497,7 +497,7 @@ const Profile = () => {
                   ) : null
                 )}
                 <div className="show-more-reviews pro">
-                  {info.highlights.length > 5 ? (
+                  {info.highlights?.length > 5 ? (
                     <button
                       type="button"
                       onClick={() => {
@@ -510,9 +510,9 @@ const Profile = () => {
                       Show{" "}
                       {showAll.highlighted
                         ? "less"
-                        : `${info.highlights.length - 3} more`}
+                        : `${info.highlights?.length - 3} more`}
                     </button>
-                  ) : info.highlights.length === 0 ? (
+                  ) : info.highlights?.length === 0 ? (
                     <h5 className="empty">
                       No one highlighted {isMyProfile() ? "you" : info.name}.
                     </h5>

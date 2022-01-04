@@ -14,10 +14,10 @@ const getLastYearMonths = (orders, users) => {
     const index = currentMonth;
     const salesSet = lastOrders.filter(
       (sale) => new Date(sale.createdAt).getMonth() === index
-    ).length;
+    )?.length;
     const usersSet = users?.filter(
       (user) => new Date(user.createdAt).getMonth() === index
-    ).length;
+    )?.length;
     lastSexMonths[i] = {
       ...MONTHS[currentMonth],
       salesSet,

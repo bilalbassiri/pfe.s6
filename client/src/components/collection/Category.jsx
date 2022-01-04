@@ -4,7 +4,7 @@ import { getCategory } from "../../helpers/axios.helpers";
 import { CircularProgress, Scroller } from "..";
 
 const Category = ({ genre }) => {
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     getCategory(genre).then(setCategory);

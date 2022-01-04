@@ -11,7 +11,6 @@ app.use(cookieParser());
 app.use(fileupload());
 
 connectDB();
-if (res.error) throw res.error;
 app.get("/", (req, res) => res.send("Worked !!"));
 app.use("/user", require("./routes/userRouter"));
 app.use("/admin", require("./routes/adminRouter"));

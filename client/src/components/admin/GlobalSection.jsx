@@ -16,22 +16,22 @@ const GlobalSection = () => {
     {
       title: "Users",
       icon: <PeopleIcon />,
-      count: users.length,
+      count: users?.length,
     },
     {
       title: "Books",
       icon: <LibraryBooksIcon />,
-      count: books.length,
+      count: books?.length,
     },
     {
       title: "Reviews",
       icon: <RateReviewIcon />,
-      count: reviews.length,
+      count: reviews?.length,
     },
     {
       title: "Orders",
       icon: <FolderIcon />,
-      count: orders.length,
+      count: orders?.length,
     },
   ];
   return (

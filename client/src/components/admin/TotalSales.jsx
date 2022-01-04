@@ -9,7 +9,7 @@ const TotalSales = () => {
   const getTotal = () => {
     const arr = orders.map((order) => order.total);
     const payed = arr?.reduce((acc, curr) => acc + curr).toFixed(2);
-    const average = payed / arr.length;
+    const average = payed / arr?.length;
     return {
       payed,
       average,
@@ -20,7 +20,7 @@ const TotalSales = () => {
       .filter((order) => order.createdAt > lastMonth)
       .map((order) => order.total);
     const payed = arr?.reduce((acc, curr) => acc + curr).toFixed(2);
-    const average = (payed / arr.length).toFixed(1);
+    const average = (payed / arr?.length).toFixed(1);
     return {
       payed,
       average,

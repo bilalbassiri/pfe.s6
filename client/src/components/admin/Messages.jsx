@@ -48,11 +48,11 @@ const Messages = () => {
             </div>
             <div className="subject">
               {mail.subject.substring(0, 30) +
-                (mail.subject.length > 30 ? "..." : "")}
+                (mail.subject?.length > 30 ? "..." : "")}
             </div>
             <div className="message">
               {mail.message.substring(0, 100) +
-                (mail.message.length > 100 ? "..." : "")}
+                (mail.message?.length > 100 ? "..." : "")}
             </div>
           </div>
         ))}

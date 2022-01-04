@@ -8,7 +8,7 @@ const Reading = ({ books }) => {
     return (
         <AccordionDetails className="books-cont">
             {
-                books.length ?
+                books?.length ?
                     books.map(book => (
                         <div className="piece" key={book._id} onClick={() => history.push(`/book/${book._id}`)}>
                             <h3 className="name">

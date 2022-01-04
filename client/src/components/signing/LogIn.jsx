@@ -105,8 +105,8 @@ const LogIn = () => {
   };
   useEffect(() => {
     document.title = "Log in | Kafka";
-    if (user.accessToken) history.push("/"); // Redirect to the home page f the user is already logged in
-    const id = startLoading(setIsLoading /**timer */); // Execute setIsLoading(false) after 2s delay
+    if (user.accessToken) history.push("/");
+    const id = startLoading(setIsLoading);
     return () => {
       clearTimeout(id);
     };

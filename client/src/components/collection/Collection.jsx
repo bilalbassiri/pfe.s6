@@ -16,7 +16,7 @@ const Collection = ({ title, books }) => {
             </div>
             <div className="books-container" id={"bc" + title}>
                 {
-                books.length ?
+                books?.length ?
 
                     books.map(item => <BookCard item={item} key={item._id} />)
                     :
