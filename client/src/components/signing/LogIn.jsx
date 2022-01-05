@@ -57,13 +57,13 @@ const LogIn = () => {
     try {
       const { data: user } = await axios({
         method: "post",
-        url: "/user/login",
+        url: "https://powerful-cove-30608.herokuapp.com/user/login",
         data: { email, password },
       });
       if (user.logged) {
         const { data } = await axios({
           method: "get",
-          url: "/user/info",
+          url: "https://powerful-cove-30608.herokuapp.com/user/info",
           headers: {
             authorization: user.ACCESS_TOKEN,
           },

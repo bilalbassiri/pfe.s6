@@ -48,11 +48,13 @@ function App() {
             );
           }
         } else {
-          axios.get("/user/logout").then(() => {
-            dispatch(userLogout());
-            history.push("/login");
-            console.log(1);
-          });
+          axios
+            .get("https://powerful-cove-30608.herokuapp.com/user/logout")
+            .then(() => {
+              dispatch(userLogout());
+              history.push("/login");
+              console.log(1);
+            });
         }
       } else {
         dispatch(userLogin({}));

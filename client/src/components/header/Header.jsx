@@ -162,7 +162,7 @@ const Header = () => {
       <MenuItem
         onClick={() => {
           handleMenuClose();
-          axios.get("/user/logout");
+          axios.get("https://powerful-cove-30608.herokuapp.com/user/logout");
           dispatch(userLogout());
           history.push("/login");
         }}

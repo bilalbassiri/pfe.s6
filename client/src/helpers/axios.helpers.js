@@ -1,8 +1,11 @@
 import axios from "axios";
+const baseURL = "https://powerful-cove-30608.herokuapp.com";
 
 const getReviewsFromDB = async (id) => {
   try {
-    const { data: reviews } = await axios.get(`/api/book/${id}/reviews`);
+    const { data: reviews } = await axios.get(
+      `${baseURL}/api/book/${id}/reviews`
+    );
     return reviews;
   } catch (err) {
     console.log(err.message);
@@ -10,7 +13,7 @@ const getReviewsFromDB = async (id) => {
 };
 const getBooksFromDB = async () => {
   try {
-    const { data: books } = await axios.get("/api/book");
+    const { data: books } = await axios.get(`${baseURL}/api/book`);
     return books;
   } catch (err) {
     console.log(err.message);
@@ -18,7 +21,9 @@ const getBooksFromDB = async () => {
 };
 const getBookDetailFromDB = async (id) => {
   try {
-    const { data: book } = await axios.get(`/api/book/${id}`, { body: { id } });
+    const { data: book } = await axios.get(`${baseURL}/api/book/${id}`, {
+      body: { id },
+    });
     return book;
   } catch (err) {
     console.log(err.message);
@@ -30,11 +35,11 @@ const getAccessTokenAndUser = async () => {
       data: { _ACCESS_TOKEN },
     } = await axios({
       method: "get",
-      url: "/user/refresh_token",
+      url: `${baseURL}/user/refresh_token`,
     });
     const { data } = await axios({
       method: "get",
-      url: "/user/info",
+      url: `${baseURL}/user/info`,
       headers: {
         authorization: _ACCESS_TOKEN,
       },
@@ -48,7 +53,7 @@ const getUserProfile = async (username) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/user/profile",
+      url: `${baseURL}/user/profile`,
       data: {
         username,
       },
@@ -62,7 +67,7 @@ const upvoteReview = async (_id, currentVotes) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/api/book/review/upvote",
+      url: `${baseURL}/api/book/review/upvote`,
       data: {
         _id,
         currentVotes,
@@ -77,7 +82,7 @@ const addBookReview = async (data, token) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/api/book/review",
+      url: `${baseURL}/api/book/review`,
       headers: {
         authorization: token,
       },
@@ -92,7 +97,7 @@ const deleteBookReview = async (_id, token) => {
   try {
     const res = await axios({
       method: "delete",
-      url: "/api/book/review",
+      url: `${baseURL}/api/book/review`,
       headers: {
         authorization: token,
       },
@@ -109,7 +114,7 @@ const updateCart = async (books, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/user/cart",
+      url: `${baseURL}/user/cart`,
       headers: {
         authorization: token,
       },
@@ -126,7 +131,7 @@ const updateFavoris = async (books, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/user/favoris",
+      url: `${baseURL}/user/favoris`,
       headers: {
         authorization: token,
       },
@@ -144,7 +149,7 @@ const makeOrder = async (user, books, total, token) => {
     const order = { user: user._id, books, total };
     const { data } = await axios({
       method: "post",
-      url: "/user/order",
+      url: `${baseURL}/user/order`,
       headers: {
         authorization: token,
       },
@@ -162,7 +167,7 @@ const uploadImage = async (blobDataURL, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/api/upload",
+      url: `${baseURL}/api/upload`,
       data: {
         blobDataURL,
       },
@@ -179,7 +184,7 @@ const updateUserInfo = async (data, token) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/user/update",
+      url: `${baseURL}/user/update`,
       data,
       headers: { authorization: token },
     });
@@ -192,7 +197,7 @@ const updateUserHighlights = async (data, token) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/user/highlight",
+      url: `${baseURL}/user/highlight`,
       data,
       headers: { authorization: token },
     });
@@ -205,7 +210,7 @@ const getCategory = async (categorie) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/api/book/categories/" + categorie,
+      url: `${baseURL}/api/book/categories/` + categorie,
     });
     return data.books;
   } catch (error) {
@@ -216,7 +221,7 @@ const updateUserAccount = async (data, token) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/user/account",
+      url: `${baseURL}/user/account`,
       data,
       headers: { authorization: token },
     });
@@ -229,7 +234,7 @@ const deleteAccount = async (password, token) => {
   try {
     const res = await axios({
       method: "delete",
-      url: "/user/delete",
+      url: `${baseURL}/user/delete`,
       data: {
         password,
       },
@@ -244,7 +249,7 @@ const updateReadingList = async (data, token) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/user/reading",
+      url: `${baseURL}/user/reading`,
       data,
       headers: { authorization: token },
     });
@@ -257,7 +262,7 @@ const sendNotifications = async (_id, notification, action, token) => {
   try {
     await axios({
       method: "post",
-      url: "/user/notifications",
+      url: `${baseURL}/user/notifications`,
       data: {
         _id,
         notification,
@@ -273,7 +278,7 @@ const getDashboardData = async (token) => {
   try {
     const { data } = await axios({
       method: "get",
-      url: "/admin/all",
+      url: `${baseURL}/admin/all`,
       headers: { authorization: token },
     });
     return data;
@@ -285,7 +290,7 @@ const adminDeleteBooks = async (selectedBooks, token) => {
   try {
     const { data } = await axios({
       method: "delete",
-      url: "/admin/books",
+      url: `${baseURL}/admin/books`,
       data: {
         ids: selectedBooks,
       },
@@ -302,7 +307,7 @@ const adminSetUsersActive = async (obj, token) => {
   try {
     const { data } = await axios({
       method: "put",
-      url: "/admin/users",
+      url: `${baseURL}/admin/users`,
       data: obj,
       headers: {
         authorization: token,
@@ -317,7 +322,7 @@ const adminUpdateBook = async (obj, token) => {
   try {
     const { data } = await axios({
       method: "put",
-      url: "/admin/books",
+      url: `${baseURL}/admin/books`,
       data: obj,
       headers: {
         authorization: token,
@@ -332,7 +337,7 @@ const adminAddNewBook = async (book, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/admin/books",
+      url: `${baseURL}/admin/books`,
       data: book,
       headers: {
         authorization: token,
@@ -347,7 +352,7 @@ const adminUpdateDeliveringState = async (orderState, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/admin/orders",
+      url: `${baseURL}/admin/orders`,
       data: orderState,
       headers: {
         authorization: token,
@@ -362,7 +367,7 @@ const adminDeleteOrder = async (_id, token) => {
   try {
     const { data } = await axios({
       method: "delete",
-      url: "/admin/orders",
+      url: `${baseURL}/admin/orders`,
       data: {
         _id,
       },
@@ -379,7 +384,7 @@ const adminDeleteAllReviews = async (token) => {
   try {
     const { data } = await axios({
       method: "delete",
-      url: "/admin/reviews",
+      url: `${baseURL}/admin/reviews`,
       headers: {
         authorization: token,
       },
@@ -393,7 +398,7 @@ const adminReadMessage = async (mail_id, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/admin/mails",
+      url: `${baseURL}/admin/mails`,
       data: { mail_id },
       headers: {
         authorization: token,
@@ -408,7 +413,7 @@ const adminDeleteUsers = async (selectionModel, token) => {
   try {
     const { data } = await axios({
       method: "delete",
-      url: "/admin/users",
+      url: `${baseURL}/admin/users`,
       data: { selectionModel },
       headers: {
         authorization: token,
@@ -423,7 +428,7 @@ const searchABook = async (values) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/api/book/search",
+      url: `${baseURL}/api/book/search`,
       data: values,
     });
     return data;
@@ -435,7 +440,7 @@ const userMakePayment = async (values, token) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/user/payment",
+      url: `${baseURL}/user/payment`,
       data: values,
       headers: {
         authorization: token,
@@ -450,7 +455,7 @@ const sendResetPasswordMail = async (email) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: "/user/reset-password",
+      url: `${baseURL}/user/reset-password`,
       data: {
         email,
       },
@@ -464,7 +469,7 @@ const changeOldPassword = async (userId, token, password) => {
   try {
     const { data } = await axios({
       method: "post",
-      url: `/user/change-password/${userId}/${token}`,
+      url: `${baseURL}/user/change-password/${userId}/${token}`,
       data: {
         password,
       },

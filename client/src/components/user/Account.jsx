@@ -247,7 +247,7 @@ const Account = () => {
                   if (!psw) return;
                   deleteAccount(psw, accessToken).then((res) => {
                     if (res.deleted) {
-                      axios.get("/user/logout");
+                      axios.get("https://powerful-cove-30608.herokuapp.com/user/logout");
                       dispatch(userLogout());
                       history.push("/");
                     }

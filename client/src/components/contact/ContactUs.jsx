@@ -33,7 +33,7 @@ const ContactUs = () => {
     setMailState((prev) => ({ ...prev, sending: true }));
     axios({
       method: "post",
-      url: "/user/contact",
+      url: "https://powerful-cove-30608.herokuapp.com/user/contact",
       data: {
         values,
       },

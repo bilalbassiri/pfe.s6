@@ -69,7 +69,7 @@ const SignUp = () => {
     if (valid) {
       axios({
         method: "post",
-        url: "/user/register",
+        url: "https://powerful-cove-30608.herokuapp.com/user/register",
         data: values,
       }).then(({ data: user }) => {
         if (user.signed) {

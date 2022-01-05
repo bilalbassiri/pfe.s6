@@ -26,7 +26,7 @@ const Home = () => {
     let i = Math.floor(Math.random() * all?.length) - 5;
     i = i < 0 ? 0 : i;
     const books = all?.slice(i, i + 5);
-    if (!books) return <></>;
+    if (!books) return <>Hi</>;
     return (
       <>
         <div className="small-covers-cont">
